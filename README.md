@@ -1,37 +1,63 @@
 # Sidonia GRUB Themes
 
-Deterministic, resolution-specific GRUB themes built from the four supplied Sidonia references. The repository produces twelve runtime packages: T1–T4 at 720p, 1080p, and 1440p.
+Four resolution-specific Sidonia themes for stock GRUB. Every theme is available for exactly `1280×720`, `1920×1080`, and `2560×1440`; choose the folder that matches the framebuffer mode GRUB actually uses.
 
-## Safety boundary
+## T1 — Industrial Device Frame
 
-This project only builds theme files and isolated test fixtures. It has no installer and does not modify GRUB, `/boot`, `/etc/default/grub`, `/etc/grub.d`, disks, partitions, EFI variables, Secure Boot, firmware settings, menu-entry commands, kernel arguments, or boot policy.
+![T1 preview](previews/T1.png)
 
-## Requirements
+- Resolutions: `720p`, `1080p`, `1440p`
+- Release archive: `Sidonia-T1.zip`
 
-- Node.js 24.19.0 and pnpm 11.19.0
-- the exact tools recorded in `toolchain.lock`
-- the vendored DejaVu Sans Mono font and licence
+## T2 — Cyber Red Structural Grid
 
-After dependencies have been acquired once, the normal build performs no network access.
+![T2 preview](previews/T2.png)
 
-```sh
-pnpm install --frozen-lockfile
-pnpm lint
-pnpm typecheck
-pnpm build
-pnpm verify:sources
-pnpm build:themes
-pnpm verify:dist
-```
+- Resolutions: `720p`, `1080p`, `1440p`
+- Release archive: `Sidonia-T2.zip`
 
-Generated runtime packages are written to `dist/`. Generated construction reports and reference previews are written to `build/`.
+## T3 — STARFIX Network Map
 
-Current status: the generated folders are reproducible **candidate packages**, not release-approved themes. `build/index.json` is the machine-readable gate record. Reference-state composites (live fixture text plus timeout state), timeout masks, and the T4 stock-GRUB selector captures are still blocked.
+![T3 preview](previews/T3.png)
 
-Each package README documents its one required framebuffer mode. The packages never select or install that mode for the user.
+- Resolutions: `720p`, `1080p`, `1440p`
+- Release archive: `Sidonia-T3.zip`
 
-## Source authority
+## T4 — Maintenance Console
 
-The locked final reference PNG for each theme controls composition and appearance. Extracted canonical asset packs are implementation material. `sources.lock.json` records every imported source byte; `pnpm verify:sources` rejects additions, removals, case changes, hash drift, image metadata drift, and escaping symlinks.
+![T4 preview](previews/T4.png)
 
-The reference fixture supplies the labels shown in the artwork. Production titles always come from the user's existing `grub.cfg`.
+- Resolutions: `720p`, `1080p`, `1440p`
+- Release archive: `Sidonia-T4.zip`
+
+## Manual installation
+
+This repository has no installer and never edits the host boot configuration. Back up the existing GRUB configuration before making system changes.
+
+1. Confirm that the firmware and GRUB support the intended framebuffer mode.
+2. Copy one exact-resolution directory to the system's GRUB theme directory. For example, copy `themes/T1/1080p` to `/boot/grub/themes/Sidonia-T1-1080p`.
+3. Configure GRUB to use that folder's `theme.txt`, its exact `GRUB_GFXMODE`, and its PF2 file through `GRUB_FONT`. For the example above, the three values are:
+
+   ```text
+   GRUB_GFXMODE=1920x1080
+   GRUB_THEME=/boot/grub/themes/Sidonia-T1-1080p/theme.txt
+   GRUB_FONT=/boot/grub/themes/Sidonia-T1-1080p/fonts/sidonia-t1-1080p.pf2
+   ```
+
+4. Regenerate the GRUB configuration using the documented procedure for the installed distribution, then reboot only when comfortable with the recovery path.
+
+Paths differ across distributions, including `/boot/grub`, `/boot/grub2`, and EFI-specific layouts. Do not run `grub-install` merely to apply a theme.
+
+## Stock-GRUB limitations
+
+- Production menu titles remain dynamic; fixture labels exist only in the preview images.
+- T2 cannot reproduce the reference's separately styled number and title with one stock-GRUB menu font.
+- T3's continuous timeout fill can bridge the gaps between its static segmented slots while advancing.
+- T4 uses negative item spacing for the intended overlapping selector. The candidate is built at all three resolutions, but BIOS/UEFI capture testing is still recommended because some GRUB builds may clamp or clip that overlap.
+- Each resolution is independent. GRUB does not automatically fall back to a different folder when the configured video mode is unavailable.
+
+## Safety and licensing
+
+The project only contains theme assets and documentation. It does not modify `/boot`, disks, partitions, EFI variables, Secure Boot, menu entries, kernel arguments, or firmware settings.
+
+Project licensing is in [LICENSE](LICENSE). Artwork and font notices are in [NOTICE.md](NOTICE.md).

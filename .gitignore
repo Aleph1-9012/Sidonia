@@ -6,3 +6,5 @@ dist/
 .sidonia-build-*/
 *.tmp
 *.log
+.agents/
+skills-lock.json

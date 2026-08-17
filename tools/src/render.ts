@@ -18,7 +18,7 @@ const png = (pipeline: sharp.Sharp): sharp.Sharp => pipeline
 
 const ColorSchema = z.string().regex(/^#[0-9A-F]{6}$/u);
 
-const rgba = (color: string, alpha: number): Readonly<{ r: number; g: number; b: number; alpha: number }> => {
+const rgba = (color: string, alpha: number) => {
   const parsed = ColorSchema.parse(color);
   return {
     r: Number.parseInt(parsed.slice(1, 3), 16),
@@ -43,19 +43,31 @@ const transparent = async (width: number, height: number): Promise<Buffer> =>
 
 const scaledOverlay = async (
   source: string,
+  crop: Readonly<{ x: number; y: number; width: number; height: number }> | undefined,
   profile: Profile,
   width: number,
   height: number,
   x: number,
   y: number,
-): Promise<OverlayOptions> => ({
-  input: await png(sharp(repositoryPath(source), { failOn: "error" })
-    .resize(scaleInteger(width, profile), scaleInteger(height, profile), { fit: "fill", kernel: "lanczos3" }))
-    .toBuffer(),
-  left: scaleInteger(x, profile),
-  top: scaleInteger(y, profile),
-  blend: "over",
-});
+): Promise<OverlayOptions> => {
+  let pipeline = sharp(repositoryPath(source), { failOn: "error" });
+  if (crop !== undefined) {
+    pipeline = pipeline.extract({
+      left: crop.x,
+      top: crop.y,
+      width: crop.width,
+      height: crop.height,
+    });
+  }
+  return {
+    input: await png(pipeline
+      .resize(scaleInteger(width, profile), scaleInteger(height, profile), { fit: "fill", kernel: "lanczos3" }))
+      .toBuffer(),
+    left: scaleInteger(x, profile),
+    top: scaleInteger(y, profile),
+    blend: "over",
+  };
+};
 
 export const renderBackground = async (
   layout: Layout,
@@ -85,6 +97,7 @@ export const renderBackground = async (
   for (const overlay of layout.background.idleOverlays) {
     composites.push(await scaledOverlay(
       overlay.source,
+      overlay.crop,
       profile,
       overlay.width,
       overlay.height,
@@ -235,12 +248,64 @@ export const renderConstructedPreview = async (
   selectedPath: string,
   outputPath: string,
 ): Promise<void> => {
-  const left = scaleInteger(layout.menu.x, profile);
-  const top = scaleInteger(
+  const selectorLeft = scaleInteger(layout.menu.x, profile);
+  const selectorTop = scaleInteger(
     layout.menu.y + (layout.preview.selectedIndex * (layout.menu.itemHeight + layout.menu.itemSpacing)),
     profile,
   );
-  await png(sharp(backgroundPath, { failOn: "error" }).composite([{ input: selectedPath, left, top }]))
+  const itemHeight = scaleInteger(layout.menu.itemHeight, profile);
+  const itemPitch = scaleInteger(layout.menu.itemHeight + layout.menu.itemSpacing, profile);
+  const itemLeft = scaleInteger(layout.menu.x + layout.menu.itemPadding, profile);
+  const menuRight = scaleInteger(layout.menu.x + layout.menu.width, profile);
+  const fontSize = scaleInteger(layout.font.designSize, profile);
+  const composites: OverlayOptions[] = [{ input: selectedPath, left: selectorLeft, top: selectorTop }];
+  for (const [index, entry] of layout.preview.entries.entries()) {
+    const color = index === layout.preview.selectedIndex
+      ? layout.palette.selectedText
+      : layout.palette.idleText;
+    const text = await png(sharp({
+      text: {
+        text: `<span foreground="${color}">${entry.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")}</span>`,
+        font: `DejaVu Sans Mono ${fontSize}`,
+        fontfile: repositoryPath(layout.font.source),
+        width: Math.max(1, menuRight - itemLeft),
+        align: "left",
+        rgba: true,
+        wrap: "none",
+      },
+    })).toBuffer();
+    const metadata = await sharp(text).metadata();
+    if (metadata.height === undefined) {
+      throw new Error(`${layout.theme} ${profile.id} preview field=text-height expected=known actual=missing`);
+    }
+    const rowTop = scaleInteger(layout.menu.y, profile) + (index * itemPitch);
+    composites.push({
+      input: text,
+      left: itemLeft,
+      top: rowTop + Math.max(0, Math.floor((itemHeight - metadata.height) / 2)),
+      blend: "over",
+    });
+  }
+  const progressLeft = scaleInteger(layout.progress.x, profile);
+  const progressTop = scaleInteger(layout.progress.y, profile);
+  const progressWidth = scaleInteger(layout.progress.width, profile);
+  const progressHeight = Math.max(1, scaleInteger(layout.progress.height, profile));
+  composites.push({
+    input: await solid(progressWidth, progressHeight, layout.progress.background),
+    left: progressLeft,
+    top: progressTop,
+    blend: "over",
+  });
+  const highlightWidth = Math.floor(progressWidth * (layout.preview.timeoutFraction ?? 0.6));
+  if (highlightWidth > 0) {
+    composites.push({
+      input: await solid(highlightWidth, progressHeight, layout.progress.foreground),
+      left: progressLeft,
+      top: progressTop,
+      blend: "over",
+    });
+  }
+  await png(sharp(backgroundPath, { failOn: "error" }).composite(composites))
     .toFile(outputPath);
 };
 

@@ -11,7 +11,7 @@ palette:
 font:
   source: vendor/fonts/DejaVuSansMono.ttf
   family: Sidonia T1 Mono
-  designSize: 25
+  designSize: 20
 menu:
   x: 742
   y: 444
@@ -22,19 +22,42 @@ menu:
   itemPadding: 20
   visibleItems: 4
   selector:
-    source: source-assets/t1/pack/menu_blocks/viewport-menu-blank.png
-    crop: { x: 36, y: 41, width: 520, height: 76 }
+    source: source-assets/t1/reference.png
+    crop: { x: 2424, y: 1451, width: 1368, height: 203 }
     width: 419
     height: 62
-    slices: { left: 18, top: 5, right: 18, bottom: 5 }
+    slices: { left: 12, top: 5, right: 12, bottom: 5 }
     decorations:
-      - source: source-assets/t1/pack/selectors/selected-row.png
-        crop: { x: 696, y: 30, width: 244, height: 142 }
-        target: { x: 298, y: 5, width: 112, height: 52 }
+      - source: source-assets/t1/pack/menu_blocks/viewport-menu-blank.png
+        crop: { x: 65, y: 50, width: 390, height: 60 }
+        target: { x: 12, y: 5, width: 278, height: 52 }
 background:
-  eraseRects:
-    - { x: 742, y: 444, width: 419, height: 268, color: "#060708" }
-  idleOverlays: []
+  eraseRects: []
+  idleOverlays:
+    - source: source-assets/t1/pack/menu_blocks/viewport-menu-blank.png
+      crop: { x: 50, y: 115, width: 501, height: 78 }
+      x: 742
+      y: 444
+      width: 419
+      height: 62
+    - source: source-assets/t1/pack/menu_blocks/viewport-menu-blank.png
+      crop: { x: 50, y: 115, width: 501, height: 78 }
+      x: 742
+      y: 511
+      width: 419
+      height: 62
+    - source: source-assets/t1/pack/menu_blocks/viewport-menu-blank.png
+      crop: { x: 50, y: 194, width: 501, height: 78 }
+      x: 742
+      y: 578
+      width: 419
+      height: 62
+    - source: source-assets/t1/pack/menu_blocks/viewport-menu-blank.png
+      crop: { x: 50, y: 273, width: 501, height: 78 }
+      x: 742
+      y: 645
+      width: 419
+      height: 62
   lineRects: []
 progress:
   x: 304
@@ -45,9 +68,9 @@ progress:
   background: "#343638"
 preview:
   selectedIndex: 0
+  timeoutFraction: 0.66
   entries:
     - "01  PRIMARY SYSTEM"
     - "02  ADVANCED OPTIONS"
     - "03  MEMORY TEST"
     - "04  UEFI FIRMWARE"
-

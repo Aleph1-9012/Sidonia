@@ -5,51 +5,60 @@ reference: source-assets/t4/reference.png
 canvas: { width: 2048, height: 1152 }
 palette:
   background: "#000000"
-  idleText: "#D1D1D1"
+  idleText: "#FFFFFF"
   selectedText: "#000000"
   signal: "#D51F1D"
 font:
   source: vendor/fonts/DejaVuSansMono.ttf
   family: Sidonia T4 Mono
-  designSize: 27
+  designSize: 30
 menu:
   x: 604
   y: 318
   width: 1216
   height: 512
   itemHeight: 160
-  itemSpacing: -48
+  itemSpacing: -43
   itemPadding: 208
   visibleItems: 4
   selector:
-    source: source-assets/t4/pack/exports/png/1x/selectors/active-selector--blank@1x.png
+    # Preserve the reference clamps, bolts, rail notches, status lockup, and right arrow.
+    source: source-assets/t4/reference.png
+    crop: { x: 986, y: 520, width: 1986, height: 261 }
     width: 1216
     height: 160
     slices: { left: 160, top: 40, right: 32, bottom: 40 }
     decorations:
-      - source: source-assets/t4/pack/exports/png/1x/selectors/selected-status--labeled@1x.png
-        target: { x: 930, y: 51, width: 248, height: 56 }
+      # Neutralize only the baked fixture number and title with clean strips from the same row.
+      - source: source-assets/t4/reference.png
+        crop: { x: 1048, y: 582, width: 33, height: 131 }
+        target: { x: 35, y: 38, width: 105, height: 80 }
+      - source: source-assets/t4/reference.png
+        crop: { x: 1966, y: 582, width: 327, height: 131 }
+        target: { x: 170, y: 38, width: 650, height: 80 }
 background:
   eraseRects:
-    - { x: 604, y: 318, width: 1216, height: 512, color: "#000000" }
+    - { x: 615, y: 318, width: 1205, height: 512, color: "#000000" }
   idleOverlays:
-    - { source: source-assets/t4/pack/exports/png/1x/selectors/inactive-selector-generic--blank@1x.png, x: 604, y: 318, width: 1216, height: 112 }
-    - { source: source-assets/t4/pack/exports/png/1x/selectors/inactive-selector-generic--blank@1x.png, x: 604, y: 430, width: 1216, height: 112 }
-    - { source: source-assets/t4/pack/exports/png/1x/selectors/inactive-selector-generic--blank@1x.png, x: 604, y: 542, width: 1216, height: 112 }
-    - { source: source-assets/t4/pack/exports/png/1x/selectors/inactive-selector-generic--blank@1x.png, x: 604, y: 654, width: 1216, height: 112 }
-  lineRects: []
+    # Row one needs a neutral state; rows two through four retain their authoritative furniture.
+    - { source: source-assets/t4/pack/exports/png/1x/selectors/inactive-selector-generic--blank@1x.png, x: 615, y: 318, width: 1205, height: 112 }
+    - { source: source-assets/t4/reference.png, crop: { x: 1004, y: 781, width: 1900, height: 549 }, x: 615, y: 478, width: 1164, height: 336 }
+  lineRects:
+    - { x: 800, y: 495, width: 650, height: 65, color: "#000000" }
+    - { x: 800, y: 606, width: 650, height: 65, color: "#000000" }
+    - { x: 800, y: 718, width: 650, height: 65, color: "#000000" }
 progress:
   x: 1648
   y: 75
   width: 72
-  height: 8
+  height: 7
   foreground: "#D51F1D"
   background: "#000000"
 preview:
   selectedIndex: 0
+  timeoutFraction: 1
   entries:
-    - "01  PRIMARY SYSTEM"
-    - "02  ADVANCED OPTIONS"
-    - "03  MEMORY TEST"
-    - "04  UEFI FIRMWARE"
-
+    - "PRIMARY SYSTEM"
+    - "ADVANCED OPTIONS"
+    - "MEMORY TEST"
+    - "UEFI FIRMWARE"

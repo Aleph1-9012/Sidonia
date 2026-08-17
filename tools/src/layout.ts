@@ -35,8 +35,9 @@ const assertRectangleInside = (
 
 const assertCanonicalThemeAsset = (layout: Layout, path: string, field: string): void => {
   const prefix = `source-assets/${layout.theme}/pack/`;
-  if (!path.startsWith(prefix) || !path.toLowerCase().endsWith(".png")) {
-    throw new Error(`${layout.theme} design field=${field} expected=${prefix}*.png actual=${path}`);
+  const isPackPng = path.startsWith(prefix) && path.toLowerCase().endsWith(".png");
+  if (!isPackPng && path !== layout.reference) {
+    throw new Error(`${layout.theme} design field=${field} expected=${layout.reference}|${prefix}*.png actual=${path}`);
   }
 };
 
@@ -48,7 +49,7 @@ const assertCropInsideSource = async (
 ): Promise<void> => {
   const absoluteSource = await assertExistingRepositoryFile(source);
   const image = await readImageEvidence(absoluteSource);
-  if (!image.hasAlpha) {
+  if (!image.hasAlpha && source !== layout.reference) {
     throw new Error(`${layout.theme} design field=${field}.alpha expected=true actual=false`);
   }
   if (crop !== undefined) {
@@ -143,7 +144,7 @@ const validateLayout = async (layout: Layout): Promise<void> => {
   }
   for (const [index, overlay] of layout.background.idleOverlays.entries()) {
     assertCanonicalThemeAsset(layout, overlay.source, `background.idleOverlays[${index}].source`);
-    await assertCropInsideSource(layout, overlay.source, undefined, `background.idleOverlays[${index}].source`);
+    await assertCropInsideSource(layout, overlay.source, overlay.crop, `background.idleOverlays[${index}].source`);
   }
 };
 

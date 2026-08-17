@@ -1,0 +1,53 @@
+schemaVersion: 1
+theme: t1
+displayName: Industrial 7/4 Device Frame
+reference: source-assets/t1/reference.png
+canvas: { width: 2048, height: 1152 }
+palette:
+  background: "#050607"
+  idleText: "#F2F0EA"
+  selectedText: "#07080A"
+  signal: "#E31A24"
+font:
+  source: vendor/fonts/DejaVuSansMono.ttf
+  family: Sidonia T1 Mono
+  designSize: 25
+menu:
+  x: 742
+  y: 444
+  width: 419
+  height: 268
+  itemHeight: 62
+  itemSpacing: 5
+  itemPadding: 20
+  visibleItems: 4
+  selector:
+    source: source-assets/t1/pack/menu_blocks/viewport-menu-blank.png
+    crop: { x: 36, y: 41, width: 520, height: 76 }
+    width: 419
+    height: 62
+    slices: { left: 18, top: 5, right: 18, bottom: 5 }
+    decorations:
+      - source: source-assets/t1/pack/selectors/selected-row.png
+        crop: { x: 696, y: 30, width: 244, height: 142 }
+        target: { x: 298, y: 5, width: 112, height: 52 }
+background:
+  eraseRects:
+    - { x: 742, y: 444, width: 419, height: 268, color: "#060708" }
+  idleOverlays: []
+  lineRects: []
+progress:
+  x: 304
+  y: 294
+  width: 194
+  height: 4
+  foreground: "#E31A24"
+  background: "#343638"
+preview:
+  selectedIndex: 0
+  entries:
+    - "01  PRIMARY SYSTEM"
+    - "02  ADVANCED OPTIONS"
+    - "03  MEMORY TEST"
+    - "04  UEFI FIRMWARE"
+

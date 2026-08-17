@@ -1,0 +1,54 @@
+schemaVersion: 1
+theme: t3
+displayName: STARFIX Network Map
+reference: source-assets/t3/reference.png
+canvas: { width: 2048, height: 1152 }
+palette:
+  background: "#050606"
+  idleText: "#EBE1CD"
+  selectedText: "#EB1420"
+  signal: "#EB1420"
+font:
+  source: vendor/fonts/DejaVuSansMono.ttf
+  family: Sidonia T3 Mono
+  designSize: 21
+menu:
+  x: 535
+  y: 421
+  width: 430
+  height: 300
+  itemHeight: 66
+  itemSpacing: 9
+  itemPadding: 60
+  visibleItems: 4
+  selector:
+    source: source-assets/t3/pack/01_selectors/selector_row_02_blank.png
+    width: 430
+    height: 66
+    slices: { left: 104, top: 4, right: 8, bottom: 4 }
+background:
+  eraseRects:
+    - { x: 585, y: 421, width: 375, height: 300, color: "#050606" }
+    - { x: 389, y: 500, width: 194, height: 66, color: "#050606" }
+  idleOverlays:
+    - { source: source-assets/t3/pack/01_selectors/selector_row_01_blank.png, x: 535, y: 421, width: 430, height: 66 }
+    - { source: source-assets/t3/pack/01_selectors/selector_row_01_blank.png, x: 535, y: 496, width: 430, height: 66 }
+    - { source: source-assets/t3/pack/01_selectors/selector_row_01_blank.png, x: 535, y: 571, width: 430, height: 66 }
+    - { source: source-assets/t3/pack/01_selectors/selector_row_01_blank.png, x: 535, y: 646, width: 430, height: 66 }
+  lineRects:
+    - { x: 389, y: 528, width: 173, height: 2, color: "#EBE1CD" }
+progress:
+  x: 797
+  y: 71
+  width: 450
+  height: 32
+  foreground: "#EB1420"
+  background: "#050606"
+preview:
+  selectedIndex: 1
+  entries:
+    - "01  SIDONIA SYSTEM"
+    - "02  ADVANCED OPTIONS"
+    - "03  RECOVERY VECTOR"
+    - "04  UEFI FIRMWARE"
+

@@ -1,0 +1,57 @@
+schemaVersion: 1
+theme: t2
+displayName: Cyber Red Structural Grid
+reference: source-assets/t2/reference.png
+canvas: { width: 2048, height: 1152 }
+palette:
+  background: "#07080A"
+  idleText: "#F4F2EC"
+  selectedText: "#FFFFFF"
+  signal: "#E30613"
+font:
+  source: vendor/fonts/DejaVuSansMono.ttf
+  family: Sidonia T2 Mono
+  designSize: 25
+menu:
+  x: 780
+  y: 184
+  width: 560
+  height: 650
+  itemHeight: 140
+  itemSpacing: 29
+  itemPadding: 74
+  visibleItems: 4
+  selector:
+    source: source-assets/t2/pack/assets/png/1x/selectors/selector_selected_blank.png
+    width: 560
+    height: 140
+    slices: { left: 32, top: 10, right: 32, bottom: 10 }
+    decorations:
+      - source: source-assets/t2/pack/assets/png/1x/selectors/badge_selected_labeled.png
+        target: { x: 356, y: 45, width: 144, height: 43 }
+background:
+  eraseRects:
+    - { x: 780, y: 184, width: 560, height: 140, color: "#07080A" }
+    - { x: 780, y: 353, width: 560, height: 140, color: "#07080A" }
+    - { x: 780, y: 522, width: 560, height: 140, color: "#07080A" }
+    - { x: 780, y: 691, width: 560, height: 140, color: "#07080A" }
+  idleOverlays:
+    - { source: source-assets/t2/pack/assets/png/1x/selectors/selector_idle_blank.png, x: 780, y: 184, width: 560, height: 140 }
+    - { source: source-assets/t2/pack/assets/png/1x/selectors/selector_idle_blank.png, x: 780, y: 353, width: 560, height: 140 }
+    - { source: source-assets/t2/pack/assets/png/1x/selectors/selector_idle_blank.png, x: 780, y: 522, width: 560, height: 140 }
+    - { source: source-assets/t2/pack/assets/png/1x/selectors/selector_idle_blank.png, x: 780, y: 691, width: 560, height: 140 }
+  lineRects: []
+progress:
+  x: 884
+  y: 970
+  width: 555
+  height: 20
+  foreground: "#E30613"
+  background: "#F4F2EC"
+preview:
+  selectedIndex: 3
+  entries:
+    - "01  PRIMARY SYSTEM"
+    - "02  ADVANCED OPTIONS"
+    - "03  MEMORY TEST"
+    - "04  UEFI FIRMWARE"

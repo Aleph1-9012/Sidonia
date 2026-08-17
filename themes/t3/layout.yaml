@@ -13,30 +13,34 @@ font:
   family: Sidonia T3 Mono
   designSize: 21
 menu:
-  x: 535
+  x: 389
   y: 421
-  width: 430
+  width: 524
   height: 300
   itemHeight: 66
   itemSpacing: 9
-  itemPadding: 60
+  itemPadding: 208
   visibleItems: 4
   selector:
-    source: source-assets/t3/pack/01_selectors/selector_row_02_blank.png
-    width: 430
+    source: source-assets/t3/reference.png
+    crop: { x: 635, y: 810, width: 856, height: 108 }
+    width: 524
     height: 66
-    slices: { left: 104, top: 4, right: 8, bottom: 4 }
+    slices: { left: 200, top: 4, right: 8, bottom: 4 }
+    decorations:
+      - source: source-assets/t3/reference.png
+        crop: { x: 955, y: 895, width: 465, height: 52 }
+        target: { x: 196, y: 20, width: 285, height: 32 }
 background:
-  eraseRects:
-    - { x: 585, y: 421, width: 375, height: 300, color: "#050606" }
-    - { x: 389, y: 500, width: 194, height: 66, color: "#050606" }
+  eraseRects: []
   idleOverlays:
-    - { source: source-assets/t3/pack/01_selectors/selector_row_01_blank.png, x: 535, y: 421, width: 430, height: 66 }
-    - { source: source-assets/t3/pack/01_selectors/selector_row_01_blank.png, x: 535, y: 496, width: 430, height: 66 }
-    - { source: source-assets/t3/pack/01_selectors/selector_row_01_blank.png, x: 535, y: 571, width: 430, height: 66 }
-    - { source: source-assets/t3/pack/01_selectors/selector_row_01_blank.png, x: 535, y: 646, width: 430, height: 66 }
+    - { source: source-assets/t3/reference.png, crop: { x: 955, y: 773, width: 465, height: 52 }, x: 585, y: 441, width: 285, height: 32 }
+    - { source: source-assets/t3/reference.png, crop: { x: 955, y: 895, width: 465, height: 52 }, x: 585, y: 516, width: 285, height: 32 }
+    - { source: source-assets/t3/reference.png, crop: { x: 955, y: 1018, width: 465, height: 52 }, x: 585, y: 591, width: 285, height: 32 }
+    - { source: source-assets/t3/reference.png, crop: { x: 955, y: 1140, width: 465, height: 52 }, x: 585, y: 666, width: 285, height: 32 }
+    - { source: source-assets/t3/reference.png, crop: { x: 873, y: 688, width: 88, height: 108 }, x: 535, y: 496, width: 54, height: 66 }
   lineRects:
-    - { x: 389, y: 528, width: 173, height: 2, color: "#EBE1CD" }
+    - { x: 389, y: 527, width: 146, height: 4, color: "#EBE1CD" }
 progress:
   x: 797
   y: 71
@@ -46,9 +50,9 @@ progress:
   background: "#050606"
 preview:
   selectedIndex: 1
+  timeoutFraction: 0.125
   entries:
     - "01  SIDONIA SYSTEM"
     - "02  ADVANCED OPTIONS"
     - "03  RECOVERY VECTOR"
     - "04  UEFI FIRMWARE"
-

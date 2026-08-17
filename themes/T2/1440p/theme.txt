@@ -1,0 +1,53 @@
+# Generated from layout.yaml. All numeric geometry is supplied by the validated ledger.
+# Sidonia T2 1440p; exact framebuffer 2560x1440
+title-text: ""
+desktop-color: "#07080A"
+desktop-image: "background.png"
+desktop-image-scale-method: "normal"
+terminal-box: "0"
+
++ boot_menu {
+  id = "__menu__"
+  left = 975
+  top = 230
+  width = 700
+  height = 813
+  item_font = "Sidonia T2 Mono 1440p Regular 31"
+  selected_item_font = "Sidonia T2 Mono 1440p Regular 31"
+  item_color = "#F4F2EC"
+  selected_item_color = "#FFFFFF"
+  item_height = 175
+  item_padding = 93
+  item_spacing = 36
+  icon_width = 0
+  icon_height = 0
+  item_icon_space = 0
+  menu_pixmap_style = "selectors/menu_*.png"
+  selected_item_pixmap_style = "selectors/selected_*.png"
+  scrollbar = true
+  scrollbar_width = 9
+  scrollbar_frame = "selectors/scrollbar_*.png"
+  scrollbar_thumb = "selectors/thumb_*.png"
+  scrollbar_thumb_overlay = true
+  scrollbar_slice = east
+  scrollbar_left_pad = 0
+  scrollbar_right_pad = 0
+  scrollbar_top_pad = 0
+  scrollbar_bottom_pad = 0
+}
+
++ progress_bar {
+  id = "__timeout__"
+  left = 1105
+  top = 1213
+  width = 694
+  height = 25
+  bar_style = "progress/frame_*.png"
+  highlight_style = "progress/highlight_*.png"
+  highlight_overlay = true
+  fg_color = "#E30613"
+  bg_color = "#F4F2EC"
+  text = ""
+}
+
+

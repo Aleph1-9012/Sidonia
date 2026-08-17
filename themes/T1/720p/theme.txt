@@ -1,0 +1,53 @@
+# Generated from layout.yaml. All numeric geometry is supplied by the validated ledger.
+# Sidonia T1 720p; exact framebuffer 1280x720
+title-text: ""
+desktop-color: "#050607"
+desktop-image: "background.png"
+desktop-image-scale-method: "normal"
+terminal-box: "0"
+
++ boot_menu {
+  id = "__menu__"
+  left = 464
+  top = 278
+  width = 262
+  height = 168
+  item_font = "Sidonia T1 Mono 720p Regular 13"
+  selected_item_font = "Sidonia T1 Mono 720p Regular 13"
+  item_color = "#F2F0EA"
+  selected_item_color = "#07080A"
+  item_height = 39
+  item_padding = 13
+  item_spacing = 3
+  icon_width = 0
+  icon_height = 0
+  item_icon_space = 0
+  menu_pixmap_style = "selectors/menu_*.png"
+  selected_item_pixmap_style = "selectors/selected_*.png"
+  scrollbar = true
+  scrollbar_width = 4
+  scrollbar_frame = "selectors/scrollbar_*.png"
+  scrollbar_thumb = "selectors/thumb_*.png"
+  scrollbar_thumb_overlay = true
+  scrollbar_slice = east
+  scrollbar_left_pad = 0
+  scrollbar_right_pad = 0
+  scrollbar_top_pad = 0
+  scrollbar_bottom_pad = 0
+}
+
++ progress_bar {
+  id = "__timeout__"
+  left = 190
+  top = 184
+  width = 121
+  height = 3
+  bar_style = "progress/frame_*.png"
+  highlight_style = "progress/highlight_*.png"
+  highlight_overlay = true
+  fg_color = "#E31A24"
+  bg_color = "#343638"
+  text = ""
+}
+
+

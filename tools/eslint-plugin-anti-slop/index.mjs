@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 const docs = (description) => ({
   type: "problem",
   docs: { description },
@@ -65,6 +67,8 @@ const isKnownInitializer = (node) => {
 const isEmptyObject = (node) =>
   node?.type === "ObjectExpression" && node.properties.length === 0;
 
+const StaticMemberNameSchema = z.string();
+
 const getStaticMemberName = (node) => {
   if (node?.type !== "MemberExpression") {
     return undefined;
@@ -72,8 +76,11 @@ const getStaticMemberName = (node) => {
   if (!node.computed && node.property.type === "Identifier") {
     return node.property.name;
   }
-  if (node.computed && node.property.type === "Literal" && typeof node.property.value === "string") {
-    return node.property.value;
+  if (node.computed && node.property.type === "Literal") {
+    const staticMemberName = StaticMemberNameSchema.safeParse(node.property.value);
+    if (staticMemberName.success) {
+      return staticMemberName.data;
+    }
   }
   if (
     node.computed &&

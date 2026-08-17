@@ -73,7 +73,10 @@ const RectSchema = z.object({
 
 const ColoredRectSchema = RectSchema.extend({ color: HexColorSchema }).strict();
 
-const OverlaySchema = RectSchema.extend({ source: RelativePathSchema }).strict();
+const OverlaySchema = RectSchema.extend({
+  source: RelativePathSchema,
+  crop: RectSchema.optional(),
+}).strict();
 
 const DecorationSchema = z.object({
   source: RelativePathSchema,
@@ -137,6 +140,7 @@ export const LayoutSchema = z.object({
   preview: z.object({
     selectedIndex: z.number().int().min(0).max(3),
     entries: z.tuple([GrubTextSchema, GrubTextSchema, GrubTextSchema, GrubTextSchema]),
+    timeoutFraction: z.number().min(0).max(1).optional(),
   }).strict(),
 }).strict();
 export type Layout = z.infer<typeof LayoutSchema>;

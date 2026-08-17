@@ -6,11 +6,15 @@ import antiSlop from "./tools/eslint-plugin-anti-slop/index.mjs";
 export default [
   {
     ignores: [
+      ".agent/**",
+      ".agents/**",
+      ".codex/**",
       "build/**",
       "dist/**",
       "lib/**",
       "node_modules/**",
       "source-assets/**",
+      "tools/oxlint/anti-slop/**",
       "vendor/**",
     ],
   },

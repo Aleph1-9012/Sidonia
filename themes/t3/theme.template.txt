@@ -1,3 +1,0 @@
-# Generated from layout.yaml. All numeric geometry is supplied by the validated ledger.
-{{GENERATED_THEME}}
-

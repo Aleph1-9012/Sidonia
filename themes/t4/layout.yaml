@@ -1,0 +1,55 @@
+schemaVersion: 1
+theme: t4
+displayName: Maintenance Console
+reference: source-assets/t4/reference.png
+canvas: { width: 2048, height: 1152 }
+palette:
+  background: "#000000"
+  idleText: "#D1D1D1"
+  selectedText: "#000000"
+  signal: "#D51F1D"
+font:
+  source: vendor/fonts/DejaVuSansMono.ttf
+  family: Sidonia T4 Mono
+  designSize: 27
+menu:
+  x: 604
+  y: 318
+  width: 1216
+  height: 512
+  itemHeight: 160
+  itemSpacing: -48
+  itemPadding: 208
+  visibleItems: 4
+  selector:
+    source: source-assets/t4/pack/exports/png/1x/selectors/active-selector--blank@1x.png
+    width: 1216
+    height: 160
+    slices: { left: 160, top: 40, right: 32, bottom: 40 }
+    decorations:
+      - source: source-assets/t4/pack/exports/png/1x/selectors/selected-status--labeled@1x.png
+        target: { x: 930, y: 51, width: 248, height: 56 }
+background:
+  eraseRects:
+    - { x: 604, y: 318, width: 1216, height: 512, color: "#000000" }
+  idleOverlays:
+    - { source: source-assets/t4/pack/exports/png/1x/selectors/inactive-selector-generic--blank@1x.png, x: 604, y: 318, width: 1216, height: 112 }
+    - { source: source-assets/t4/pack/exports/png/1x/selectors/inactive-selector-generic--blank@1x.png, x: 604, y: 430, width: 1216, height: 112 }
+    - { source: source-assets/t4/pack/exports/png/1x/selectors/inactive-selector-generic--blank@1x.png, x: 604, y: 542, width: 1216, height: 112 }
+    - { source: source-assets/t4/pack/exports/png/1x/selectors/inactive-selector-generic--blank@1x.png, x: 604, y: 654, width: 1216, height: 112 }
+  lineRects: []
+progress:
+  x: 1648
+  y: 75
+  width: 72
+  height: 8
+  foreground: "#D51F1D"
+  background: "#000000"
+preview:
+  selectedIndex: 0
+  entries:
+    - "01  PRIMARY SYSTEM"
+    - "02  ADVANCED OPTIONS"
+    - "03  MEMORY TEST"
+    - "04  UEFI FIRMWARE"
+

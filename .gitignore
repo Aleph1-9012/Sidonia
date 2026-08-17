@@ -1,0 +1,8 @@
+node_modules/
+lib/
+build/
+dist/
+.pnpm-store/
+.sidonia-build-*/
+*.tmp
+*.log

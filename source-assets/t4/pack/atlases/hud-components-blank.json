@@ -1,0 +1,974 @@
+{
+  "image": "hud-components-blank.png",
+  "width": 2048,
+  "height": 2208,
+  "variant": "blank",
+  "assets": {
+    "number-tab-active": {
+      "x": 12,
+      "y": 12,
+      "width": 144,
+      "height": 96,
+      "category": "selectors"
+    },
+    "number-tab-inactive": {
+      "x": 168,
+      "y": 12,
+      "width": 144,
+      "height": 96,
+      "category": "selectors"
+    },
+    "selected-status": {
+      "x": 324,
+      "y": 12,
+      "width": 248,
+      "height": 56,
+      "category": "selectors"
+    },
+    "side-index-stack": {
+      "x": 584,
+      "y": 12,
+      "width": 112,
+      "height": 480,
+      "category": "selectors"
+    },
+    "corner-bracket": {
+      "x": 708,
+      "y": 12,
+      "width": 112,
+      "height": 112,
+      "category": "frames"
+    },
+    "rail-latch": {
+      "x": 832,
+      "y": 12,
+      "width": 84,
+      "height": 152,
+      "category": "frames"
+    },
+    "brand-triple-slash": {
+      "x": 928,
+      "y": 12,
+      "width": 112,
+      "height": 64,
+      "category": "icons"
+    },
+    "hazard-five-slash": {
+      "x": 1052,
+      "y": 12,
+      "width": 144,
+      "height": 64,
+      "category": "icons"
+    },
+    "fastener-plus": {
+      "x": 1208,
+      "y": 12,
+      "width": 64,
+      "height": 64,
+      "category": "icons"
+    },
+    "fastener-target": {
+      "x": 1284,
+      "y": 12,
+      "width": 64,
+      "height": 64,
+      "category": "icons"
+    },
+    "registration-crosshair": {
+      "x": 1360,
+      "y": 12,
+      "width": 64,
+      "height": 64,
+      "category": "icons"
+    },
+    "warning-triangle": {
+      "x": 1436,
+      "y": 12,
+      "width": 72,
+      "height": 72,
+      "category": "icons"
+    },
+    "pointer-red-right": {
+      "x": 1520,
+      "y": 12,
+      "width": 40,
+      "height": 40,
+      "category": "icons"
+    },
+    "pointer-red-down": {
+      "x": 1572,
+      "y": 12,
+      "width": 40,
+      "height": 40,
+      "category": "icons"
+    },
+    "pointer-white-down": {
+      "x": 1624,
+      "y": 12,
+      "width": 40,
+      "height": 40,
+      "category": "icons"
+    },
+    "pointer-gray-down": {
+      "x": 1676,
+      "y": 12,
+      "width": 40,
+      "height": 40,
+      "category": "icons"
+    },
+    "pointer-outline-down": {
+      "x": 1728,
+      "y": 12,
+      "width": 40,
+      "height": 40,
+      "category": "icons"
+    },
+    "cable-coil": {
+      "x": 1780,
+      "y": 12,
+      "width": 104,
+      "height": 88,
+      "category": "icons"
+    },
+    "angular-connector": {
+      "x": 1896,
+      "y": 12,
+      "width": 72,
+      "height": 104,
+      "category": "icons"
+    },
+    "lock-hatch": {
+      "x": 12,
+      "y": 504,
+      "width": 80,
+      "height": 80,
+      "category": "icons"
+    },
+    "keycap-up-down": {
+      "x": 104,
+      "y": 504,
+      "width": 96,
+      "height": 72,
+      "category": "controls"
+    },
+    "keycap-enter": {
+      "x": 212,
+      "y": 504,
+      "width": 96,
+      "height": 72,
+      "category": "controls"
+    },
+    "keycap-e": {
+      "x": 320,
+      "y": 504,
+      "width": 72,
+      "height": 72,
+      "category": "controls"
+    },
+    "keycap-c": {
+      "x": 404,
+      "y": 504,
+      "width": 72,
+      "height": 72,
+      "category": "controls"
+    },
+    "control-select": {
+      "x": 488,
+      "y": 504,
+      "width": 240,
+      "height": 72,
+      "category": "controls"
+    },
+    "control-enter-boot": {
+      "x": 740,
+      "y": 504,
+      "width": 320,
+      "height": 72,
+      "category": "controls"
+    },
+    "control-edit": {
+      "x": 1072,
+      "y": 504,
+      "width": 200,
+      "height": 72,
+      "category": "controls"
+    },
+    "control-console": {
+      "x": 1284,
+      "y": 504,
+      "width": 240,
+      "height": 72,
+      "category": "controls"
+    },
+    "digit-0": {
+      "x": 1536,
+      "y": 504,
+      "width": 64,
+      "height": 80,
+      "category": "countdown"
+    },
+    "digit-1": {
+      "x": 1612,
+      "y": 504,
+      "width": 64,
+      "height": 80,
+      "category": "countdown"
+    },
+    "digit-2": {
+      "x": 1688,
+      "y": 504,
+      "width": 64,
+      "height": 80,
+      "category": "countdown"
+    },
+    "digit-3": {
+      "x": 1764,
+      "y": 504,
+      "width": 64,
+      "height": 80,
+      "category": "countdown"
+    },
+    "digit-4": {
+      "x": 1840,
+      "y": 504,
+      "width": 64,
+      "height": 80,
+      "category": "countdown"
+    },
+    "digit-5": {
+      "x": 1916,
+      "y": 504,
+      "width": 64,
+      "height": 80,
+      "category": "countdown"
+    },
+    "digit-6": {
+      "x": 12,
+      "y": 596,
+      "width": 64,
+      "height": 80,
+      "category": "countdown"
+    },
+    "digit-7": {
+      "x": 88,
+      "y": 596,
+      "width": 64,
+      "height": 80,
+      "category": "countdown"
+    },
+    "digit-8": {
+      "x": 164,
+      "y": 596,
+      "width": 64,
+      "height": 80,
+      "category": "countdown"
+    },
+    "digit-9": {
+      "x": 240,
+      "y": 596,
+      "width": 64,
+      "height": 80,
+      "category": "countdown"
+    },
+    "count-01": {
+      "x": 316,
+      "y": 596,
+      "width": 128,
+      "height": 80,
+      "category": "countdown"
+    },
+    "count-02": {
+      "x": 456,
+      "y": 596,
+      "width": 128,
+      "height": 80,
+      "category": "countdown"
+    },
+    "count-03": {
+      "x": 596,
+      "y": 596,
+      "width": 128,
+      "height": 80,
+      "category": "countdown"
+    },
+    "count-04": {
+      "x": 736,
+      "y": 596,
+      "width": 128,
+      "height": 80,
+      "category": "countdown"
+    },
+    "countdown-t06": {
+      "x": 876,
+      "y": 596,
+      "width": 176,
+      "height": 64,
+      "category": "countdown"
+    },
+    "header-auto-boot": {
+      "x": 1064,
+      "y": 596,
+      "width": 424,
+      "height": 72,
+      "category": "countdown"
+    },
+    "vertical-id-a63": {
+      "x": 1500,
+      "y": 596,
+      "width": 96,
+      "height": 256,
+      "category": "countdown"
+    },
+    "small-index-01": {
+      "x": 1608,
+      "y": 596,
+      "width": 64,
+      "height": 48,
+      "category": "countdown"
+    },
+    "small-index-02": {
+      "x": 1684,
+      "y": 596,
+      "width": 64,
+      "height": 48,
+      "category": "countdown"
+    },
+    "small-index-03": {
+      "x": 1760,
+      "y": 596,
+      "width": 64,
+      "height": 48,
+      "category": "countdown"
+    },
+    "small-index-04": {
+      "x": 1836,
+      "y": 596,
+      "width": 64,
+      "height": 48,
+      "category": "countdown"
+    },
+    "gauge-temp": {
+      "x": 12,
+      "y": 864,
+      "width": 128,
+      "height": 384,
+      "category": "scrollbars"
+    },
+    "gauge-volt": {
+      "x": 152,
+      "y": 864,
+      "width": 128,
+      "height": 384,
+      "category": "scrollbars"
+    },
+    "fan-status": {
+      "x": 292,
+      "y": 864,
+      "width": 160,
+      "height": 160,
+      "category": "scrollbars"
+    },
+    "ok-badge": {
+      "x": 464,
+      "y": 864,
+      "width": 72,
+      "height": 40,
+      "category": "scrollbars"
+    },
+    "barcode-short": {
+      "x": 548,
+      "y": 864,
+      "width": 144,
+      "height": 96,
+      "category": "micrographics"
+    },
+    "barcode-long": {
+      "x": 704,
+      "y": 864,
+      "width": 240,
+      "height": 64,
+      "category": "micrographics"
+    },
+    "hatch-square": {
+      "x": 956,
+      "y": 864,
+      "width": 80,
+      "height": 80,
+      "category": "micrographics"
+    },
+    "slash-band-3": {
+      "x": 1048,
+      "y": 864,
+      "width": 112,
+      "height": 48,
+      "category": "micrographics"
+    },
+    "slash-band-5": {
+      "x": 1172,
+      "y": 864,
+      "width": 160,
+      "height": 48,
+      "category": "micrographics"
+    },
+    "dot-matrix-4x2": {
+      "x": 1344,
+      "y": 864,
+      "width": 80,
+      "height": 48,
+      "category": "micrographics"
+    },
+    "dot-matrix-4x3": {
+      "x": 1436,
+      "y": 864,
+      "width": 80,
+      "height": 64,
+      "category": "micrographics"
+    },
+    "ellipsis-3": {
+      "x": 1528,
+      "y": 864,
+      "width": 72,
+      "height": 32,
+      "category": "micrographics"
+    },
+    "caution-stripe": {
+      "x": 1612,
+      "y": 864,
+      "width": 176,
+      "height": 32,
+      "category": "micrographics"
+    },
+    "micro-ruler": {
+      "x": 1800,
+      "y": 864,
+      "width": 224,
+      "height": 48,
+      "category": "micrographics"
+    },
+    "circuit-node-line": {
+      "x": 12,
+      "y": 1260,
+      "width": 184,
+      "height": 112,
+      "category": "micrographics"
+    },
+    "grid-label": {
+      "x": 208,
+      "y": 1260,
+      "width": 232,
+      "height": 72,
+      "category": "micrographics"
+    },
+    "console-data": {
+      "x": 452,
+      "y": 1260,
+      "width": 232,
+      "height": 80,
+      "category": "micrographics"
+    },
+    "part-number": {
+      "x": 696,
+      "y": 1260,
+      "width": 200,
+      "height": 96,
+      "category": "micrographics"
+    },
+    "maintenance-edge-lower": {
+      "x": 908,
+      "y": 1260,
+      "width": 296,
+      "height": 128,
+      "category": "frames"
+    },
+    "maintenance-trace-lower": {
+      "x": 1216,
+      "y": 1260,
+      "width": 192,
+      "height": 336,
+      "category": "frames"
+    },
+    "selector-red-tab-surface": {
+      "x": 1420,
+      "y": 1260,
+      "width": 131,
+      "height": 113,
+      "category": "overlays"
+    },
+    "diag-header-frame": {
+      "x": 1563,
+      "y": 1260,
+      "width": 224,
+      "height": 64,
+      "category": "frames"
+    },
+    "diag-mid-separator": {
+      "x": 1799,
+      "y": 1260,
+      "width": 224,
+      "height": 32,
+      "category": "frames"
+    },
+    "diag-lower-separator": {
+      "x": 12,
+      "y": 1608,
+      "width": 224,
+      "height": 16,
+      "category": "frames"
+    },
+    "diag-bottom-separator": {
+      "x": 248,
+      "y": 1608,
+      "width": 120,
+      "height": 16,
+      "category": "frames"
+    },
+    "diag-temp-rule": {
+      "x": 380,
+      "y": 1608,
+      "width": 112,
+      "height": 16,
+      "category": "frames"
+    },
+    "selector-label-primary": {
+      "x": 504,
+      "y": 1608,
+      "width": 288,
+      "height": 48,
+      "category": "selectors"
+    },
+    "selector-label-advanced": {
+      "x": 804,
+      "y": 1608,
+      "width": 320,
+      "height": 48,
+      "category": "selectors"
+    },
+    "selector-label-memory": {
+      "x": 1136,
+      "y": 1608,
+      "width": 240,
+      "height": 48,
+      "category": "selectors"
+    },
+    "selector-label-uefi": {
+      "x": 1388,
+      "y": 1608,
+      "width": 272,
+      "height": 48,
+      "category": "selectors"
+    },
+    "selector-selected-word": {
+      "x": 1672,
+      "y": 1608,
+      "width": 104,
+      "height": 40,
+      "category": "selectors"
+    },
+    "selector-selected-slashes": {
+      "x": 1788,
+      "y": 1608,
+      "width": 104,
+      "height": 48,
+      "category": "selectors"
+    },
+    "selector-selected-arrow": {
+      "x": 1904,
+      "y": 1608,
+      "width": 32,
+      "height": 32,
+      "category": "selectors"
+    },
+    "selector-grip-dots": {
+      "x": 1948,
+      "y": 1608,
+      "width": 72,
+      "height": 32,
+      "category": "selectors"
+    },
+    "selector-hinge-shroud": {
+      "x": 12,
+      "y": 1668,
+      "width": 64,
+      "height": 72,
+      "category": "frames"
+    },
+    "rail-interlock-upper": {
+      "x": 88,
+      "y": 1668,
+      "width": 72,
+      "height": 104,
+      "category": "frames"
+    },
+    "rail-interlock-lower": {
+      "x": 172,
+      "y": 1668,
+      "width": 72,
+      "height": 120,
+      "category": "frames"
+    },
+    "rail-edge-tab-02": {
+      "x": 256,
+      "y": 1668,
+      "width": 32,
+      "height": 48,
+      "category": "frames"
+    },
+    "rail-edge-tab-03": {
+      "x": 300,
+      "y": 1668,
+      "width": 32,
+      "height": 48,
+      "category": "frames"
+    },
+    "rail-edge-tab-04-transition": {
+      "x": 344,
+      "y": 1668,
+      "width": 40,
+      "height": 64,
+      "category": "frames"
+    },
+    "digit-gray-0": {
+      "x": 396,
+      "y": 1668,
+      "width": 64,
+      "height": 80,
+      "category": "countdown"
+    },
+    "digit-gray-1": {
+      "x": 472,
+      "y": 1668,
+      "width": 64,
+      "height": 80,
+      "category": "countdown"
+    },
+    "digit-gray-2": {
+      "x": 548,
+      "y": 1668,
+      "width": 64,
+      "height": 80,
+      "category": "countdown"
+    },
+    "digit-gray-3": {
+      "x": 624,
+      "y": 1668,
+      "width": 64,
+      "height": 80,
+      "category": "countdown"
+    },
+    "digit-gray-4": {
+      "x": 700,
+      "y": 1668,
+      "width": 64,
+      "height": 80,
+      "category": "countdown"
+    },
+    "gauge-numeric-scale": {
+      "x": 776,
+      "y": 1668,
+      "width": 56,
+      "height": 160,
+      "category": "countdown"
+    },
+    "scrollbar-end-cap": {
+      "x": 844,
+      "y": 1668,
+      "width": 24,
+      "height": 40,
+      "category": "scrollbars"
+    },
+    "scrollbar-tick": {
+      "x": 880,
+      "y": 1668,
+      "width": 16,
+      "height": 24,
+      "category": "scrollbars"
+    },
+    "scrollbar-fill-short": {
+      "x": 908,
+      "y": 1668,
+      "width": 40,
+      "height": 24,
+      "category": "scrollbars"
+    },
+    "scrollbar-fill-long": {
+      "x": 960,
+      "y": 1668,
+      "width": 80,
+      "height": 24,
+      "category": "scrollbars"
+    },
+    "scrollbar-pointer-down": {
+      "x": 1052,
+      "y": 1668,
+      "width": 32,
+      "height": 32,
+      "category": "scrollbars"
+    },
+    "progress-red-segment": {
+      "x": 1096,
+      "y": 1668,
+      "width": 88,
+      "height": 24,
+      "category": "scrollbars"
+    },
+    "rail-logo-slanted": {
+      "x": 1196,
+      "y": 1668,
+      "width": 104,
+      "height": 48,
+      "category": "icons"
+    },
+    "crosshair-dark": {
+      "x": 1312,
+      "y": 1668,
+      "width": 48,
+      "height": 48,
+      "category": "icons"
+    },
+    "crosshair-light": {
+      "x": 1372,
+      "y": 1668,
+      "width": 48,
+      "height": 48,
+      "category": "icons"
+    },
+    "screw-ring-small": {
+      "x": 1432,
+      "y": 1668,
+      "width": 40,
+      "height": 40,
+      "category": "icons"
+    },
+    "selector-bolt": {
+      "x": 1484,
+      "y": 1668,
+      "width": 40,
+      "height": 40,
+      "category": "icons"
+    },
+    "keycap-select-box": {
+      "x": 1536,
+      "y": 1668,
+      "width": 72,
+      "height": 64,
+      "category": "controls"
+    },
+    "keycap-enter-box": {
+      "x": 1620,
+      "y": 1668,
+      "width": 72,
+      "height": 64,
+      "category": "controls"
+    },
+    "keycap-edit-box": {
+      "x": 1704,
+      "y": 1668,
+      "width": 60,
+      "height": 64,
+      "category": "controls"
+    },
+    "keycap-console-box": {
+      "x": 1776,
+      "y": 1668,
+      "width": 60,
+      "height": 64,
+      "category": "controls"
+    },
+    "key-glyph-up-down": {
+      "x": 1848,
+      "y": 1668,
+      "width": 56,
+      "height": 48,
+      "category": "controls"
+    },
+    "key-glyph-enter": {
+      "x": 1916,
+      "y": 1668,
+      "width": 56,
+      "height": 48,
+      "category": "controls"
+    },
+    "label-grid-title": {
+      "x": 12,
+      "y": 1840,
+      "width": 152,
+      "height": 32,
+      "category": "micrographics"
+    },
+    "label-grid-coordinates": {
+      "x": 176,
+      "y": 1840,
+      "width": 216,
+      "height": 28,
+      "category": "micrographics"
+    },
+    "label-auto-boot": {
+      "x": 404,
+      "y": 1840,
+      "width": 320,
+      "height": 40,
+      "category": "micrographics"
+    },
+    "label-diag-strip": {
+      "x": 736,
+      "y": 1840,
+      "width": 208,
+      "height": 36,
+      "category": "micrographics"
+    },
+    "label-footer-select": {
+      "x": 956,
+      "y": 1840,
+      "width": 112,
+      "height": 36,
+      "category": "micrographics"
+    },
+    "label-footer-enter-boot": {
+      "x": 1080,
+      "y": 1840,
+      "width": 176,
+      "height": 36,
+      "category": "micrographics"
+    },
+    "label-footer-edit": {
+      "x": 1268,
+      "y": 1840,
+      "width": 88,
+      "height": 36,
+      "category": "micrographics"
+    },
+    "label-footer-console": {
+      "x": 1368,
+      "y": 1840,
+      "width": 128,
+      "height": 36,
+      "category": "micrographics"
+    },
+    "label-lock": {
+      "x": 1508,
+      "y": 1840,
+      "width": 80,
+      "height": 36,
+      "category": "micrographics"
+    },
+    "label-service-rail": {
+      "x": 1600,
+      "y": 1840,
+      "width": 168,
+      "height": 40,
+      "category": "micrographics"
+    },
+    "label-inspect-status": {
+      "x": 1780,
+      "y": 1840,
+      "width": 128,
+      "height": 48,
+      "category": "micrographics"
+    },
+    "label-caution-full": {
+      "x": 12,
+      "y": 1900,
+      "width": 168,
+      "height": 96,
+      "category": "micrographics"
+    },
+    "label-maintenance-access": {
+      "x": 192,
+      "y": 1900,
+      "width": 176,
+      "height": 112,
+      "category": "micrographics"
+    },
+    "status-temp": {
+      "x": 380,
+      "y": 1900,
+      "width": 112,
+      "height": 40,
+      "category": "scrollbars"
+    },
+    "status-volt": {
+      "x": 504,
+      "y": 1900,
+      "width": 112,
+      "height": 40,
+      "category": "scrollbars"
+    },
+    "status-fan": {
+      "x": 628,
+      "y": 1900,
+      "width": 112,
+      "height": 40,
+      "category": "scrollbars"
+    },
+    "barcode-maintenance-bars": {
+      "x": 752,
+      "y": 1900,
+      "width": 96,
+      "height": 296,
+      "category": "micrographics"
+    },
+    "barcode-maintenance-code": {
+      "x": 860,
+      "y": 1900,
+      "width": 32,
+      "height": 256,
+      "category": "micrographics"
+    },
+    "micro-barcode-short": {
+      "x": 904,
+      "y": 1900,
+      "width": 40,
+      "height": 40,
+      "category": "micrographics"
+    },
+    "micro-slashes-black": {
+      "x": 956,
+      "y": 1900,
+      "width": 104,
+      "height": 40,
+      "category": "micrographics"
+    },
+    "hatch-caution-red": {
+      "x": 1072,
+      "y": 1900,
+      "width": 160,
+      "height": 32,
+      "category": "micrographics"
+    },
+    "hatch-lock-black": {
+      "x": 1244,
+      "y": 1900,
+      "width": 72,
+      "height": 56,
+      "category": "micrographics"
+    },
+    "hatch-rail-lower": {
+      "x": 1328,
+      "y": 1900,
+      "width": 80,
+      "height": 112,
+      "category": "micrographics"
+    },
+    "micro-underline": {
+      "x": 1420,
+      "y": 1900,
+      "width": 48,
+      "height": 16,
+      "category": "micrographics"
+    },
+    "micro-diag-dash": {
+      "x": 1480,
+      "y": 1900,
+      "width": 48,
+      "height": 16,
+      "category": "micrographics"
+    },
+    "micro-red-status-dot": {
+      "x": 1540,
+      "y": 1900,
+      "width": 24,
+      "height": 24,
+      "category": "micrographics"
+    }
+  }
+}

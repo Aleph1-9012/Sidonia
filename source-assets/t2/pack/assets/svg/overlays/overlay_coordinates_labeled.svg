@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="460" height="250" viewBox="0 0 460 250">
+<defs>
+  <linearGradient id="redPanel" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#FF2432"/>
+    <stop offset="0.62" stop-color="#E30613"/>
+    <stop offset="1" stop-color="#7D000A"/>
+  </linearGradient>
+  <linearGradient id="whiteMetal" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#FFFFFF"/>
+    <stop offset="0.6" stop-color="#F4F2EC"/>
+    <stop offset="1" stop-color="#888B8F"/>
+  </linearGradient>
+  <pattern id="hatch" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(22)">
+    <rect width="5" height="18" fill="#09090B"/>
+  </pattern>
+  <pattern id="fineHatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(24)">
+    <rect width="2" height="10" fill="#F4F2EC" fill-opacity="0.7"/>
+  </pattern>
+</defs>
+<path d="M18 18H392L442 68V232H18Z" fill="#07080A" fill-opacity=".87" stroke="#E30613" stroke-width="4"/><path d="M18 18H202.4" stroke="#F4F2EC" stroke-width="2"/><text x="48" y="82" fill="#F4F2EC" fill-opacity="1.0" font-family="DejaVu Sans Mono, monospace" font-size="28" font-weight="400" letter-spacing="3" text-anchor="start">A/70A-17</text><text x="48" y="130" fill="#F4F2EC" fill-opacity="1.0" font-family="DejaVu Sans Mono, monospace" font-size="27" font-weight="400" letter-spacing="3" text-anchor="start">22-05-14</text><text x="48" y="178" fill="#F4F2EC" fill-opacity="1.0" font-family="DejaVu Sans Mono, monospace" font-size="27" font-weight="400" letter-spacing="3" text-anchor="start">17A</text><rect x="312" y="54" width="72" height="36" fill="none" stroke="#F4F2EC" stroke-width="3"/><rect x="338" y="156" width="46" height="34" fill="none" stroke="#E30613" stroke-width="3"/>
+</svg>

@@ -1,0 +1,730 @@
+{
+  "categories": {
+    "brand_lockups": {
+      "asset_count": 6,
+      "assets": [
+        {
+          "height": 351,
+          "name": "cjk-704-lockup",
+          "path": "brand_lockups/cjk-704-lockup.png",
+          "sha256": "6af5de9b93b33270c2cd9dfbca87d1f482bc51c47c234aa8ab2b5e0533dfbaad",
+          "width": 314
+        },
+        {
+          "height": 159,
+          "name": "stencil-704",
+          "path": "brand_lockups/stencil-704.png",
+          "sha256": "37fdaba153fc348997b77cce0b24334a1cf4bfdf4db14bfa84a5683c6b70c894",
+          "width": 314
+        },
+        {
+          "height": 102,
+          "name": "type17-704-underline",
+          "path": "brand_lockups/type17-704-underline.png",
+          "sha256": "2ddd2a30941a842e2a8c5f44e94d2c86a8c08fa53dc22dd30b4b27782d98c3ad",
+          "width": 538
+        },
+        {
+          "height": 227,
+          "name": "stripe-signal-badge",
+          "path": "brand_lockups/stripe-signal-badge.png",
+          "sha256": "46b4277455d2612a6af55ef5be78fec25b0e58434943da30d2f367aed7ae5b53",
+          "width": 230
+        },
+        {
+          "height": 172,
+          "name": "crossed-id-badge",
+          "path": "brand_lockups/crossed-id-badge.png",
+          "sha256": "9ea995dc544ef3769519f373be1932d7a3c4ef727e5e2ad6145a47f8fc864244",
+          "width": 314
+        },
+        {
+          "height": 116,
+          "name": "identifier-704-a",
+          "path": "brand_lockups/identifier-704-a.png",
+          "sha256": "dd870321ecb630913989f52625f428aa9892e78891d22c117b8550f8a7e66acf",
+          "width": 414
+        }
+      ],
+      "atlas": "atlases/brand_lockups.png"
+    },
+    "countdown": {
+      "asset_count": 5,
+      "assets": [
+        {
+          "height": 830,
+          "name": "numeral-7-white",
+          "path": "countdown/numeral-7-white.png",
+          "sha256": "619772692fa4b1dc890d0f39b0231c93e8d83fd37a41f258bfb68fa88204d4a3",
+          "width": 614
+        },
+        {
+          "height": 832,
+          "name": "numeral-4-red",
+          "path": "countdown/numeral-4-red.png",
+          "sha256": "3b58e64755d2793686d6c77fac8cfe8be2d6fe7dead2200671c61aa22e15d6f4",
+          "width": 652
+        },
+        {
+          "height": 209,
+          "name": "count-704-black",
+          "path": "countdown/count-704-black.png",
+          "sha256": "4ccff795ff9255971c51a8f080edbb3a668536145fa65508c6106e87645ddc8c",
+          "width": 428
+        },
+        {
+          "height": 166,
+          "name": "count-06-red",
+          "path": "countdown/count-06-red.png",
+          "sha256": "79ade62f2967f8b4a306248ab2fd5816cc259d59a77e48c358e4ea846413c261",
+          "width": 223
+        },
+        {
+          "height": 91,
+          "name": "label-t-06",
+          "path": "countdown/label-t-06.png",
+          "sha256": "73702f76654a961821ce543273cdb9993d621c82d3af70adc1abc4da2abad690",
+          "width": 245
+        }
+      ],
+      "atlas": "atlases/countdown.png"
+    },
+    "footer_controls": {
+      "asset_count": 7,
+      "assets": [
+        {
+          "height": 197,
+          "name": "footer-strip-labeled",
+          "path": "footer_controls/footer-strip-labeled.png",
+          "sha256": "4e477b2ad00ade6459fcc53c7330c2d4ff0c45b36f2c46dd2f14fe06b729ea99",
+          "width": 1483
+        },
+        {
+          "height": 197,
+          "name": "footer-strip-blank",
+          "path": "footer_controls/footer-strip-blank.png",
+          "sha256": "3045fe638e95774103823d46c8d24dba8b43589447f98ff628b479b6815f98b1",
+          "width": 1483
+        },
+        {
+          "height": 111,
+          "name": "control-select",
+          "path": "footer_controls/control-select.png",
+          "sha256": "1e221a342afee0dd675dc6257ebbc7471700ac0bdbf8ae6d98d2c07277ed57c2",
+          "width": 338
+        },
+        {
+          "height": 111,
+          "name": "control-enter-boot",
+          "path": "footer_controls/control-enter-boot.png",
+          "sha256": "6aa8856e7aa263979413e14d6ac7199cfd8e855cf6469fa0c0dffc0058728394",
+          "width": 317
+        },
+        {
+          "height": 111,
+          "name": "control-edit",
+          "path": "footer_controls/control-edit.png",
+          "sha256": "744730406c13c46b5fbc2a855ca8af35c14fe172f70be9763f1d057b457a2da3",
+          "width": 243
+        },
+        {
+          "height": 112,
+          "name": "control-console",
+          "path": "footer_controls/control-console.png",
+          "sha256": "9ab2bd09e5c01deb050e38bcbc5c76e2df0325053fd33839d398c12409d8c58e",
+          "width": 324
+        },
+        {
+          "height": 116,
+          "name": "control-template-blank",
+          "path": "footer_controls/control-template-blank.png",
+          "sha256": "c094e4f8188c7856eb92910da49886359f8cd7b0408b6bf0adc7c6093c9eec33",
+          "width": 324
+        }
+      ],
+      "atlas": "atlases/footer_controls.png"
+    },
+    "frames": {
+      "asset_count": 5,
+      "assets": [
+        {
+          "height": 968,
+          "name": "outer-device-frame",
+          "path": "frames/outer-device-frame.png",
+          "sha256": "1a2ac55f9b835df96d494be7231764be57cddee1b8f5f7d32b27dacde087a418",
+          "width": 667
+        },
+        {
+          "height": 652,
+          "name": "inner-viewport-frame",
+          "path": "frames/inner-viewport-frame.png",
+          "sha256": "b114e029812ba472c380ecb98a4a8fc141932d30dc967985630e0fa93a2955ed",
+          "width": 461
+        },
+        {
+          "height": 361,
+          "name": "upper-right-bracket",
+          "path": "frames/upper-right-bracket.png",
+          "sha256": "8c48793b55afa1cde1f369c7d91beabe91be27e35eeb66b902f3fc3df46dc975",
+          "width": 345
+        },
+        {
+          "height": 366,
+          "name": "lower-right-bracket",
+          "path": "frames/lower-right-bracket.png",
+          "sha256": "235ce9d897981f1d82db0250a5f8b0408f6d474c503990b2bd3ce7c0c42151af",
+          "width": 313
+        },
+        {
+          "height": 121,
+          "name": "lower-angle-bracket",
+          "path": "frames/lower-angle-bracket.png",
+          "sha256": "b8a685f7afdc626c29f2c5e2f08bf6fff69ec4c18beb3129bdea60833351c3e4",
+          "width": 165
+        }
+      ],
+      "atlas": "atlases/frames.png"
+    },
+    "guide_overlays": {
+      "asset_count": 8,
+      "assets": [
+        {
+          "height": 941,
+          "name": "full-screen-registration",
+          "path": "guide_overlays/full-screen-registration.png",
+          "sha256": "ac3ec4b3938a2a6e631b3ce0d41a39a4f59d65e1343bcf3a999e8df4d21e1d7a",
+          "width": 1672
+        },
+        {
+          "height": 125,
+          "name": "corner-top-left",
+          "path": "guide_overlays/corner-top-left.png",
+          "sha256": "df8d521196bfd96a0907cde3e0b6ec71ed0d2e4dd5f50a72b190c0ac7044da68",
+          "width": 95
+        },
+        {
+          "height": 125,
+          "name": "corner-top-right",
+          "path": "guide_overlays/corner-top-right.png",
+          "sha256": "5987181aee44199b9ff093f09f16a909cb115566a55d6588441f85756a8214d1",
+          "width": 95
+        },
+        {
+          "height": 126,
+          "name": "corner-bottom-left",
+          "path": "guide_overlays/corner-bottom-left.png",
+          "sha256": "ff49b26aa61760982b2b6bb69bbfcf11b3ebbf4c0233071a915f42f40b61016e",
+          "width": 95
+        },
+        {
+          "height": 126,
+          "name": "corner-bottom-right",
+          "path": "guide_overlays/corner-bottom-right.png",
+          "sha256": "c795a106250cf029c32db14be68b584e1ea123990a275cede4d63850be12a3fa",
+          "width": 95
+        },
+        {
+          "height": 714,
+          "name": "vertical-scale-rail",
+          "path": "guide_overlays/vertical-scale-rail.png",
+          "sha256": "2559bb05e031660569b1b326cec7bdd60a8a0228793a9091debe43b9d64e00aa",
+          "width": 74
+        },
+        {
+          "height": 631,
+          "name": "dimension-cluster",
+          "path": "guide_overlays/dimension-cluster.png",
+          "sha256": "3cc83bd0ac5403ad8656c346fa2e7e55cfe35df273510e4cdfc4dc66d5f57491",
+          "width": 442
+        },
+        {
+          "height": 73,
+          "name": "bottom-divider-rail",
+          "path": "guide_overlays/bottom-divider-rail.png",
+          "sha256": "3c29e7a1cf9f9291395b7193d2f809cc228584d17d7ea36e72562371ec1cd1b4",
+          "width": 697
+        }
+      ],
+      "atlas": "atlases/guide_overlays.png"
+    },
+    "icons": {
+      "asset_count": 10,
+      "assets": [
+        {
+          "height": 343,
+          "name": "crossed-circle-outline-a",
+          "path": "icons/crossed-circle-outline-a.png",
+          "sha256": "61ed151db683b83e02250d829a542fbc47fb16b1123e6485d3521b6f7ed21ea4",
+          "width": 341
+        },
+        {
+          "height": 333,
+          "name": "crossed-circle-outline-b",
+          "path": "icons/crossed-circle-outline-b.png",
+          "sha256": "36b9e1aa582b317ea2b62ec9ba9edfde4079c49134e57063419f30e179254995",
+          "width": 385
+        },
+        {
+          "height": 319,
+          "name": "crossed-circle-filled",
+          "path": "icons/crossed-circle-filled.png",
+          "sha256": "c55d2035366c4917d1a91637c2e67a4dc85c7a14531dc1ee961ab130b62f9c75",
+          "width": 316
+        },
+        {
+          "height": 304,
+          "name": "warning-triangle-red",
+          "path": "icons/warning-triangle-red.png",
+          "sha256": "e9c37474984bbf085ac4a21bfe17480c4a5d0aa9fefe0c6d7821a5c3a179abbb",
+          "width": 331
+        },
+        {
+          "height": 334,
+          "name": "warning-triangle-yellow",
+          "path": "icons/warning-triangle-yellow.png",
+          "sha256": "212c86612f58f770d3e8f2236d843866c1eaafbafbc8fa902293274b7bb33ac4",
+          "width": 349
+        },
+        {
+          "height": 298,
+          "name": "hazard-stripes-light",
+          "path": "icons/hazard-stripes-light.png",
+          "sha256": "1edf87a8bd9525298d38777334911add83d43fc2f8bcd86416f8c723fba2be89",
+          "width": 356
+        },
+        {
+          "height": 298,
+          "name": "hazard-stripes-dark",
+          "path": "icons/hazard-stripes-dark.png",
+          "sha256": "a2dff03e7a9b73b599f4523cfdadc86f035c916ec22c2a6a03b4cbf8d36c5eab",
+          "width": 359
+        },
+        {
+          "height": 323,
+          "name": "grille-light",
+          "path": "icons/grille-light.png",
+          "sha256": "228b8601ae980dd0a011e0471ce40e31d6b07ae90d067843e478baf95db880f9",
+          "width": 431
+        },
+        {
+          "height": 332,
+          "name": "grille-dark",
+          "path": "icons/grille-dark.png",
+          "sha256": "18ab1f1f6c8c6e1c7325359375b46991cab246c9a8f117dc8c9a050d63acb384",
+          "width": 427
+        },
+        {
+          "height": 347,
+          "name": "four-way-select",
+          "path": "icons/four-way-select.png",
+          "sha256": "8d71e046bdedd3d5e7cfd9ddc00a553bb2638f561f836d735df677b2a6ad0abb",
+          "width": 423
+        }
+      ],
+      "atlas": "atlases/icons.png"
+    },
+    "menu_blocks": {
+      "asset_count": 4,
+      "assets": [
+        {
+          "height": 388,
+          "name": "complete-menu-labeled",
+          "path": "menu_blocks/complete-menu-labeled.png",
+          "sha256": "49108003d5c97efd8a183d0de19de035281ac8d523e3803b6f737aed729de975",
+          "width": 625
+        },
+        {
+          "height": 388,
+          "name": "compact-menu-blank",
+          "path": "menu_blocks/compact-menu-blank.png",
+          "sha256": "15dc438e967c383459292eef34f1baebb63366382c213de1550f64a634795c89",
+          "width": 603
+        },
+        {
+          "height": 118,
+          "name": "menu-header-labeled",
+          "path": "menu_blocks/menu-header-labeled.png",
+          "sha256": "237fd47582386af3667acd8358ec2b7b651193c909c214a86a399047e5ae4e1e",
+          "width": 586
+        },
+        {
+          "height": 413,
+          "name": "viewport-menu-blank",
+          "path": "menu_blocks/viewport-menu-blank.png",
+          "sha256": "1f660195b6c748bda8ddd533c1879919277e8bc80995a2df39c56711e8616b8f",
+          "width": 603
+        }
+      ],
+      "atlas": "atlases/menu_blocks.png"
+    },
+    "micrographics": {
+      "asset_count": 16,
+      "assets": [
+        {
+          "height": 158,
+          "name": "registration-top-left",
+          "path": "micrographics/registration-top-left.png",
+          "sha256": "6ba2b0e0dca227c9110f3c888583c3ca2b78073e34646662470316725af275a7",
+          "width": 112
+        },
+        {
+          "height": 158,
+          "name": "registration-top-right",
+          "path": "micrographics/registration-top-right.png",
+          "sha256": "2923467751b8689bd340cf86411a07e682ecfa8ef8a81457b8064bdd0f34503b",
+          "width": 114
+        },
+        {
+          "height": 67,
+          "name": "dimension-line-straight",
+          "path": "micrographics/dimension-line-straight.png",
+          "sha256": "88736980ccc369111c1d6c4346be01c1f58610773b16131489e6da90e340cf1f",
+          "width": 626
+        },
+        {
+          "height": 72,
+          "name": "dimension-line-stepped",
+          "path": "micrographics/dimension-line-stepped.png",
+          "sha256": "f3ae936c99bfe5b3ab0e629ca90bceeac6797aa3e1ff57e2e39c6c456386ec70",
+          "width": 762
+        },
+        {
+          "height": 92,
+          "name": "barcode-wide",
+          "path": "micrographics/barcode-wide.png",
+          "sha256": "4037a54a598ae37c9910cc6a718fc049cdd9dc6d28dc40a3708e825cd69f7a90",
+          "width": 279
+        },
+        {
+          "height": 64,
+          "name": "barcode-compact",
+          "path": "micrographics/barcode-compact.png",
+          "sha256": "f15f15b704e5ab7d89faa4a5ce1e92af74ba22ee80bd92efd2cdd0275e46054a",
+          "width": 241
+        },
+        {
+          "height": 73,
+          "name": "barcode-dense",
+          "path": "micrographics/barcode-dense.png",
+          "sha256": "361634b7753ada7692b4b83e00f098f011502ba442ee927c56b4cb246b99af68",
+          "width": 310
+        },
+        {
+          "height": 75,
+          "name": "hazard-band-black",
+          "path": "micrographics/hazard-band-black.png",
+          "sha256": "8b3b31518f8641c0df6c58a2fefa23d9d46a763eb5e3967d2635625a3d3afd4d",
+          "width": 232
+        },
+        {
+          "height": 75,
+          "name": "hazard-band-red",
+          "path": "micrographics/hazard-band-red.png",
+          "sha256": "db6df0ff219e851802d45d52fbc8d4dd57164b4cd6051f86a11a1051c3706f06",
+          "width": 223
+        },
+        {
+          "height": 135,
+          "name": "node-marker-light",
+          "path": "micrographics/node-marker-light.png",
+          "sha256": "2b697a3817d1bdca6ae37bba74f7997002b99e9f6479f4fe1d2c79c6436c5c3d",
+          "width": 139
+        },
+        {
+          "height": 142,
+          "name": "node-marker-dark",
+          "path": "micrographics/node-marker-dark.png",
+          "sha256": "c88ed5a8aa9abc8f03401ce18e310916079cd42d58809fa877dc74c79f3ea679",
+          "width": 141
+        },
+        {
+          "height": 79,
+          "name": "stepped-circuit-line",
+          "path": "micrographics/stepped-circuit-line.png",
+          "sha256": "9bb35f8dcd0af82c1878a5ba61f4808413b3de6bda54f4d877f9613c2a0fcdc6",
+          "width": 225
+        },
+        {
+          "height": 152,
+          "name": "registration-bottom-left",
+          "path": "micrographics/registration-bottom-left.png",
+          "sha256": "d7e0843fdcecf3788062ee212b51e734f62b057e9e34d93ab0345f2eb408a6e8",
+          "width": 111
+        },
+        {
+          "height": 78,
+          "name": "signal-tick-cluster",
+          "path": "micrographics/signal-tick-cluster.png",
+          "sha256": "46dc2d9bd77083a5b0189574985281f0035841612a5fdba2fe8abbaadb60005c",
+          "width": 220
+        },
+        {
+          "height": 98,
+          "name": "caution-marker",
+          "path": "micrographics/caution-marker.png",
+          "sha256": "de221d854ff37903743e0e967037beac0b4fc825e7fb55ed13d0c8b3b87a8376",
+          "width": 108
+        },
+        {
+          "height": 152,
+          "name": "registration-bottom-right",
+          "path": "micrographics/registration-bottom-right.png",
+          "sha256": "0479753274615b746bed062227e3e69ce137d1836e0b585f05d546fb9a1b85ef",
+          "width": 114
+        }
+      ],
+      "atlas": "atlases/micrographics.png"
+    },
+    "overlays": {
+      "asset_count": 3,
+      "assets": [
+        {
+          "height": 881,
+          "name": "angular-plate-white",
+          "path": "overlays/angular-plate-white.png",
+          "sha256": "f5af4d2215245bdf2c023d8d05a674f27617927673f7fdbc08f25591d9bf057b",
+          "width": 779
+        },
+        {
+          "height": 747,
+          "name": "angular-plate-red",
+          "path": "overlays/angular-plate-red.png",
+          "sha256": "0f10c17311fb4a547f7656c82f11144d954a518f973b43ffab5bf2ccfac16116",
+          "width": 832
+        },
+        {
+          "height": 148,
+          "name": "footer-plate-black-red",
+          "path": "overlays/footer-plate-black-red.png",
+          "sha256": "bbd74cfb6c890d57534e2245c6acc0b393341394f2c699aa4912a001c9745a5a",
+          "width": 1053
+        }
+      ],
+      "atlas": "atlases/overlays.png"
+    },
+    "scrollbars": {
+      "asset_count": 4,
+      "assets": [
+        {
+          "height": 906,
+          "name": "vertical-tick-scroll",
+          "path": "scrollbars/vertical-tick-scroll.png",
+          "sha256": "d4a3bfd1741f3cb6b41b165f4c4dc4fa89451c25a0be56972b2526346e1f69bc",
+          "width": 131
+        },
+        {
+          "height": 828,
+          "name": "vertical-pointer-track",
+          "path": "scrollbars/vertical-pointer-track.png",
+          "sha256": "8c987e0b1251cc32048474c31864cc925a51e3c936d0cb2cab22bc425e72506a",
+          "width": 122
+        },
+        {
+          "height": 241,
+          "name": "horizontal-boot-ruler",
+          "path": "scrollbars/horizontal-boot-ruler.png",
+          "sha256": "55be7d810d47f99d415086ce902a9648bc95fffffe2eef4587f593d70db1ffa6",
+          "width": 1081
+        },
+        {
+          "height": 95,
+          "name": "short-progress-strip",
+          "path": "scrollbars/short-progress-strip.png",
+          "sha256": "9748a0da11bc27fabbe50fe97f2ff02f40b38ff7aa51299906a4ddc1a0419fb4",
+          "width": 492
+        }
+      ],
+      "atlas": "atlases/scrollbars.png"
+    },
+    "selectors": {
+      "asset_count": 5,
+      "assets": [
+        {
+          "height": 206,
+          "name": "selected-row",
+          "path": "selectors/selected-row.png",
+          "sha256": "a3251e94670d307e07b240d5d06b55864088f18e8683ef28af34d6eafd4eacbb",
+          "width": 961
+        },
+        {
+          "height": 198,
+          "name": "unselected-row",
+          "path": "selectors/unselected-row.png",
+          "sha256": "68270c8b7c3138a2c5a7c6b98e3e4c2d49c0bedf5a73369608325a22345cac49",
+          "width": 956
+        },
+        {
+          "height": 164,
+          "name": "key-enter",
+          "path": "selectors/key-enter.png",
+          "sha256": "0201cca52b6dd3f3c6f41c4b0ec6f135b1b9ce2a9b69c8297b54bd82de610fd4",
+          "width": 248
+        },
+        {
+          "height": 166,
+          "name": "key-e",
+          "path": "selectors/key-e.png",
+          "sha256": "090c2dc297f92779c313ba6c9ecf0ea411955f5f1bede091fd0bc9ca44529bf3",
+          "width": 176
+        },
+        {
+          "height": 166,
+          "name": "key-c",
+          "path": "selectors/key-c.png",
+          "sha256": "b85b8e1d21d5404d3c3f9fe47b9e692ab14cb99e6d51dfa62b0937ed9c61c332",
+          "width": 195
+        }
+      ],
+      "atlas": "atlases/selectors.png"
+    },
+    "status_labels": {
+      "asset_count": 10,
+      "assets": [
+        {
+          "height": 129,
+          "name": "type17-704-header",
+          "path": "status_labels/type17-704-header.png",
+          "sha256": "a25b59925c02f142df3b1abb556fb2758897c0394f158ccdfa4873b97c4a6505",
+          "width": 726
+        },
+        {
+          "height": 124,
+          "name": "auto-boot-ruler",
+          "path": "status_labels/auto-boot-ruler.png",
+          "sha256": "cfac553f91e925ba6cc62b449f0cb74c24f52539534b96950ef9ae0858eeb4b0",
+          "width": 608
+        },
+        {
+          "height": 210,
+          "name": "spec-ts17a",
+          "path": "status_labels/spec-ts17a.png",
+          "sha256": "e11b4cbc0fa0f4d316bf1514797939286cc61a0c58062e12409b346205d1403c",
+          "width": 213
+        },
+        {
+          "height": 197,
+          "name": "spec-704-a17",
+          "path": "status_labels/spec-704-a17.png",
+          "sha256": "37a46411da6914f5c28835b6204f59f1d4afff82bf2d733a39a28f34b99dad11",
+          "width": 210
+        },
+        {
+          "height": 200,
+          "name": "status-704-a",
+          "path": "status_labels/status-704-a.png",
+          "sha256": "0523bac5a215b8014ff06b7ec2aeb108a35bc91a2a55d0464f107755eaecb0bf",
+          "width": 216
+        },
+        {
+          "height": 140,
+          "name": "vent-status-mark",
+          "path": "status_labels/vent-status-mark.png",
+          "sha256": "be4d326aa0a830d588f2d2b483c5e09514ce6dc50c38aeb8390efbfa6eb4f9fc",
+          "width": 157
+        },
+        {
+          "height": 99,
+          "name": "cross-node-status-mark",
+          "path": "status_labels/cross-node-status-mark.png",
+          "sha256": "cb0a404436f1b142685d54da73dd73e419ff827be8d574fbcc282860e14254c7",
+          "width": 128
+        },
+        {
+          "height": 131,
+          "name": "caution-lockup",
+          "path": "status_labels/caution-lockup.png",
+          "sha256": "dcf12e8b5757c83c1d2bb88adc7d486400f293554d7d56cdfd4567a4c85a3a51",
+          "width": 294
+        },
+        {
+          "height": 133,
+          "name": "serial-lot-lockup",
+          "path": "status_labels/serial-lot-lockup.png",
+          "sha256": "967f88554ffb4baa6de01e088734a2ddab9f69122cb807bdceb0885001bbb9dd",
+          "width": 279
+        },
+        {
+          "height": 121,
+          "name": "barcode-704-17a",
+          "path": "status_labels/barcode-704-17a.png",
+          "sha256": "476292043cc1f08c9ac92255a345c0ee8a219b4ea807db7e443e410b8cb72679",
+          "width": 335
+        }
+      ],
+      "atlas": "atlases/status_labels.png"
+    },
+    "structural_panels": {
+      "asset_count": 4,
+      "assets": [
+        {
+          "height": 881,
+          "name": "blank-left-white-plate",
+          "path": "structural_panels/blank-left-white-plate.png",
+          "sha256": "f5af4d2215245bdf2c023d8d05a674f27617927673f7fdbc08f25591d9bf057b",
+          "width": 779
+        },
+        {
+          "height": 806,
+          "name": "center-device-bezel",
+          "path": "structural_panels/center-device-bezel.png",
+          "sha256": "0b8be9b8ac3e59460b6aa4480b0a0c193ca6d45f2d5b67f54456a0b1d58dac1b",
+          "width": 560
+        },
+        {
+          "height": 747,
+          "name": "blank-right-red-plate",
+          "path": "structural_panels/blank-right-red-plate.png",
+          "sha256": "0f10c17311fb4a547f7656c82f11144d954a518f973b43ffab5bf2ccfac16116",
+          "width": 832
+        },
+        {
+          "height": 154,
+          "name": "blank-footer-deck",
+          "path": "structural_panels/blank-footer-deck.png",
+          "sha256": "623d7b8532b34b8e11699975ea37f866518c36d72bed2e50300adaa19e67c77a",
+          "width": 620
+        }
+      ],
+      "atlas": "atlases/structural_panels.png"
+    },
+    "texture_overlays": {
+      "asset_count": 4,
+      "assets": [
+        {
+          "height": 580,
+          "name": "offwhite-scratch-grain",
+          "path": "texture_overlays/offwhite-scratch-grain.png",
+          "sha256": "3c27c57a6b98cf883a416faea21c4770a08ca15ce790175cae37a02f4c058c3d",
+          "width": 570
+        },
+        {
+          "height": 580,
+          "name": "red-print-distress",
+          "path": "texture_overlays/red-print-distress.png",
+          "sha256": "cbe7568e9886126e041941d69c305648ee4b45ec395dffcc6abd2ada9ebb8432",
+          "width": 580
+        },
+        {
+          "height": 585,
+          "name": "black-scanline-noise",
+          "path": "texture_overlays/black-scanline-noise.png",
+          "sha256": "c63541f1b2c31f0c8aaac842e75d408c18c0bec9c1d55b3ef6edce19b92c59a8",
+          "width": 570
+        },
+        {
+          "height": 585,
+          "name": "gray-dust-fibers",
+          "path": "texture_overlays/gray-dust-fibers.png",
+          "sha256": "0cc02ae3cf5a5bcf95a78a08c82afafbcd16c8495ebb81fd1ee069135be6e3fd",
+          "width": 580
+        }
+      ],
+      "atlas": "atlases/texture_overlays.png"
+    }
+  },
+  "format": "PNG RGBA",
+  "preview": "preview.png",
+  "source_reference": "T1-F.png",
+  "title": "T1-F Industrial Firmware UI Asset Pack",
+  "total_assets": 91
+}

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="456" height="132" viewBox="0 0 456 132">
+<defs>
+  <linearGradient id="redPanel" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#FF2432"/>
+    <stop offset="0.62" stop-color="#E30613"/>
+    <stop offset="1" stop-color="#7D000A"/>
+  </linearGradient>
+  <linearGradient id="whiteMetal" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#FFFFFF"/>
+    <stop offset="0.6" stop-color="#F4F2EC"/>
+    <stop offset="1" stop-color="#888B8F"/>
+  </linearGradient>
+  <pattern id="hatch" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(22)">
+    <rect width="5" height="18" fill="#09090B"/>
+  </pattern>
+  <pattern id="fineHatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(24)">
+    <rect width="2" height="10" fill="#F4F2EC" fill-opacity="0.7"/>
+  </pattern>
+</defs>
+<rect x="18.0" y="18" width="8.0" height="84" fill="#F4F2EC"/><rect x="29.0" y="18" width="8.0" height="84" fill="#F4F2EC"/><rect x="40.0" y="18" width="6.0" height="84" fill="#F4F2EC"/><rect x="49.0" y="18" width="3.0" height="84" fill="#F4F2EC"/><rect x="55.0" y="18" width="6.0" height="84" fill="#F4F2EC"/><rect x="64.0" y="18" width="3.0" height="84" fill="#F4F2EC"/><rect x="69.0" y="18" width="4.0" height="84" fill="#F4F2EC"/><rect x="75.0" y="18" width="2.0" height="84" fill="#F4F2EC"/><rect x="82.0" y="18" width="3.0" height="84" fill="#F4F2EC"/><rect x="87.0" y="18" width="6.0" height="84" fill="#F4F2EC"/><rect x="96.0" y="18" width="3.0" height="84" fill="#F4F2EC"/><rect x="101.0" y="18" width="4.0" height="84" fill="#F4F2EC"/><rect x="108.0" y="18" width="4.0" height="84" fill="#F4F2EC"/><rect x="117.0" y="18" width="6.0" height="84" fill="#F4F2EC"/><rect x="128.0" y="18" width="8.0" height="84" fill="#F4F2EC"/><rect x="138.0" y="18" width="8.0" height="84" fill="#F4F2EC"/><rect x="149.0" y="18" width="4.0" height="84" fill="#F4F2EC"/><rect x="156.0" y="18" width="4.0" height="84" fill="#F4F2EC"/><rect x="162.0" y="18" width="4.0" height="84" fill="#F4F2EC"/><rect x="169.0" y="18" width="4.0" height="84" fill="#F4F2EC"/><rect x="175.0" y="18" width="8.0" height="84" fill="#F4F2EC"/><rect x="186.0" y="18" width="2.0" height="84" fill="#F4F2EC"/><rect x="193.0" y="18" width="6.0" height="84" fill="#F4F2EC"/><rect x="204.0" y="18" width="4.0" height="84" fill="#F4F2EC"/><rect x="213.0" y="18" width="8.0" height="84" fill="#F4F2EC"/><rect x="224.0" y="18" width="3.0" height="84" fill="#F4F2EC"/><rect x="229.0" y="18" width="8.0" height="84" fill="#F4F2EC"/><rect x="240.0" y="18" width="4.0" height="84" fill="#F4F2EC"/><rect x="249.0" y="18" width="6.0" height="84" fill="#F4F2EC"/><rect x="260.0" y="18" width="3.0" height="84" fill="#F4F2EC"/><rect x="265.0" y="18" width="3.0" height="84" fill="#F4F2EC"/><rect x="273.0" y="18" width="4.0" height="84" fill="#F4F2EC"/><rect x="279.0" y="18" width="8.0" height="84" fill="#F4F2EC"/><rect x="292.0" y="18" width="2.0" height="84" fill="#F4F2EC"/><rect x="299.0" y="18" width="6.0" height="84" fill="#F4F2EC"/><rect x="307.0" y="18" width="3.0" height="84" fill="#F4F2EC"/><rect x="313.0" y="18" width="6.0" height="84" fill="#F4F2EC"/><rect x="322.0" y="18" width="2.0" height="84" fill="#F4F2EC"/><rect x="326.0" y="18" width="2.0" height="84" fill="#F4F2EC"/><rect x="330.0" y="18" width="8.0" height="84" fill="#F4F2EC"/><rect x="341.0" y="18" width="4.0" height="84" fill="#F4F2EC"/><rect x="347.0" y="18" width="4.0" height="84" fill="#F4F2EC"/><rect x="353.0" y="18" width="8.0" height="84" fill="#F4F2EC"/><rect x="363.0" y="18" width="6.0" height="84" fill="#F4F2EC"/><rect x="374.0" y="18" width="6.0" height="84" fill="#F4F2EC"/><rect x="382.0" y="18" width="2.0" height="84" fill="#F4F2EC"/><rect x="387.0" y="18" width="4.0" height="84" fill="#F4F2EC"/><rect x="393.0" y="18" width="4.0" height="84" fill="#F4F2EC"/><rect x="402.0" y="18" width="6.0" height="84" fill="#F4F2EC"/><rect x="411.0" y="18" width="2.0" height="84" fill="#F4F2EC"/><rect x="415.0" y="18" width="3.0" height="84" fill="#F4F2EC"/><rect x="421.0" y="18" width="4.0" height="84" fill="#F4F2EC"/><rect x="430.0" y="18" width="6.0" height="84" fill="#F4F2EC"/><path d="M18 112H438" stroke="#E30613" stroke-width="5"/>
+</svg>

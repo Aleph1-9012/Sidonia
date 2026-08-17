@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="256" viewBox="0 0 1024 256">
+<defs>
+  <linearGradient id="redPanel" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#FF2432"/>
+    <stop offset="0.62" stop-color="#E30613"/>
+    <stop offset="1" stop-color="#7D000A"/>
+  </linearGradient>
+  <linearGradient id="whiteMetal" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#FFFFFF"/>
+    <stop offset="0.6" stop-color="#F4F2EC"/>
+    <stop offset="1" stop-color="#888B8F"/>
+  </linearGradient>
+  <pattern id="hatch" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(22)">
+    <rect width="5" height="18" fill="#09090B"/>
+  </pattern>
+  <pattern id="fineHatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(24)">
+    <rect width="2" height="10" fill="#F4F2EC" fill-opacity="0.7"/>
+  </pattern>
+</defs>
+<path d="M30 28H962L1000 60M30 228H962L1000 196" fill="none" stroke="#F4F2EC" stroke-width="3"/><path d="M18 28V228M1000 60V196" fill="none" stroke="#E30613" stroke-width="10"/><path d="M18 28H236M18 228H236" stroke="#E30613" stroke-width="7"/><path d="M942 28L1000 60M942 228L1000 196" stroke="#E30613" stroke-width="6"/><rect x="-4.0" y="6.0" width="44" height="44" rx="3.52" fill="#E30613"/><circle cx="18" cy="28" r="14.96" fill="#111317" stroke="#F4F2EC" stroke-width="2"/><circle cx="18" cy="28" r="7.48" fill="none" stroke="#07080A" stroke-width="3.52"/><circle cx="18" cy="28" r="2.6399999999999997" fill="#07080A"/><rect x="-4.0" y="206.0" width="44" height="44" rx="3.52" fill="#E30613"/><circle cx="18" cy="228" r="14.96" fill="#111317" stroke="#F4F2EC" stroke-width="2"/><path d="M8.76 228H27.240000000000002M18 218.76V237.24" stroke="#F4F2EC" stroke-width="4.4" stroke-linecap="square"/><path d="M998 90V166" stroke="#B9B8B2" stroke-width="3"/><text x="136" y="124" fill="#F4F2EC" fill-opacity="1.0" font-family="DejaVu Sans Mono, monospace" font-size="78" font-weight="400" letter-spacing="0" text-anchor="start">03</text><text x="136" y="183" fill="#F4F2EC" fill-opacity="1.0" font-family="DejaVu Sans Mono, monospace" font-size="38" font-weight="700" letter-spacing="3" text-anchor="start">MEMORY TEST</text>
+</svg>

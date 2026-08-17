@@ -1,0 +1,35 @@
+{
+  "name": "sidonia-grub-themes",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.19.0",
+  "engines": {
+    "node": "24.19.0",
+    "pnpm": "11.19.0"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings=0 && node tools/eslint-plugin-anti-slop/rules.test.mjs",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc",
+    "lock:sources": "tsx tools/src/lock-sources.ts",
+    "verify:sources": "tsx tools/src/verify-sources.ts",
+    "build:themes": "tsx tools/src/build.ts",
+    "verify:dist": "tsx tools/src/verify-dist.ts",
+    "test": "node tools/eslint-plugin-anti-slop/rules.test.mjs"
+  },
+  "dependencies": {
+    "sharp": "0.34.5",
+    "yaml": "2.8.1",
+    "zod": "4.1.12"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.39.1",
+    "@types/node": "24.13.2",
+    "@typescript-eslint/eslint-plugin": "8.48.0",
+    "@typescript-eslint/parser": "8.48.0",
+    "eslint": "9.39.1",
+    "tsx": "4.20.6",
+    "typescript": "5.9.3"
+  }
+}

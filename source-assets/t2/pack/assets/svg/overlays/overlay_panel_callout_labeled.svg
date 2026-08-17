@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="260" viewBox="0 0 720 260">
+<defs>
+  <linearGradient id="redPanel" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#FF2432"/>
+    <stop offset="0.62" stop-color="#E30613"/>
+    <stop offset="1" stop-color="#7D000A"/>
+  </linearGradient>
+  <linearGradient id="whiteMetal" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#FFFFFF"/>
+    <stop offset="0.6" stop-color="#F4F2EC"/>
+    <stop offset="1" stop-color="#888B8F"/>
+  </linearGradient>
+  <pattern id="hatch" width="18" height="18" patternUnits="userSpaceOnUse" patternTransform="rotate(22)">
+    <rect width="5" height="18" fill="#09090B"/>
+  </pattern>
+  <pattern id="fineHatch" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(24)">
+    <rect width="2" height="10" fill="#F4F2EC" fill-opacity="0.7"/>
+  </pattern>
+</defs>
+<path d="M18 18H652L702 68V242H18Z" fill="#07080A" fill-opacity=".87" stroke="#E30613" stroke-width="4"/><path d="M18 18H316.8" stroke="#F4F2EC" stroke-width="2"/><path d="M54 112H330L408 58H652" fill="none" stroke="#F4F2EC" stroke-width="3"/><circle cx="54" cy="112" r="12" fill="#07080A" stroke="#E30613" stroke-width="4"/><text x="426" y="100" fill="#F4F2EC" fill-opacity="1.0" font-family="DejaVu Sans Mono, monospace" font-size="26" font-weight="400" letter-spacing="3" text-anchor="start">PANEL // 17A</text><text x="426" y="146" fill="#B9B8B2" fill-opacity="1.0" font-family="DejaVu Sans Mono, monospace" font-size="23" font-weight="400" letter-spacing="4" text-anchor="start">CCB 04</text><text x="426" y="190" fill="#E30613" fill-opacity="1.0" font-family="DejaVu Sans Mono, monospace" font-size="20" font-weight="400" letter-spacing="3" text-anchor="start">VENT NODE</text>
+</svg>

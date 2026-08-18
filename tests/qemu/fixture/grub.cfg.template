@@ -1,0 +1,45 @@
+serial --unit=0 --speed=115200 --word=8 --parity=no --stop=1
+terminal_input console
+terminal_output console
+
+insmod iso9660
+insmod all_video
+insmod video
+insmod video_bochs
+insmod video_cirrus
+insmod font
+insmod gfxterm
+insmod gfxmenu
+insmod png
+
+set gfxmode={{MODE}}x32
+set gfxpayload=keep
+loadfont $prefix/themes/Sidonia/{{PF2_PATH}}
+set theme=$prefix/themes/Sidonia/theme.txt
+export theme
+terminal_output serial
+echo SIDONIA_MENU_READY
+terminal_output gfxterm
+terminal_output --append serial
+set default=0
+set timeout=-1
+
+menuentry "01  PRIMARY SYSTEM" {
+  echo SIDONIA_ENTRY_01
+  sleep --interruptible 3600
+}
+
+menuentry "02  ADVANCED OPTIONS" {
+  echo SIDONIA_ENTRY_02
+  sleep --interruptible 3600
+}
+
+menuentry "03  MEMORY TEST" {
+  echo SIDONIA_ENTRY_03
+  sleep --interruptible 3600
+}
+
+menuentry "04  UEFI FIRMWARE" {
+  echo SIDONIA_ENTRY_04
+  sleep --interruptible 3600
+}

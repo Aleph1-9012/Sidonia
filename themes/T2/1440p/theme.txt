@@ -3,27 +3,26 @@
 title-text: ""
 desktop-color: "#07080A"
 desktop-image: "background.png"
-desktop-image-scale-method: "normal"
-terminal-box: "0"
+desktop-image-scale-method: "stretch"
 
 + boot_menu {
   id = "__menu__"
   left = 975
   top = 230
-  width = 700
+  width = 709
   height = 813
   item_font = "Sidonia T2 Mono 1440p Regular 31"
   selected_item_font = "Sidonia T2 Mono 1440p Regular 31"
   item_color = "#F4F2EC"
   selected_item_color = "#FFFFFF"
   item_height = 175
-  item_padding = 93
+  item_padding = 0
   item_spacing = 36
   icon_width = 0
   icon_height = 0
-  item_icon_space = 0
+  item_icon_space = 52
   menu_pixmap_style = "selectors/menu_*.png"
-  selected_item_pixmap_style = "selectors/selected_*.png"
+  selected_item_pixmap_style = "selectors/runtime_selected_*.png"
   scrollbar = true
   scrollbar_width = 9
   scrollbar_frame = "selectors/scrollbar_*.png"
@@ -49,5 +48,3 @@ terminal-box: "0"
   bg_color = "#F4F2EC"
   text = ""
 }
-
-

@@ -53,8 +53,19 @@ Paths differ across distributions, including `/boot/grub`, `/boot/grub2`, and EF
 - Production menu titles remain dynamic; fixture labels exist only in the preview images.
 - T2 cannot reproduce the reference's separately styled number and title with one stock-GRUB menu font.
 - T3's continuous timeout fill can bridge the gaps between its static segmented slots while advancing.
-- T4 uses negative item spacing for the intended overlapping selector. The candidate is built at all three resolutions, but BIOS/UEFI capture testing is still recommended because some GRUB builds may clamp or clip that overlap.
+- T4 uses negative item spacing for the intended overlapping selector. It passed the tested QEMU BIOS/UEFI matrix; other GRUB builds may behave differently.
 - Each resolution is independent. GRUB does not automatically fall back to a different folder when the configured video mode is unavailable.
+
+## QEMU validation
+
+Tested on 2026-08-18 using QEMU 11.0.2 with SeaBIOS 1.17.0-2 and edk2-ovmf 202605-1. Test images used GRUB 2:2.14-1 and xorriso 1.5.8.pl02.
+
+- Selector matrix: 24/24 passed
+- Timeout captures: 4/4 reviewed
+- Tested modes: `1280×720`, `1920×1080`, `2560×1440`
+- Menu navigation and harmless entry activation passed
+
+Real hardware and other GRUB or firmware versions may behave differently.
 
 ## Safety and licensing
 

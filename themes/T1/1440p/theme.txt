@@ -1,14 +1,12 @@
 # Generated from layout.yaml. All numeric geometry is supplied by the validated ledger.
-# Sidonia T1 1440p; exact framebuffer 2560x1440
+# Sidonia T1 1440p; fixed 2560x1440 canvas centred on larger framebuffers
 title-text: ""
-desktop-color: "#050607"
-desktop-image: "background.png"
-desktop-image-scale-method: "stretch"
+desktop-color: "#000000"
 
 + boot_menu {
   id = "__menu__"
-  left = 928
-  top = 555
+  left = 50%-352
+  top = 50%-165
   width = 533
   height = 335
   item_font = "Sidonia T1 Mono 1440p Regular 25"
@@ -37,14 +35,47 @@ desktop-image-scale-method: "stretch"
 
 + progress_bar {
   id = "__timeout__"
-  left = 380
-  top = 368
+  left = 50%-876
+  top = 50%-381
   width = 243
   height = 5
-  bar_style = "progress/frame_*.png"
-  highlight_style = "progress/highlight_*.png"
+  bar_style = "progress/highlight_*.png"
+  highlight_style = "progress/frame_*.png"
   highlight_overlay = true
-  fg_color = "#E31A24"
-  bg_color = "#343638"
+  fg_color = "#343638"
+  bg_color = "#E31A24"
   text = ""
+}
+
++ label {
+  id = "__timeout__"
+  left = 50%-965
+  top = 50%-395
+  width = 75
+  height = 25
+  text = "T-%02d"
+  font = "Sidonia T1 Mono 1440p Regular 25"
+  color = "#343638"
+  align = "left"
+}
+
++ label {
+  id = "__timeout__"
+  left = 50%-753
+  top = 50%-328
+  width = 27
+  height = 25
+  text = "%02d"
+  font = "Sidonia T1 Mono 1440p Regular 25"
+  color = "#E31A24"
+  align = "left"
+}
+
+# GRUB paints components in reverse declaration order; keep the canvas last.
++ image {
+  left = 50%-1280
+  top = 50%-720
+  width = 2560
+  height = 1440
+  file = "background.png"
 }

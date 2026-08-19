@@ -1,6 +1,6 @@
 # Sidonia T2 — Cyber Red Structural Grid (1440p)
 
-Required framebuffer: **2560×1440**. This profile has absolute pixel geometry and is not a fallback for another resolution.
+Design canvas: **2560×1440**. On framebuffers at least 2560 pixels wide and 1440 pixels high, the canvas is rendered unscaled and centred; unused space is filled with the theme desktop colour. Use the 1080p or 720p profile for smaller framebuffers.
 
 This is a stock-GRUB runtime theme, not an installer. It does not alter boot entries, timeout policy, kernel arguments, disks, firmware, Secure Boot, or host configuration.
 

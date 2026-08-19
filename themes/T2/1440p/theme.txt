@@ -1,14 +1,12 @@
 # Generated from layout.yaml. All numeric geometry is supplied by the validated ledger.
-# Sidonia T2 1440p; exact framebuffer 2560x1440
+# Sidonia T2 1440p; fixed 2560x1440 canvas centred on larger framebuffers
 title-text: ""
 desktop-color: "#07080A"
-desktop-image: "background.png"
-desktop-image-scale-method: "stretch"
 
 + boot_menu {
   id = "__menu__"
-  left = 975
-  top = 230
+  left = 50%-305
+  top = 50%-490
   width = 709
   height = 813
   item_font = "Sidonia T2 Mono 1440p Regular 31"
@@ -37,8 +35,8 @@ desktop-image-scale-method: "stretch"
 
 + progress_bar {
   id = "__timeout__"
-  left = 1105
-  top = 1213
+  left = 50%-175
+  top = 50%+493
   width = 694
   height = 25
   bar_style = "progress/frame_*.png"
@@ -47,4 +45,13 @@ desktop-image-scale-method: "stretch"
   fg_color = "#E30613"
   bg_color = "#F4F2EC"
   text = ""
+}
+
+# GRUB paints components in reverse declaration order; keep the canvas last.
++ image {
+  left = 50%-1280
+  top = 50%-720
+  width = 2560
+  height = 1440
+  file = "background.png"
 }

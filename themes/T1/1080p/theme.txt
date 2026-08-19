@@ -37,14 +37,38 @@ desktop-image-scale-method: "stretch"
 
 + progress_bar {
   id = "__timeout__"
-  left = 285
-  top = 276
+  left = 303
+  top = 254
   width = 182
   height = 4
-  bar_style = "progress/frame_*.png"
-  highlight_style = "progress/highlight_*.png"
+  bar_style = "progress/highlight_*.png"
+  highlight_style = "progress/frame_*.png"
   highlight_overlay = true
-  fg_color = "#E31A24"
-  bg_color = "#343638"
+  fg_color = "#343638"
+  bg_color = "#E31A24"
   text = ""
+}
+
++ label {
+  id = "__timeout__"
+  left = 236
+  top = 244
+  width = 56
+  height = 19
+  text = "T-%02d"
+  font = "Sidonia T1 Mono 1080p Regular 19"
+  color = "#343638"
+  align = "left"
+}
+
++ label {
+  id = "__timeout__"
+  left = 395
+  top = 294
+  width = 20
+  height = 19
+  text = "%02d"
+  font = "Sidonia T1 Mono 1080p Regular 19"
+  color = "#E31A24"
+  align = "left"
 }

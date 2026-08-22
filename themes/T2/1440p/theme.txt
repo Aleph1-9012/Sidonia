@@ -9,8 +9,8 @@ desktop-color: "#07080A"
   top = 50%-490
   width = 709
   height = 813
-  item_font = "Sidonia T2 Mono 1440p Regular 31"
-  selected_item_font = "Sidonia T2 Mono 1440p Regular 31"
+  item_font = "Sidonia T2 Mono 1440p Regular 24"
+  selected_item_font = "Sidonia T2 Mono 1440p Regular 24"
   item_color = "#F4F2EC"
   selected_item_color = "#FFFFFF"
   item_height = 175
@@ -18,7 +18,7 @@ desktop-color: "#07080A"
   item_spacing = 36
   icon_width = 0
   icon_height = 0
-  item_icon_space = 52
+  item_icon_space = 0
   menu_pixmap_style = "selectors/menu_*.png"
   selected_item_pixmap_style = "selectors/runtime_selected_*.png"
   scrollbar = true
@@ -33,6 +33,26 @@ desktop-color: "#07080A"
   scrollbar_bottom_pad = 0
 }
 
++ label {
+  id = "__timeout__"
+  left = 50%-257
+  top = 50%+484
+  width = 80
+  height = 26
+  text = "T-%02d"
+  font = "Sidonia T2 Mono 1440p Regular 24"
+  color = "#E30613"
+  align = "left"
+}
+
++ image {
+  left = 50%-480
+  top = 50%+475
+  width = 1080
+  height = 90
+  file = "progress/timer_mask.png"
+}
+
 + progress_bar {
   id = "__timeout__"
   left = 50%-175
@@ -45,6 +65,14 @@ desktop-color: "#07080A"
   fg_color = "#E30613"
   bg_color = "#F4F2EC"
   text = ""
+}
+
++ image {
+  left = 50%-480
+  top = 50%+475
+  width = 1080
+  height = 90
+  file = "progress/timer_base.png"
 }
 
 # GRUB paints components in reverse declaration order; keep the canvas last.

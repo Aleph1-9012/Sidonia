@@ -11,8 +11,8 @@ desktop-image-scale-method: "stretch"
   top = 115
   width = 354
   height = 406
-  item_font = "Sidonia T2 Mono 720p Regular 16"
-  selected_item_font = "Sidonia T2 Mono 720p Regular 16"
+  item_font = "Sidonia T2 Mono 720p Regular 12"
+  selected_item_font = "Sidonia T2 Mono 720p Regular 12"
   item_color = "#F4F2EC"
   selected_item_color = "#FFFFFF"
   item_height = 88
@@ -20,7 +20,7 @@ desktop-image-scale-method: "stretch"
   item_spacing = 18
   icon_width = 0
   icon_height = 0
-  item_icon_space = 25
+  item_icon_space = 0
   menu_pixmap_style = "selectors/menu_*.png"
   selected_item_pixmap_style = "selectors/runtime_selected_*.png"
   scrollbar = true
@@ -35,6 +35,26 @@ desktop-image-scale-method: "stretch"
   scrollbar_bottom_pad = 0
 }
 
++ label {
+  id = "__timeout__"
+  left = 511
+  top = 602
+  width = 40
+  height = 13
+  text = "T-%02d"
+  font = "Sidonia T2 Mono 720p Regular 12"
+  color = "#E30613"
+  align = "left"
+}
+
++ image {
+  left = 400
+  top = 598
+  width = 540
+  height = 45
+  file = "progress/timer_mask.png"
+}
+
 + progress_bar {
   id = "__timeout__"
   left = 553
@@ -47,4 +67,12 @@ desktop-image-scale-method: "stretch"
   fg_color = "#E30613"
   bg_color = "#F4F2EC"
   text = ""
+}
+
++ image {
+  left = 400
+  top = 598
+  width = 540
+  height = 45
+  file = "progress/timer_base.png"
 }

@@ -35,6 +35,26 @@ desktop-image-scale-method: "stretch"
   scrollbar_bottom_pad = 0
 }
 
++ label {
+  id = "__timeout__"
+  left = 631
+  top = 23
+  width = 16
+  height = 13
+  text = "%02d"
+  font = "Sidonia T3 Mono 720p Regular 13"
+  color = "#EB1420"
+  align = "left"
+}
+
++ image {
+  left = 498
+  top = 21
+  width = 281
+  height = 45
+  file = "progress/timer_mask.png"
+}
+
 + progress_bar {
   id = "__timeout__"
   left = 498
@@ -47,4 +67,12 @@ desktop-image-scale-method: "stretch"
   fg_color = "#EB1420"
   bg_color = "#050606"
   text = ""
+}
+
++ image {
+  left = 498
+  top = 21
+  width = 281
+  height = 45
+  file = "progress/timer_base.png"
 }

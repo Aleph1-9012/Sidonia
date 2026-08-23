@@ -12,9 +12,10 @@ fi
 
 REPO_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 SOURCE_THEMES="$REPO_ROOT/themes"
-SOURCE_COMMAND="$REPO_ROOT/bin/sidonia-theme"
+SOURCE_COMMAND="$REPO_ROOT/bin/sidonia"
 INSTALL_ROOT="${SIDONIA_INSTALL_ROOT:-/usr/local/share/sidonia}"
-COMMAND_PATH="${SIDONIA_COMMAND_PATH:-/usr/local/bin/sidonia-theme}"
+COMMAND_PATH="${SIDONIA_COMMAND_PATH:-/usr/local/bin/sidonia}"
+LEGACY_COMMAND_PATH="${SIDONIA_LEGACY_COMMAND_PATH:-$(dirname "$COMMAND_PATH")/sidonia-theme}"
 STAGE=""
 OLD_INSTALL=""
 SUCCESS=0
@@ -85,21 +86,26 @@ mv -- "$STAGE" "$INSTALL_ROOT"
 STAGE=""
 
 install -D -o root -g root -m 0755 "$SOURCE_COMMAND" "$COMMAND_PATH"
+if test "$LEGACY_COMMAND_PATH" != "$COMMAND_PATH"; then
+    rm -f -- "$LEGACY_COMMAND_PATH"
+fi
 SUCCESS=1
 
 echo
 echo "Sidonia is installed."
-echo "Command: sidonia-theme"
+echo "Run the theme chooser with:"
+echo "  sudo sidonia"
 
 if test "${1:-}" = "--no-apply"; then
     echo "No GRUB theme was changed."
-    echo "Choose one later with: sudo sidonia-theme"
+    echo "Choose one later with: sudo sidonia"
     exit 0
 fi
 
 export SIDONIA_ASSET_ROOT="$INSTALL_ROOT/themes"
 export SIDONIA_INSTALL_ROOT="$INSTALL_ROOT"
 export SIDONIA_COMMAND_PATH="$COMMAND_PATH"
+export SIDONIA_LEGACY_COMMAND_PATH="$LEGACY_COMMAND_PATH"
 
 if test "$#" -gt 0; then
     "$COMMAND_PATH" set "$@"
@@ -113,4 +119,4 @@ fi
 
 echo
 echo "No interactive terminal was detected, so GRUB was not changed."
-echo "Choose a theme with: sudo sidonia-theme"
+echo "Choose a theme with: sudo sidonia"

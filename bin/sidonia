@@ -9,40 +9,40 @@ ASSET_ROOT="${SIDONIA_ASSET_ROOT:-/usr/local/share/sidonia/themes}"
 INSTALL_ROOT="${SIDONIA_INSTALL_ROOT:-$(dirname "$ASSET_ROOT")}"
 STATE_ROOT="${SIDONIA_STATE_ROOT:-/var/lib/sidonia}"
 DEFAULTS="${SIDONIA_DEFAULTS:-/etc/default/grub}"
-COMMAND_PATH="${SIDONIA_COMMAND_PATH:-/usr/local/bin/sidonia-theme}"
+COMMAND_PATH="${SIDONIA_COMMAND_PATH:-/usr/local/bin/sidonia}"
 
 usage() {
     cat <<'EOF'
 Sidonia theme manager
 
 Usage:
-  sudo sidonia-theme
-  sidonia-theme list
-  sidonia-theme status
-  sudo sidonia-theme choose
-  sudo sidonia-theme set THEME PROFILE [--gfxmode WIDTHxHEIGHT]
-  sudo sidonia-theme rollback
-  sudo sidonia-theme uninstall
+  sudo sidonia
+  sudo sidonia list
+  sudo sidonia status
+  sudo sidonia choose
+  sudo sidonia set THEME PROFILE [--gfxmode WIDTHxHEIGHT]
+  sudo sidonia rollback
+  sudo sidonia uninstall
 
 Themes:   T1, T2, T3, T4
 Profiles: 720p, 1080p, 1440p
 
 Examples:
-  sudo sidonia-theme
-  sudo sidonia-theme set T4 1440p
-  sudo sidonia-theme set T2 1080p
-  sudo sidonia-theme set T1 1440p --gfxmode 2560x1600
+  sudo sidonia
+  sudo sidonia set T4 1440p
+  sudo sidonia set T2 1080p
+  sudo sidonia set T1 1440p --gfxmode 2560x1600
 EOF
 }
 
 die() {
-    printf 'sidonia-theme: %s\n' "$*" >&2
+    printf 'sidonia: %s\n' "$*" >&2
     exit 1
 }
 
 require_root() {
     test "${EUID:-$(id -u)}" -eq 0 ||
-        die "this command changes GRUB; run it with sudo"
+        die "this command changes GRUB; run: sudo sidonia"
 }
 
 normalize_theme() {
@@ -93,7 +93,7 @@ read_default() {
         $0 ~ "^[[:space:]]*" key "[[:space:]]*=" { value = $0 }
         END {
             sub("^[[:space:]]*" key "[[:space:]]*=[[:space:]]*", "", value)
-            gsub(/^\"|\"$/, "", value)
+            gsub(/^"|"$/, "", value)
             print value
         }
     ' "$DEFAULTS"
@@ -430,7 +430,7 @@ apply_theme() (
     echo
     echo "Sidonia $THEME — $(theme_name "$THEME") is active."
     echo "Profile: $PROFILE ($GFXMODE)"
-    echo "Rollback: sudo sidonia-theme rollback"
+    echo "Rollback: sudo sidonia rollback"
 )
 
 restore_pair() (
@@ -751,7 +751,7 @@ case "$COMMAND" in
         uninstall_sidonia
         ;;
     version|--version|-V)
-        printf 'sidonia-theme %s\n' "$VERSION"
+        printf 'sidonia %s\n' "$VERSION"
         ;;
     help|--help|-h)
         usage

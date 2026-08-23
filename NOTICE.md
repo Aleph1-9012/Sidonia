@@ -1,8 +1,14 @@
-# Notices
+# Sidonia notices
 
-The Sidonia visual source files and derived theme artwork were supplied by the repository owner. The Apache-2.0 project license does not by itself establish ownership of third-party source artwork; confirm the necessary rights before redistribution.
+Sidonia project code, documentation, and original theme artwork are Copyright
+2026 Aleph1-9012 and are licensed under the Apache License, Version 2.0.
 
-The runtime PF2 files are derived from DejaVu Sans Mono. The required upstream font notice follows.
+Sidonia is an independent project. It is not affiliated with or endorsed by
+the GNU GRUB project or any media franchise. Third-party names and trademarks
+belong to their respective owners.
+
+The runtime PF2 files are derived from DejaVu Sans Mono and remain subject to
+the upstream font terms reproduced below.
 
 ## DejaVu Fonts License
 

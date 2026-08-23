@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Aleph1-9012
+
 set -Eeuo pipefail
 
 VERSION="1.0.0"
@@ -147,19 +150,28 @@ validate_profile() {
     test -f "$SOURCE/fonts/$FONT" || die "font is missing from $SOURCE"
 }
 
-safe_remove_theme() {
+is_managed_theme_path() {
     local PATH_TO_REMOVE="$1"
     local NAME
 
-    test -n "$PATH_TO_REMOVE" || return 0
-    test "$(dirname "$PATH_TO_REMOVE")" = "$THEME_ROOT" || return 0
+    test -n "$PATH_TO_REMOVE" || return 1
+    test "$(dirname "$PATH_TO_REMOVE")" = "$THEME_ROOT" || return 1
     NAME="$(basename "$PATH_TO_REMOVE")"
 
     case "$NAME" in
         Sidonia-T[1-4]-720p|Sidonia-T[1-4]-1080p|Sidonia-T[1-4]-1440p)
-            rm -rf -- "$PATH_TO_REMOVE"
+            return 0
             ;;
     esac
+
+    return 1
+}
+
+safe_remove_theme() {
+    local PATH_TO_REMOVE="$1"
+
+    is_managed_theme_path "$PATH_TO_REMOVE" || return 0
+    rm -rf -- "$PATH_TO_REMOVE"
 }
 
 write_state() {
@@ -240,9 +252,11 @@ apply_theme() (
     local CURRENT_STATE="$STATE_ROOT/current"
     local OLD_MANAGED=""
     local OLD_BACKUP=""
+    local OLD_THEME OLD_PROFILE OLD_FONT
     local STAMP BACKUP_DIR TEMP_DIR DEFAULTS_NEW CONFIG_STAGE
     local THEME_STAGE THEME_OLD=""
     local DEFAULTS_WRITTEN=0 ACTIVE_WRITTEN=0 DESTINATION_WRITTEN=0 SUCCESS=0
+    local STATE_WRITTEN=0 POINTER_WRITTEN=0
 
     require_root
     detect_grub
@@ -257,6 +271,8 @@ apply_theme() (
 
     if test -f "$CURRENT_STATE"; then
         OLD_MANAGED="$(state_value "$CURRENT_STATE" THEME_DIR)"
+        is_managed_theme_path "$OLD_MANAGED" ||
+            die "the current state contains an unsafe theme path"
     fi
     if test -f "$STATE_ROOT/last-backup"; then
         OLD_BACKUP="$(cat "$STATE_ROOT/last-backup")"
@@ -301,6 +317,23 @@ apply_theme() (
                     mv -- "$THEME_OLD" "$DESTINATION"
                 fi
             fi
+            if test "$STATE_WRITTEN" -eq 1; then
+                if test -f "$BACKUP_DIR/state"; then
+                    install -o root -g root -m 0644 \
+                        "$BACKUP_DIR/state" "$CURRENT_STATE"
+                else
+                    rm -f -- "$CURRENT_STATE"
+                fi
+            fi
+            if test "$POINTER_WRITTEN" -eq 1; then
+                if test -n "$OLD_BACKUP"; then
+                    printf '%s\n' "$OLD_BACKUP" > "$TEMP_DIR/last-backup.restore"
+                    install -o root -g root -m 0600 \
+                        "$TEMP_DIR/last-backup.restore" "$STATE_ROOT/last-backup"
+                else
+                    rm -f -- "$STATE_ROOT/last-backup"
+                fi
+            fi
             rm -rf -- "$BACKUP_DIR"
         else
             test -z "$THEME_OLD" || rm -rf -- "$THEME_OLD"
@@ -321,10 +354,22 @@ apply_theme() (
     if test -f "$CURRENT_STATE"; then
         cp -p -- "$CURRENT_STATE" "$BACKUP_DIR/state"
     fi
+    if test -n "$OLD_MANAGED" && test -d "$OLD_MANAGED"; then
+        OLD_THEME="$(state_value "$CURRENT_STATE" THEME)"
+        OLD_PROFILE="$(state_value "$CURRENT_STATE" PROFILE)"
+        OLD_FONT="$(font_file "$OLD_THEME" "$OLD_PROFILE")"
+        validate_profile "$OLD_MANAGED" "$OLD_FONT"
+        mkdir -- "$BACKUP_DIR/theme"
+        cp -R --no-preserve=ownership,mode,timestamps -- \
+            "$OLD_MANAGED/." "$BACKUP_DIR/theme/"
+        diff -qr --no-dereference \
+            "$OLD_MANAGED" "$BACKUP_DIR/theme" >/dev/null
+    fi
 
-    install -d -o root -g root -m 0755 "$THEME_ROOT" "$THEME_STAGE"
     umask 022
-    cp -R --no-preserve=ownership -- "$SOURCE/." "$THEME_STAGE/"
+    mkdir -p -- "$THEME_ROOT" "$THEME_STAGE"
+    cp -R --no-preserve=ownership,mode,timestamps -- \
+        "$SOURCE/." "$THEME_STAGE/"
     validate_profile "$THEME_STAGE" "$FONT"
     diff -qr --no-dereference "$SOURCE" "$THEME_STAGE" >/dev/null
 
@@ -348,8 +393,8 @@ apply_theme() (
         "GRUB_THEME=\"$DESTINATION/theme.txt\"" \
         >> "$DEFAULTS_NEW"
 
-    install -o root -g root -m 0644 "$DEFAULTS_NEW" "$DEFAULTS"
     DEFAULTS_WRITTEN=1
+    install -o root -g root -m 0644 "$DEFAULTS_NEW" "$DEFAULTS"
 
     "$GRUB_MKCONFIG" -o "$CONFIG_STAGE"
     "$GRUB_SCRIPT_CHECK" "$CONFIG_STAGE"
@@ -367,8 +412,10 @@ apply_theme() (
 
     write_state "$TEMP_DIR/current" \
         "$THEME" "$PROFILE" "$GFXMODE" "$DESTINATION"
+    STATE_WRITTEN=1
     install -o root -g root -m 0644 "$TEMP_DIR/current" "$CURRENT_STATE"
     printf '%s\n' "$BACKUP_DIR" > "$TEMP_DIR/last-backup"
+    POINTER_WRITTEN=1
     install -o root -g root -m 0600 \
         "$TEMP_DIR/last-backup" "$STATE_ROOT/last-backup"
 
@@ -383,41 +430,18 @@ apply_theme() (
     echo "Rollback: sudo sidonia-theme rollback"
 )
 
-ensure_state_theme() {
-    local STATE_FILE="$1"
-    local PREVIOUS_THEME PREVIOUS_PROFILE PREVIOUS_DIR SOURCE FONT STAGE
-
-    test -f "$STATE_FILE" || return 0
-    PREVIOUS_THEME="$(state_value "$STATE_FILE" THEME)"
-    PREVIOUS_PROFILE="$(state_value "$STATE_FILE" PROFILE)"
-    PREVIOUS_DIR="$(state_value "$STATE_FILE" THEME_DIR)"
-    SOURCE="$ASSET_ROOT/$PREVIOUS_THEME/$PREVIOUS_PROFILE"
-    FONT="$(font_file "$PREVIOUS_THEME" "$PREVIOUS_PROFILE")"
-    validate_profile "$SOURCE" "$FONT"
-
-    if test -d "$PREVIOUS_DIR"; then
-        validate_profile "$PREVIOUS_DIR" "$FONT"
-        return 0
-    fi
-
-    test "$(dirname "$PREVIOUS_DIR")" = "$THEME_ROOT" ||
-        die "backup contains an unsafe theme path"
-    STAGE="$THEME_ROOT/.$(basename "$PREVIOUS_DIR").restore.$$"
-    test ! -e "$STAGE"
-    install -d -o root -g root -m 0755 "$STAGE"
-    umask 022
-    cp -R --no-preserve=ownership -- "$SOURCE/." "$STAGE/"
-    diff -qr --no-dereference "$SOURCE" "$STAGE" >/dev/null
-    mv -- "$STAGE" "$PREVIOUS_DIR"
-}
-
 restore_pair() (
     local SOURCE_DIR="$1"
     local MODE="$2"
     local CURRENT_STATE="$STATE_ROOT/current"
     local CURRENT_MANAGED=""
     local PREVIOUS_MANAGED=""
-    local TEMP_DIR CONFIG_STAGE SUCCESS=0 DEFAULTS_WRITTEN=0 ACTIVE_WRITTEN=0
+    local PREVIOUS_THEME PREVIOUS_PROFILE PREVIOUS_FONT RESTORE_SOURCE
+    local TEMP_DIR CONFIG_STAGE
+    local THEME_STAGE="" THEME_REPLACED=""
+    local SUCCESS=0 DEFAULTS_WRITTEN=0 ACTIVE_WRITTEN=0
+    local THEME_WRITTEN=0 THEME_CREATED=0
+    local STATE_WRITTEN=0 CURRENT_STATE_EXISTED=0
 
     require_root
     detect_grub
@@ -429,17 +453,23 @@ restore_pair() (
 
     if test -f "$CURRENT_STATE"; then
         CURRENT_MANAGED="$(state_value "$CURRENT_STATE" THEME_DIR)"
+        is_managed_theme_path "$CURRENT_MANAGED" ||
+            die "the current state contains an unsafe theme path"
     fi
     if test -f "$SOURCE_DIR/state"; then
         PREVIOUS_MANAGED="$(state_value "$SOURCE_DIR/state" THEME_DIR)"
+        is_managed_theme_path "$PREVIOUS_MANAGED" ||
+            die "the backup contains an unsafe theme path"
     fi
-
-    ensure_state_theme "$SOURCE_DIR/state"
 
     TEMP_DIR="$(mktemp -d /tmp/sidonia-restore.XXXXXX)"
     CONFIG_STAGE="$GRUB_DIR/.grub.cfg.sidonia.restore.$$"
     cp -p -- "$DEFAULTS" "$TEMP_DIR/default-grub.current"
     cp -p -- "$GRUB_CFG" "$TEMP_DIR/grub.cfg.current"
+    if test -f "$CURRENT_STATE"; then
+        cp -p -- "$CURRENT_STATE" "$TEMP_DIR/state.current"
+        CURRENT_STATE_EXISTED=1
+    fi
 
     cleanup_restore() {
         local STATUS=$?
@@ -457,15 +487,81 @@ restore_pair() (
                 install -o root -g root -m 0644 \
                     "$TEMP_DIR/default-grub.current" "$DEFAULTS"
             fi
+            if test "$STATE_WRITTEN" -eq 1; then
+                if test "$CURRENT_STATE_EXISTED" -eq 1; then
+                    install -o root -g root -m 0644 \
+                        "$TEMP_DIR/state.current" "$CURRENT_STATE"
+                else
+                    rm -f -- "$CURRENT_STATE"
+                fi
+            fi
+            if test "$THEME_WRITTEN" -eq 1 || test "$THEME_CREATED" -eq 1; then
+                safe_remove_theme "$PREVIOUS_MANAGED"
+            fi
+            if test -n "$THEME_REPLACED" && test -d "$THEME_REPLACED"; then
+                safe_remove_theme "$PREVIOUS_MANAGED"
+                mv -- "$THEME_REPLACED" "$PREVIOUS_MANAGED"
+            fi
+        elif test -n "$THEME_REPLACED"; then
+            rm -rf -- "$THEME_REPLACED"
         fi
-        rm -rf -- "$TEMP_DIR"
+        rm -rf -- "$THEME_STAGE" "$TEMP_DIR"
         rm -f -- "$CONFIG_STAGE" "$CONFIG_STAGE.recovery"
         exit "$STATUS"
     }
     trap cleanup_restore EXIT
 
-    install -o root -g root -m 0644 "$SOURCE_DIR/default-grub" "$DEFAULTS"
+    if test -f "$SOURCE_DIR/state" && test -d "$SOURCE_DIR/theme"; then
+        PREVIOUS_THEME="$(state_value "$SOURCE_DIR/state" THEME)"
+        PREVIOUS_PROFILE="$(state_value "$SOURCE_DIR/state" PROFILE)"
+        PREVIOUS_FONT="$(font_file "$PREVIOUS_THEME" "$PREVIOUS_PROFILE")"
+        validate_profile "$SOURCE_DIR/theme" "$PREVIOUS_FONT"
+
+        THEME_STAGE="$THEME_ROOT/.$(basename "$PREVIOUS_MANAGED").restore.$$"
+        test ! -e "$THEME_STAGE"
+        umask 022
+        mkdir -p -- "$THEME_ROOT" "$THEME_STAGE"
+        cp -R --no-preserve=ownership,mode,timestamps -- \
+            "$SOURCE_DIR/theme/." "$THEME_STAGE/"
+        validate_profile "$THEME_STAGE" "$PREVIOUS_FONT"
+        diff -qr --no-dereference \
+            "$SOURCE_DIR/theme" "$THEME_STAGE" >/dev/null
+
+        if test -e "$PREVIOUS_MANAGED"; then
+            THEME_REPLACED="$THEME_ROOT/.$(basename "$PREVIOUS_MANAGED").current.$$"
+            test ! -e "$THEME_REPLACED"
+            mv -- "$PREVIOUS_MANAGED" "$THEME_REPLACED"
+        fi
+        mv -- "$THEME_STAGE" "$PREVIOUS_MANAGED"
+        THEME_STAGE=""
+        THEME_WRITTEN=1
+    elif test -f "$SOURCE_DIR/state"; then
+        PREVIOUS_THEME="$(state_value "$SOURCE_DIR/state" THEME)"
+        PREVIOUS_PROFILE="$(state_value "$SOURCE_DIR/state" PROFILE)"
+        PREVIOUS_FONT="$(font_file "$PREVIOUS_THEME" "$PREVIOUS_PROFILE")"
+        RESTORE_SOURCE="$ASSET_ROOT/$PREVIOUS_THEME/$PREVIOUS_PROFILE"
+        validate_profile "$RESTORE_SOURCE" "$PREVIOUS_FONT"
+
+        if test -d "$PREVIOUS_MANAGED"; then
+            validate_profile "$PREVIOUS_MANAGED" "$PREVIOUS_FONT"
+        else
+            THEME_STAGE="$THEME_ROOT/.$(basename "$PREVIOUS_MANAGED").restore.$$"
+            test ! -e "$THEME_STAGE"
+            umask 022
+            mkdir -p -- "$THEME_ROOT" "$THEME_STAGE"
+            cp -R --no-preserve=ownership,mode,timestamps -- \
+                "$RESTORE_SOURCE/." "$THEME_STAGE/"
+            validate_profile "$THEME_STAGE" "$PREVIOUS_FONT"
+            diff -qr --no-dereference \
+                "$RESTORE_SOURCE" "$THEME_STAGE" >/dev/null
+            mv -- "$THEME_STAGE" "$PREVIOUS_MANAGED"
+            THEME_STAGE=""
+            THEME_CREATED=1
+        fi
+    fi
+
     DEFAULTS_WRITTEN=1
+    install -o root -g root -m 0644 "$SOURCE_DIR/default-grub" "$DEFAULTS"
     cp -- "$SOURCE_DIR/grub.cfg" "$CONFIG_STAGE"
     "$GRUB_SCRIPT_CHECK" "$CONFIG_STAGE"
     ACTIVE_WRITTEN=1
@@ -474,8 +570,10 @@ restore_pair() (
     "$GRUB_SCRIPT_CHECK" "$GRUB_CFG"
 
     if test -f "$SOURCE_DIR/state"; then
+        STATE_WRITTEN=1
         install -o root -g root -m 0644 "$SOURCE_DIR/state" "$CURRENT_STATE"
     else
+        STATE_WRITTEN=1
         rm -f -- "$CURRENT_STATE"
     fi
 

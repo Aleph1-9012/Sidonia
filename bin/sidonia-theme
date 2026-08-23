@@ -93,7 +93,7 @@ read_default() {
         $0 ~ "^[[:space:]]*" key "[[:space:]]*=" { value = $0 }
         END {
             sub("^[[:space:]]*" key "[[:space:]]*=[[:space:]]*", "", value)
-            gsub(/^\"|\"$/, "", value)
+            gsub(/^"|"$/, "", value)
             print value
         }
     ' "$DEFAULTS"

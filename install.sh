@@ -93,55 +93,24 @@ echo "Command: sidonia-theme"
 
 if test "${1:-}" = "--no-apply"; then
     echo "No GRUB theme was changed."
-    echo "Choose one later with: sudo sidonia-theme set T4 1440p"
+    echo "Choose one later with: sudo sidonia-theme"
     exit 0
 fi
 
+export SIDONIA_ASSET_ROOT="$INSTALL_ROOT/themes"
+export SIDONIA_INSTALL_ROOT="$INSTALL_ROOT"
+export SIDONIA_COMMAND_PATH="$COMMAND_PATH"
+
 if test "$#" -gt 0; then
-    export SIDONIA_ASSET_ROOT="$INSTALL_ROOT/themes"
-    export SIDONIA_INSTALL_ROOT="$INSTALL_ROOT"
-    export SIDONIA_COMMAND_PATH="$COMMAND_PATH"
     "$COMMAND_PATH" set "$@"
     exit 0
 fi
 
 if test -t 0 && test -t 1; then
-    echo
-    echo "Choose a theme:"
-    echo "  1) T1 — Industrial Device Frame"
-    echo "  2) T2 — Cyber Red Structural Grid"
-    echo "  3) T3 — STARFIX Network Map"
-    echo "  4) T4 — Maintenance Console"
-    printf 'Theme [4]: '
-    read -r THEME_CHOICE
-    THEME_CHOICE="${THEME_CHOICE:-4}"
-
-    echo
-    echo "Choose a display profile:"
-    echo "  1) 720p  — 1280×720"
-    echo "  2) 1080p — 1920×1080"
-    echo "  3) 1440p — 2560×1440 and larger"
-    printf 'Profile [3]: '
-    read -r PROFILE_CHOICE
-    PROFILE_CHOICE="${PROFILE_CHOICE:-3}"
-
-    case "$PROFILE_CHOICE" in
-        1) PROFILE_CHOICE="720p" ;;
-        2) PROFILE_CHOICE="1080p" ;;
-        3) PROFILE_CHOICE="1440p" ;;
-        *)
-            echo "Unknown profile selection: $PROFILE_CHOICE" >&2
-            exit 1
-            ;;
-    esac
-
-    export SIDONIA_ASSET_ROOT="$INSTALL_ROOT/themes"
-    export SIDONIA_INSTALL_ROOT="$INSTALL_ROOT"
-    export SIDONIA_COMMAND_PATH="$COMMAND_PATH"
-    "$COMMAND_PATH" set "$THEME_CHOICE" "$PROFILE_CHOICE"
+    "$COMMAND_PATH" choose
     exit 0
 fi
 
 echo
 echo "No interactive terminal was detected, so GRUB was not changed."
-echo "Choose a theme with: sudo sidonia-theme set T4 1440p"
+echo "Choose a theme with: sudo sidonia-theme"

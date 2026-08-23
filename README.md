@@ -51,7 +51,13 @@ sudo ./install.sh T4 1440p
 
 ## Switch themes
 
-After installation, switch at any time with one command:
+After installation, reopen the guided chooser at any time:
+
+```bash
+sudo sidonia-theme
+```
+
+Or switch directly with one command:
 
 ```bash
 sudo sidonia-theme set T2 1080p
@@ -60,9 +66,10 @@ sudo sidonia-theme set T2 1080p
 Useful commands:
 
 ```bash
+sudo sidonia-theme                  # Open the guided chooser
 sidonia-theme list                  # Show available themes
 sidonia-theme status                # Show the active Sidonia theme
-sudo sidonia-theme set T4 1440p     # Apply a theme
+sudo sidonia-theme set T4 1440p     # Apply a theme directly
 sudo sidonia-theme rollback         # Undo the latest change
 sudo sidonia-theme uninstall        # Restore the original GRUB appearance
 ```

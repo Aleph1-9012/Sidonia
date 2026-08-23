@@ -1,0 +1,603 @@
+#!/usr/bin/env bash
+set -Eeuo pipefail
+
+VERSION="1.0.0"
+ASSET_ROOT="${SIDONIA_ASSET_ROOT:-/usr/local/share/sidonia/themes}"
+INSTALL_ROOT="${SIDONIA_INSTALL_ROOT:-$(dirname "$ASSET_ROOT")}"
+STATE_ROOT="${SIDONIA_STATE_ROOT:-/var/lib/sidonia}"
+DEFAULTS="${SIDONIA_DEFAULTS:-/etc/default/grub}"
+COMMAND_PATH="${SIDONIA_COMMAND_PATH:-/usr/local/bin/sidonia-theme}"
+
+usage() {
+    cat <<'EOF'
+Sidonia theme manager
+
+Usage:
+  sidonia-theme list
+  sidonia-theme status
+  sudo sidonia-theme set THEME PROFILE [--gfxmode WIDTHxHEIGHT]
+  sudo sidonia-theme rollback
+  sudo sidonia-theme uninstall
+
+Themes:   T1, T2, T3, T4
+Profiles: 720p, 1080p, 1440p
+
+Examples:
+  sudo sidonia-theme set T4 1440p
+  sudo sidonia-theme set T2 1080p
+  sudo sidonia-theme set T1 1440p --gfxmode 2560x1600
+EOF
+}
+
+die() {
+    printf 'sidonia-theme: %s\n' "$*" >&2
+    exit 1
+}
+
+require_root() {
+    test "${EUID:-$(id -u)}" -eq 0 ||
+        die "this command changes GRUB; run it with sudo"
+}
+
+normalize_theme() {
+    case "${1^^}" in
+        1|T1) printf 'T1\n' ;;
+        2|T2) printf 'T2\n' ;;
+        3|T3) printf 'T3\n' ;;
+        4|T4) printf 'T4\n' ;;
+        *) return 1 ;;
+    esac
+}
+
+normalize_profile() {
+    case "${1,,}" in
+        720|720p) printf '720p\n' ;;
+        1080|1080p) printf '1080p\n' ;;
+        1440|1440p) printf '1440p\n' ;;
+        *) return 1 ;;
+    esac
+}
+
+theme_name() {
+    case "$1" in
+        T1) printf 'Industrial Device Frame\n' ;;
+        T2) printf 'Cyber Red Structural Grid\n' ;;
+        T3) printf 'STARFIX Network Map\n' ;;
+        T4) printf 'Maintenance Console\n' ;;
+    esac
+}
+
+profile_mode() {
+    case "$1" in
+        720p) printf '1280x720\n' ;;
+        1080p) printf '1920x1080\n' ;;
+        1440p) printf '2560x1440\n' ;;
+    esac
+}
+
+font_file() {
+    local THEME_LOWER="${1,,}"
+    printf 'sidonia-%s-%s.pf2\n' "$THEME_LOWER" "$2"
+}
+
+read_default() {
+    local KEY="$1"
+
+    awk -v key="$KEY" '
+        $0 ~ "^[[:space:]]*" key "[[:space:]]*=" { value = $0 }
+        END {
+            sub("^[[:space:]]*" key "[[:space:]]*=[[:space:]]*", "", value)
+            gsub(/^\"|\"$/, "", value)
+            print value
+        }
+    ' "$DEFAULTS"
+}
+
+state_value() {
+    local FILE="$1"
+    local KEY="$2"
+
+    awk -F= -v key="$KEY" '$1 == key { sub("^[^=]*=", ""); print; exit }' "$FILE"
+}
+
+detect_grub() {
+    if test -n "${SIDONIA_GRUB_DIR:-}"; then
+        GRUB_DIR="$SIDONIA_GRUB_DIR"
+    elif test -f /boot/grub/grub.cfg; then
+        GRUB_DIR="/boot/grub"
+    elif test -f /boot/grub2/grub.cfg; then
+        GRUB_DIR="/boot/grub2"
+    else
+        die "could not find /boot/grub/grub.cfg or /boot/grub2/grub.cfg"
+    fi
+
+    GRUB_CFG="${SIDONIA_GRUB_CFG:-$GRUB_DIR/grub.cfg}"
+    THEME_ROOT="$GRUB_DIR/themes"
+
+    test -f "$GRUB_CFG" || die "GRUB configuration is absent: $GRUB_CFG"
+    test -f "$DEFAULTS" || die "GRUB defaults are absent: $DEFAULTS"
+
+    if test -n "${SIDONIA_GRUB_MKCONFIG:-}"; then
+        GRUB_MKCONFIG="$SIDONIA_GRUB_MKCONFIG"
+    elif command -v grub-mkconfig >/dev/null 2>&1; then
+        GRUB_MKCONFIG="$(command -v grub-mkconfig)"
+    elif command -v grub2-mkconfig >/dev/null 2>&1; then
+        GRUB_MKCONFIG="$(command -v grub2-mkconfig)"
+    else
+        die "grub-mkconfig or grub2-mkconfig is required"
+    fi
+
+    if test -n "${SIDONIA_GRUB_SCRIPT_CHECK:-}"; then
+        GRUB_SCRIPT_CHECK="$SIDONIA_GRUB_SCRIPT_CHECK"
+    elif command -v grub-script-check >/dev/null 2>&1; then
+        GRUB_SCRIPT_CHECK="$(command -v grub-script-check)"
+    elif command -v grub2-script-check >/dev/null 2>&1; then
+        GRUB_SCRIPT_CHECK="$(command -v grub2-script-check)"
+    else
+        die "grub-script-check or grub2-script-check is required"
+    fi
+}
+
+validate_profile() {
+    local SOURCE="$1"
+    local FONT="$2"
+
+    test -f "$SOURCE/theme.txt" || die "theme.txt is missing from $SOURCE"
+    test -f "$SOURCE/background.png" || die "background.png is missing from $SOURCE"
+    test -f "$SOURCE/fonts/$FONT" || die "font is missing from $SOURCE"
+}
+
+safe_remove_theme() {
+    local PATH_TO_REMOVE="$1"
+    local NAME
+
+    test -n "$PATH_TO_REMOVE" || return 0
+    test "$(dirname "$PATH_TO_REMOVE")" = "$THEME_ROOT" || return 0
+    NAME="$(basename "$PATH_TO_REMOVE")"
+
+    case "$NAME" in
+        Sidonia-T[1-4]-720p|Sidonia-T[1-4]-1080p|Sidonia-T[1-4]-1440p)
+            rm -rf -- "$PATH_TO_REMOVE"
+            ;;
+    esac
+}
+
+write_state() {
+    local FILE="$1"
+    local THEME="$2"
+    local PROFILE="$3"
+    local GFXMODE="$4"
+    local THEME_DIR="$5"
+
+    {
+        printf 'THEME=%s\n' "$THEME"
+        printf 'PROFILE=%s\n' "$PROFILE"
+        printf 'GFXMODE=%s\n' "$GFXMODE"
+        printf 'THEME_DIR=%s\n' "$THEME_DIR"
+        printf 'GRUB_DIR=%s\n' "$GRUB_DIR"
+        printf 'GRUB_CFG=%s\n' "$GRUB_CFG"
+    } > "$FILE"
+}
+
+ensure_original_backup() {
+    local ORIGINAL="$STATE_ROOT/original"
+
+    if test -e "$ORIGINAL/default-grub" || test -e "$ORIGINAL/grub.cfg"; then
+        test -f "$ORIGINAL/default-grub" ||
+            die "the original defaults backup is incomplete"
+        test -f "$ORIGINAL/grub.cfg" ||
+            die "the original grub.cfg backup is incomplete"
+        return 0
+    fi
+
+    install -d -o root -g root -m 0700 "$ORIGINAL"
+    cp -p -- "$DEFAULTS" "$ORIGINAL/default-grub"
+    cp -p -- "$GRUB_CFG" "$ORIGINAL/grub.cfg"
+    printf 'GRUB_CFG=%s\n' "$GRUB_CFG" > "$ORIGINAL/location"
+    chmod 0600 "$ORIGINAL/location"
+}
+
+choose_gfxmode() {
+    local PROFILE="$1"
+    local REQUESTED="$2"
+    local CURRENT WIDTH HEIGHT
+
+    if test -n "$REQUESTED"; then
+        [[ "$REQUESTED" =~ ^[0-9]+x[0-9]+$ ]] ||
+            die "invalid --gfxmode value: $REQUESTED"
+        printf '%s\n' "$REQUESTED"
+        return 0
+    fi
+
+    if test "$PROFILE" = "1440p"; then
+        CURRENT="$(read_default GRUB_GFXMODE)"
+        if [[ "$CURRENT" =~ ^([0-9]+)x([0-9]+)$ ]]; then
+            WIDTH="${BASH_REMATCH[1]}"
+            HEIGHT="${BASH_REMATCH[2]}"
+            if test "$WIDTH" -ge 2560 && test "$HEIGHT" -ge 1440; then
+                printf '%s\n' "$CURRENT"
+                return 0
+            fi
+        fi
+    fi
+
+    profile_mode "$PROFILE"
+}
+
+acquire_lock() {
+    install -d -o root -g root -m 0755 "$STATE_ROOT"
+    exec 9> "$STATE_ROOT/lock"
+    if command -v flock >/dev/null 2>&1; then
+        flock -n 9 || die "another Sidonia operation is already running"
+    fi
+}
+
+apply_theme() (
+    local THEME="$1"
+    local PROFILE="$2"
+    local REQUESTED_MODE="$3"
+    local SOURCE FONT GFXMODE DEST_NAME DESTINATION
+    local CURRENT_STATE="$STATE_ROOT/current"
+    local OLD_MANAGED=""
+    local OLD_BACKUP=""
+    local STAMP BACKUP_DIR TEMP_DIR DEFAULTS_NEW CONFIG_STAGE
+    local THEME_STAGE THEME_OLD=""
+    local DEFAULTS_WRITTEN=0 ACTIVE_WRITTEN=0 DESTINATION_WRITTEN=0 SUCCESS=0
+
+    require_root
+    detect_grub
+    acquire_lock
+
+    SOURCE="$ASSET_ROOT/$THEME/$PROFILE"
+    FONT="$(font_file "$THEME" "$PROFILE")"
+    validate_profile "$SOURCE" "$FONT"
+    GFXMODE="$(choose_gfxmode "$PROFILE" "$REQUESTED_MODE")"
+    DEST_NAME="Sidonia-$THEME-$PROFILE"
+    DESTINATION="$THEME_ROOT/$DEST_NAME"
+
+    if test -f "$CURRENT_STATE"; then
+        OLD_MANAGED="$(state_value "$CURRENT_STATE" THEME_DIR)"
+    fi
+    if test -f "$STATE_ROOT/last-backup"; then
+        OLD_BACKUP="$(cat "$STATE_ROOT/last-backup")"
+        case "$OLD_BACKUP" in
+            "$STATE_ROOT"/backups/*) ;;
+            *) die "the existing rollback pointer is invalid" ;;
+        esac
+    fi
+
+    if test -e "$DESTINATION" && test "$OLD_MANAGED" != "$DESTINATION"; then
+        die "$DESTINATION already exists and is not managed by Sidonia"
+    fi
+
+    STAMP="$(date +%Y%m%d-%H%M%S)"
+    install -d -o root -g root -m 0700 "$STATE_ROOT/backups"
+    BACKUP_DIR="$(mktemp -d "$STATE_ROOT/backups/${STAMP}.XXXXXX")"
+    TEMP_DIR="$(mktemp -d /tmp/sidonia-theme.XXXXXX)"
+    DEFAULTS_NEW="$TEMP_DIR/default-grub.new"
+    CONFIG_STAGE="$GRUB_DIR/.grub.cfg.sidonia.new.$$"
+    THEME_STAGE="$THEME_ROOT/.$DEST_NAME.new.$$"
+
+    cleanup_apply() {
+        local STATUS=$?
+
+        trap - EXIT
+        set +e
+
+        if test "$SUCCESS" -ne 1; then
+            echo "Sidonia apply failed; restoring the previous GRUB state" >&2
+            if test "$ACTIVE_WRITTEN" -eq 1; then
+                cp -- "$BACKUP_DIR/grub.cfg" "$CONFIG_STAGE.recovery"
+                "$GRUB_SCRIPT_CHECK" "$CONFIG_STAGE.recovery" >/dev/null 2>&1 &&
+                    mv -- "$CONFIG_STAGE.recovery" "$GRUB_CFG"
+            fi
+            if test "$DEFAULTS_WRITTEN" -eq 1; then
+                install -o root -g root -m 0644 \
+                    "$BACKUP_DIR/default-grub" "$DEFAULTS"
+            fi
+            if test "$DESTINATION_WRITTEN" -eq 1; then
+                rm -rf -- "$DESTINATION"
+                if test -n "$THEME_OLD" && test -d "$THEME_OLD"; then
+                    mv -- "$THEME_OLD" "$DESTINATION"
+                fi
+            fi
+            rm -rf -- "$BACKUP_DIR"
+        else
+            test -z "$THEME_OLD" || rm -rf -- "$THEME_OLD"
+            if test -n "$OLD_MANAGED" && test "$OLD_MANAGED" != "$DESTINATION"; then
+                safe_remove_theme "$OLD_MANAGED"
+            fi
+        fi
+
+        rm -rf -- "$THEME_STAGE" "$TEMP_DIR"
+        rm -f -- "$CONFIG_STAGE" "$CONFIG_STAGE.recovery"
+        exit "$STATUS"
+    }
+    trap cleanup_apply EXIT
+
+    ensure_original_backup
+    cp -p -- "$DEFAULTS" "$BACKUP_DIR/default-grub"
+    cp -p -- "$GRUB_CFG" "$BACKUP_DIR/grub.cfg"
+    if test -f "$CURRENT_STATE"; then
+        cp -p -- "$CURRENT_STATE" "$BACKUP_DIR/state"
+    fi
+
+    install -d -o root -g root -m 0755 "$THEME_ROOT" "$THEME_STAGE"
+    umask 022
+    cp -R --no-preserve=ownership -- "$SOURCE/." "$THEME_STAGE/"
+    validate_profile "$THEME_STAGE" "$FONT"
+    diff -qr --no-dereference "$SOURCE" "$THEME_STAGE" >/dev/null
+
+    if test -e "$DESTINATION"; then
+        THEME_OLD="$THEME_ROOT/.$DEST_NAME.old.$$"
+        test ! -e "$THEME_OLD"
+        mv -- "$DESTINATION" "$THEME_OLD"
+    fi
+    mv -- "$THEME_STAGE" "$DESTINATION"
+    DESTINATION_WRITTEN=1
+
+    awk '
+    ! /^[[:space:]]*(GRUB_THEME|GRUB_FONT|GRUB_GFXMODE|GRUB_GFXPAYLOAD_LINUX|GRUB_TERMINAL|GRUB_TERMINAL_OUTPUT)[[:space:]]*=/
+    ' "$DEFAULTS" > "$DEFAULTS_NEW"
+
+    printf '%s\n' \
+        'GRUB_TERMINAL_OUTPUT="gfxterm"' \
+        "GRUB_GFXMODE=\"$GFXMODE\"" \
+        'GRUB_GFXPAYLOAD_LINUX=keep' \
+        "GRUB_FONT=\"$DESTINATION/fonts/$FONT\"" \
+        "GRUB_THEME=\"$DESTINATION/theme.txt\"" \
+        >> "$DEFAULTS_NEW"
+
+    install -o root -g root -m 0644 "$DEFAULTS_NEW" "$DEFAULTS"
+    DEFAULTS_WRITTEN=1
+
+    "$GRUB_MKCONFIG" -o "$CONFIG_STAGE"
+    "$GRUB_SCRIPT_CHECK" "$CONFIG_STAGE"
+    grep -qF "$DEST_NAME/theme.txt" "$CONFIG_STAGE" ||
+        die "generated grub.cfg does not reference the selected theme"
+    grep -qF "$DEST_NAME/fonts/$FONT" "$CONFIG_STAGE" ||
+        die "generated grub.cfg does not reference the selected font"
+    grep -qE "^[[:space:]]*set gfxmode=$GFXMODE[[:space:]]*$" "$CONFIG_STAGE" ||
+        die "generated grub.cfg does not contain the selected graphics mode"
+
+    ACTIVE_WRITTEN=1
+    mv -- "$CONFIG_STAGE" "$GRUB_CFG"
+    sync
+    "$GRUB_SCRIPT_CHECK" "$GRUB_CFG"
+
+    write_state "$TEMP_DIR/current" \
+        "$THEME" "$PROFILE" "$GFXMODE" "$DESTINATION"
+    install -o root -g root -m 0644 "$TEMP_DIR/current" "$CURRENT_STATE"
+    printf '%s\n' "$BACKUP_DIR" > "$TEMP_DIR/last-backup"
+    install -o root -g root -m 0600 \
+        "$TEMP_DIR/last-backup" "$STATE_ROOT/last-backup"
+
+    SUCCESS=1
+    if test -n "$OLD_BACKUP" && test "$OLD_BACKUP" != "$BACKUP_DIR"; then
+        rm -rf -- "$OLD_BACKUP"
+    fi
+
+    echo
+    echo "Sidonia $THEME — $(theme_name "$THEME") is active."
+    echo "Profile: $PROFILE ($GFXMODE)"
+    echo "Rollback: sudo sidonia-theme rollback"
+)
+
+ensure_state_theme() {
+    local STATE_FILE="$1"
+    local PREVIOUS_THEME PREVIOUS_PROFILE PREVIOUS_DIR SOURCE FONT STAGE
+
+    test -f "$STATE_FILE" || return 0
+    PREVIOUS_THEME="$(state_value "$STATE_FILE" THEME)"
+    PREVIOUS_PROFILE="$(state_value "$STATE_FILE" PROFILE)"
+    PREVIOUS_DIR="$(state_value "$STATE_FILE" THEME_DIR)"
+    SOURCE="$ASSET_ROOT/$PREVIOUS_THEME/$PREVIOUS_PROFILE"
+    FONT="$(font_file "$PREVIOUS_THEME" "$PREVIOUS_PROFILE")"
+    validate_profile "$SOURCE" "$FONT"
+
+    if test -d "$PREVIOUS_DIR"; then
+        validate_profile "$PREVIOUS_DIR" "$FONT"
+        return 0
+    fi
+
+    test "$(dirname "$PREVIOUS_DIR")" = "$THEME_ROOT" ||
+        die "backup contains an unsafe theme path"
+    STAGE="$THEME_ROOT/.$(basename "$PREVIOUS_DIR").restore.$$"
+    test ! -e "$STAGE"
+    install -d -o root -g root -m 0755 "$STAGE"
+    umask 022
+    cp -R --no-preserve=ownership -- "$SOURCE/." "$STAGE/"
+    diff -qr --no-dereference "$SOURCE" "$STAGE" >/dev/null
+    mv -- "$STAGE" "$PREVIOUS_DIR"
+}
+
+restore_pair() (
+    local SOURCE_DIR="$1"
+    local MODE="$2"
+    local CURRENT_STATE="$STATE_ROOT/current"
+    local CURRENT_MANAGED=""
+    local PREVIOUS_MANAGED=""
+    local TEMP_DIR CONFIG_STAGE SUCCESS=0 DEFAULTS_WRITTEN=0 ACTIVE_WRITTEN=0
+
+    require_root
+    detect_grub
+    acquire_lock
+
+    test -f "$SOURCE_DIR/default-grub" || die "defaults backup is absent"
+    test -f "$SOURCE_DIR/grub.cfg" || die "grub.cfg backup is absent"
+    "$GRUB_SCRIPT_CHECK" "$SOURCE_DIR/grub.cfg"
+
+    if test -f "$CURRENT_STATE"; then
+        CURRENT_MANAGED="$(state_value "$CURRENT_STATE" THEME_DIR)"
+    fi
+    if test -f "$SOURCE_DIR/state"; then
+        PREVIOUS_MANAGED="$(state_value "$SOURCE_DIR/state" THEME_DIR)"
+    fi
+
+    ensure_state_theme "$SOURCE_DIR/state"
+
+    TEMP_DIR="$(mktemp -d /tmp/sidonia-restore.XXXXXX)"
+    CONFIG_STAGE="$GRUB_DIR/.grub.cfg.sidonia.restore.$$"
+    cp -p -- "$DEFAULTS" "$TEMP_DIR/default-grub.current"
+    cp -p -- "$GRUB_CFG" "$TEMP_DIR/grub.cfg.current"
+
+    cleanup_restore() {
+        local STATUS=$?
+
+        trap - EXIT
+        set +e
+        if test "$SUCCESS" -ne 1; then
+            echo "Sidonia restore failed; restoring the current GRUB state" >&2
+            if test "$ACTIVE_WRITTEN" -eq 1; then
+                cp -- "$TEMP_DIR/grub.cfg.current" "$CONFIG_STAGE.recovery"
+                "$GRUB_SCRIPT_CHECK" "$CONFIG_STAGE.recovery" >/dev/null 2>&1 &&
+                    mv -- "$CONFIG_STAGE.recovery" "$GRUB_CFG"
+            fi
+            if test "$DEFAULTS_WRITTEN" -eq 1; then
+                install -o root -g root -m 0644 \
+                    "$TEMP_DIR/default-grub.current" "$DEFAULTS"
+            fi
+        fi
+        rm -rf -- "$TEMP_DIR"
+        rm -f -- "$CONFIG_STAGE" "$CONFIG_STAGE.recovery"
+        exit "$STATUS"
+    }
+    trap cleanup_restore EXIT
+
+    install -o root -g root -m 0644 "$SOURCE_DIR/default-grub" "$DEFAULTS"
+    DEFAULTS_WRITTEN=1
+    cp -- "$SOURCE_DIR/grub.cfg" "$CONFIG_STAGE"
+    "$GRUB_SCRIPT_CHECK" "$CONFIG_STAGE"
+    ACTIVE_WRITTEN=1
+    mv -- "$CONFIG_STAGE" "$GRUB_CFG"
+    sync
+    "$GRUB_SCRIPT_CHECK" "$GRUB_CFG"
+
+    if test -f "$SOURCE_DIR/state"; then
+        install -o root -g root -m 0644 "$SOURCE_DIR/state" "$CURRENT_STATE"
+    else
+        rm -f -- "$CURRENT_STATE"
+    fi
+
+    SUCCESS=1
+    if test -n "$CURRENT_MANAGED" && test "$CURRENT_MANAGED" != "$PREVIOUS_MANAGED"; then
+        safe_remove_theme "$CURRENT_MANAGED"
+    fi
+
+    if test "$MODE" = "rollback"; then
+        rm -f -- "$STATE_ROOT/last-backup"
+        rm -rf -- "$SOURCE_DIR"
+        echo "The previous GRUB appearance has been restored."
+    else
+        echo "The original pre-Sidonia GRUB configuration has been restored."
+    fi
+)
+
+rollback_theme() {
+    local POINTER="$STATE_ROOT/last-backup"
+    local BACKUP_DIR
+
+    require_root
+    test -f "$POINTER" || die "there is no Sidonia change to roll back"
+    BACKUP_DIR="$(cat "$POINTER")"
+    case "$BACKUP_DIR" in
+        "$STATE_ROOT"/backups/*) ;;
+        *) die "the rollback pointer is invalid" ;;
+    esac
+    test -d "$BACKUP_DIR" || die "rollback backup is absent"
+    restore_pair "$BACKUP_DIR" rollback
+}
+
+uninstall_sidonia() {
+    local ORIGINAL="$STATE_ROOT/original"
+
+    require_root
+    test -d "$ORIGINAL" || die "no original GRUB backup was found"
+    restore_pair "$ORIGINAL" original
+
+    rm -rf -- "$STATE_ROOT" "$INSTALL_ROOT"
+    rm -f -- "$COMMAND_PATH"
+    echo "Sidonia has been removed."
+}
+
+list_themes() {
+    cat <<'EOF'
+THEME  NAME                         PROFILES
+T1     Industrial Device Frame      720p  1080p  1440p
+T2     Cyber Red Structural Grid    720p  1080p  1440p
+T3     STARFIX Network Map          720p  1080p  1440p
+T4     Maintenance Console          720p  1080p  1440p
+EOF
+}
+
+show_status() {
+    local STATE="$STATE_ROOT/current"
+    local VALUE
+
+    if test -r "$STATE"; then
+        echo "Managed by Sidonia"
+        printf 'Theme:      %s — %s\n' \
+            "$(state_value "$STATE" THEME)" \
+            "$(theme_name "$(state_value "$STATE" THEME)")"
+        printf 'Profile:    %s\n' "$(state_value "$STATE" PROFILE)"
+        printf 'Framebuffer:%s\n' " $(state_value "$STATE" GFXMODE)"
+        printf 'Theme path: %s\n' "$(state_value "$STATE" THEME_DIR)"
+        return 0
+    fi
+
+    echo "Sidonia is not managing the current GRUB appearance."
+    if test -r "$DEFAULTS"; then
+        VALUE="$(read_default GRUB_THEME)"
+        test -z "$VALUE" || printf 'Current GRUB_THEME: %s\n' "$VALUE"
+    fi
+}
+
+COMMAND="${1:-help}"
+shift || true
+
+case "$COMMAND" in
+    list)
+        test "$#" -eq 0 || die "list takes no arguments"
+        list_themes
+        ;;
+    status)
+        test "$#" -eq 0 || die "status takes no arguments"
+        show_status
+        ;;
+    set)
+        test "$#" -ge 2 || die "set requires THEME and PROFILE"
+        THEME="$(normalize_theme "$1")" || die "unknown theme: $1"
+        PROFILE="$(normalize_profile "$2")" || die "unknown profile: $2"
+        shift 2
+        REQUESTED_MODE=""
+        while test "$#" -gt 0; do
+            case "$1" in
+                --gfxmode)
+                    test "$#" -ge 2 || die "--gfxmode requires WIDTHxHEIGHT"
+                    REQUESTED_MODE="$2"
+                    shift 2
+                    ;;
+                *) die "unknown option: $1" ;;
+            esac
+        done
+        apply_theme "$THEME" "$PROFILE" "$REQUESTED_MODE"
+        ;;
+    rollback)
+        test "$#" -eq 0 || die "rollback takes no arguments"
+        rollback_theme
+        ;;
+    uninstall)
+        test "$#" -eq 0 || die "uninstall takes no arguments"
+        uninstall_sidonia
+        ;;
+    version|--version|-V)
+        printf 'sidonia-theme %s\n' "$VERSION"
+        ;;
+    help|--help|-h)
+        usage
+        ;;
+    *)
+        usage >&2
+        die "unknown command: $COMMAND"
+        ;;
+esac

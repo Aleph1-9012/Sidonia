@@ -1,4 +1,4 @@
-# Sidonia T4 — Maintenance Console (1080p)
+# Sidonia T4 — System Bay (1080p)
 
 Required framebuffer: **1920×1080**. This profile has absolute pixel geometry and is not a fallback for another resolution.
 

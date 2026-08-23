@@ -1,4 +1,4 @@
-# Sidonia T1 — Industrial Device Frame (1440p)
+# Sidonia T1 — Frame 704 (1440p)
 
 Minimum framebuffer: **2560×1440**. The 2560×1440 design is a fixed,
 pixel-perfect canvas: it is centred without scaling or cropping on every

@@ -1,4 +1,4 @@
-# Sidonia T2 — Cyber Red Structural Grid (1080p)
+# Sidonia T2 — Gridline (1080p)
 
 Required framebuffer: **1920×1080**. This profile has absolute pixel geometry and is not a fallback for another resolution.
 

@@ -1,25 +1,25 @@
 # Sidonia
 
-Cinematic GRUB themes inspired by industrial interfaces, navigation systems,
-and maintenance consoles.
+Sidonia is a small collection of four sci-fi GRUB themes made to give the boot
+screen the feeling of a ship interface.
 
 ## Themes
 
-### T1 — Industrial Device Frame
+### T1 — Frame 704
 
-![T1 Industrial Device Frame](previews/T1.png)
+![T1 Frame 704](previews/T1.png)
 
-### T2 — Cyber Red Structural Grid
+### T2 — Gridline
 
-![T2 Cyber Red Structural Grid](previews/T2.png)
+![T2 Gridline](previews/T2.png)
 
-### T3 — STARFIX Network Map
+### T3 — Starfix
 
-![T3 STARFIX Network Map](previews/T3.png)
+![T3 Starfix](previews/T3.png)
 
-### T4 — Maintenance Console
+### T4 — System Bay
 
-![T4 Maintenance Console](previews/T4.png)
+![T4 System Bay](previews/T4.png)
 
 ## Install
 

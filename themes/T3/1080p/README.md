@@ -1,4 +1,4 @@
-# Sidonia T3 — STARFIX Network Map (1080p)
+# Sidonia T3 — Starfix (1080p)
 
 Required framebuffer: **1920×1080**. This profile has absolute pixel geometry and is not a fallback for another resolution.
 
@@ -17,4 +17,3 @@ Load the PF2 through the distribution's `GRUB_FONT` mechanism before selecting `
 Known limitation: The continuous stock-GRUB timeout fill can bridge the gaps between the eight static slot outlines while it advances.
 
 See the repository/package `NOTICE.md` for artwork and DejaVu font notices.
-

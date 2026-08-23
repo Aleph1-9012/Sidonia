@@ -35,16 +35,35 @@ desktop-image-scale-method: "stretch"
   scrollbar_bottom_pad = 0
 }
 
++ label {
+  id = "__timeout__"
+  left = 603
+  top = 35
+  width = 48
+  height = 23
+  text = "T-%02d"
+  font = "Sidonia T4 Mono 720p Regular 19"
+  color = "#FF0000"
+  align = "left"
+}
+
++ image {
+  left = 599
+  top = 32
+  width = 56
+  height = 28
+  file = "progress/timer_base.png"
+}
+
 + progress_bar {
   id = "__timeout__"
-  left = 1030
+  left = 953
   top = 47
-  width = 45
-  height = 4
-  bar_style = "progress/frame_*.png"
-  highlight_style = "progress/highlight_*.png"
+  width = 200
+  height = 28
+  bar_style = "progress/highlight_*.png"
+  highlight_style = "progress/frame_*.png"
   highlight_overlay = true
-  fg_color = "#D51F1D"
-  bg_color = "#000000"
-  text = ""
+  fg_color = "#000000"
+  bg_color = "#D51F1D"
 }

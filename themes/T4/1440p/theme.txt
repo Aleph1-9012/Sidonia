@@ -33,18 +33,37 @@ desktop-color: "#000000"
   scrollbar_bottom_pad = 0
 }
 
++ label {
+  id = "__timeout__"
+  left = 50%-74
+  top = 50%-651
+  width = 96
+  height = 46
+  text = "T-%02d"
+  font = "Sidonia T4 Mono 1440p Regular 38"
+  color = "#FF0000"
+  align = "left"
+}
+
++ image {
+  left = 50%-82
+  top = 50%-656
+  width = 112
+  height = 56
+  file = "progress/timer_base.png"
+}
+
 + progress_bar {
   id = "__timeout__"
-  left = 50%+780
+  left = 50%+725
   top = 50%-626
-  width = 90
-  height = 9
-  bar_style = "progress/frame_*.png"
-  highlight_style = "progress/highlight_*.png"
+  width = 200
+  height = 28
+  bar_style = "progress/highlight_*.png"
+  highlight_style = "progress/frame_*.png"
   highlight_overlay = true
-  fg_color = "#D51F1D"
-  bg_color = "#000000"
-  text = ""
+  fg_color = "#000000"
+  bg_color = "#D51F1D"
 }
 
 # GRUB paints components in reverse declaration order; keep the canvas last.

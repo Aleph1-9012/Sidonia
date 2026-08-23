@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: Apache-2.0
+# Copyright 2026 Aleph1-9012
+
 set -Eeuo pipefail
 
 if test "${EUID:-$(id -u)}" -ne 0; then

@@ -34,18 +34,20 @@ sudo ./install.sh
 The installer guides you through choosing a theme and display profile. It also
 keeps a rollback copy and never runs `grub-install`.
 
+Sidonia changes the GRUB configuration, so use it with `sudo`.
+
 ## Switch themes
 
 Open the guided theme chooser whenever you want to switch:
 
 ```bash
-sudo sidonia-theme
+sudo sidonia
 ```
 
 You can also select a theme directly:
 
 ```bash
-sudo sidonia-theme set T2 1080p
+sudo sidonia set T2 1080p
 ```
 
 Available display profiles:
@@ -59,13 +61,13 @@ Available display profiles:
 Undo the latest theme change:
 
 ```bash
-sudo sidonia-theme rollback
+sudo sidonia rollback
 ```
 
 Remove Sidonia and restore the original GRUB appearance:
 
 ```bash
-sudo sidonia-theme uninstall
+sudo sidonia uninstall
 ```
 
 ## More information

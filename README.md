@@ -1,74 +1,93 @@
-# Sidonia GRUB Themes
+<h1 align="center">Sidonia</h1>
 
-Four resolution-specific Sidonia themes for stock GRUB. Every theme is available for exactly `1280×720`, `1920×1080`, and `2560×1440`; choose the folder that matches the framebuffer mode GRUB actually uses.
+<p align="center">
+  A collection of cinematic GRUB themes inspired by industrial interfaces,
+  navigation systems, and maintenance consoles.
+</p>
 
-## T1 — Industrial Device Frame
+<p align="center">
+  <img alt="Themes" src="https://img.shields.io/badge/themes-4-e31a24">
+  <img alt="Display profiles" src="https://img.shields.io/badge/profiles-720p%20%7C%201080p%20%7C%201440p-343638">
+  <img alt="GRUB" src="https://img.shields.io/badge/bootloader-GRUB-111111">
+  <img alt="License" src="https://img.shields.io/badge/license-Apache--2.0-6f7478">
+</p>
 
-![T1 preview](previews/T1.png)
+## Theme gallery
 
-- Resolutions: `720p`, `1080p`, `1440p`
-- Release archive: `Sidonia-T1.zip`
+<table>
+  <tr>
+    <td align="center"><img src="previews/T1.png" alt="T1 Industrial Device Frame"><br><strong>T1 — Industrial Device Frame</strong></td>
+    <td align="center"><img src="previews/T2.png" alt="T2 Cyber Red Structural Grid"><br><strong>T2 — Cyber Red Structural Grid</strong></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="previews/T3.png" alt="T3 STARFIX Network Map"><br><strong>T3 — STARFIX Network Map</strong></td>
+    <td align="center"><img src="previews/T4.png" alt="T4 Maintenance Console"><br><strong>T4 — Maintenance Console</strong></td>
+  </tr>
+</table>
 
-## T2 — Cyber Red Structural Grid
+## Install
 
-![T2 preview](previews/T2.png)
+Sidonia is for GNU GRUB systems that use `/etc/default/grub`. It does not
+install or replace your bootloader.
 
-- Resolutions: `720p`, `1080p`, `1440p`
-- Release archive: `Sidonia-T2.zip`
+Clone the repository and run the guided installer:
 
-## T3 — STARFIX Network Map
+```bash
+git clone https://github.com/Aleph1-9012/Sidonia.git
+cd Sidonia
+sudo ./install.sh
+```
 
-![T3 preview](previews/T3.png)
+The installer asks you to choose a theme and display profile, backs up the
+current GRUB appearance, installs the selected assets, and safely regenerates
+`grub.cfg`. It never runs `grub-install` or changes boot entries, disks,
+partitions, EFI variables, kernel arguments, or Secure Boot.
 
-- Resolutions: `720p`, `1080p`, `1440p`
-- Release archive: `Sidonia-T3.zip`
+For a non-interactive install:
 
-## T4 — Maintenance Console
+```bash
+sudo ./install.sh T4 1440p
+```
 
-![T4 preview](previews/T4.png)
+## Switch themes
 
-- Resolutions: `720p`, `1080p`, `1440p`
-- Release archive: `Sidonia-T4.zip`
+After installation, switch at any time with one command:
 
-## Manual installation
+```bash
+sudo sidonia-theme set T2 1080p
+```
 
-This repository has no installer and never edits the host boot configuration. Back up the existing GRUB configuration before making system changes.
+Useful commands:
 
-1. Confirm that the firmware and GRUB support the intended framebuffer mode.
-2. Copy one exact-resolution directory to the system's GRUB theme directory. For example, copy `themes/T1/1080p` to `/boot/grub/themes/Sidonia-T1-1080p`.
-3. Configure GRUB to use that folder's `theme.txt`, its exact `GRUB_GFXMODE`, and its PF2 file through `GRUB_FONT`. For the example above, the three values are:
+```bash
+sidonia-theme list                  # Show available themes
+sidonia-theme status                # Show the active Sidonia theme
+sudo sidonia-theme set T4 1440p     # Apply a theme
+sudo sidonia-theme rollback         # Undo the latest change
+sudo sidonia-theme uninstall        # Restore the original GRUB appearance
+```
 
-   ```text
-   GRUB_GFXMODE=1920x1080
-   GRUB_THEME=/boot/grub/themes/Sidonia-T1-1080p/theme.txt
-   GRUB_FONT=/boot/grub/themes/Sidonia-T1-1080p/fonts/sidonia-t1-1080p.pf2
-   ```
+## Choose a display profile
 
-4. Regenerate the GRUB configuration using the documented procedure for the installed distribution, then reboot only when comfortable with the recovery path.
+| Profile | Designed for | Notes |
+| --- | --- | --- |
+| `720p` | 1280×720 | Exact-size layout |
+| `1080p` | 1920×1080 | Exact-size layout |
+| `1440p` | 2560×1440 and larger | Fixed canvas, centred on larger framebuffers |
 
-Paths differ across distributions, including `/boot/grub`, `/boot/grub2`, and EFI-specific layouts. Do not run `grub-install` merely to apply a theme.
+When switching between 1440p themes, Sidonia keeps an existing larger GRUB
+mode such as `2560x1600`. An explicit mode can also be selected:
 
-## Stock-GRUB limitations
+```bash
+sudo sidonia-theme set T1 1440p --gfxmode 2560x1600
+```
 
-- Production menu titles remain dynamic; fixture labels exist only in the preview images.
-- T2 cannot reproduce the reference's separately styled number and title with one stock-GRUB menu font.
-- T3's continuous timeout fill can bridge the gaps between its static segmented slots while advancing.
-- T4 uses negative item spacing for the intended overlapping selector. It passed the tested QEMU BIOS/UEFI matrix; other GRUB builds may behave differently.
-- Each resolution is independent. GRUB does not automatically fall back to a different folder when the configured video mode is unavailable.
+## More information
 
-## QEMU validation
+- [Advanced installation and troubleshooting](docs/ADVANCED.md)
+- [Contributing](CONTRIBUTING.md)
+- [License](LICENSE)
+- [Artwork and font notices](NOTICE.md)
 
-Tested on 2026-08-18 using QEMU 11.0.2 with SeaBIOS 1.17.0-2 and edk2-ovmf 202605-1. Test images used GRUB 2:2.14-1 and xorriso 1.5.8.pl02.
-
-- Selector matrix: 24/24 passed
-- Timeout captures: 4/4 reviewed
-- Tested modes: `1280×720`, `1920×1080`, `2560×1440`
-- Menu navigation and harmless entry activation passed
-
-Real hardware and other GRUB or firmware versions may behave differently.
-
-## Safety and licensing
-
-The project only contains theme assets and documentation. It does not modify `/boot`, disks, partitions, EFI variables, Secure Boot, menu entries, kernel arguments, or firmware settings.
-
-Project licensing is in [LICENSE](LICENSE). Artwork and font notices are in [NOTICE.md](NOTICE.md).
+Sidonia is an independent project and is not affiliated with the GRUB project
+or any media franchise.

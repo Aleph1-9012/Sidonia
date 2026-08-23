@@ -5,7 +5,7 @@ for manual installations, unusual GRUB layouts, and recovery.
 
 ## What the theme manager changes
 
-`sidonia-theme set` performs four scoped operations:
+`sudo sidonia set` performs four scoped operations:
 
 1. Saves the current `/etc/default/grub` and active `grub.cfg`.
 2. Copies one selected theme profile into GRUB's theme directory.
@@ -61,13 +61,13 @@ If Linux still boots but the selected appearance is unsuitable, restore the
 last configuration:
 
 ```bash
-sudo sidonia-theme rollback
+sudo sidonia rollback
 ```
 
 To return to the exact GRUB state saved before Sidonia was first installed:
 
 ```bash
-sudo sidonia-theme uninstall
+sudo sidonia uninstall
 ```
 
 If GRUB cannot reach a graphical mode, boot through a known-good entry or

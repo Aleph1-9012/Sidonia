@@ -1,4 +1,4 @@
-# Sidonia T2 — Cyber Red Structural Grid (1440p)
+# Sidonia T2 — Gridline (1440p)
 
 Design canvas: **2560×1440**. On framebuffers at least 2560 pixels wide and 1440 pixels high, the canvas is rendered unscaled and centred; unused space is filled with the theme desktop colour. Use the 1080p or 720p profile for smaller framebuffers.
 

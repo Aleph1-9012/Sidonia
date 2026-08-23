@@ -66,10 +66,10 @@ normalize_profile() {
 
 theme_name() {
     case "$1" in
-        T1) printf 'Industrial Device Frame\n' ;;
-        T2) printf 'Cyber Red Structural Grid\n' ;;
-        T3) printf 'STARFIX Network Map\n' ;;
-        T4) printf 'Maintenance Console\n' ;;
+        T1) printf 'Frame 704\n' ;;
+        T2) printf 'Gridline\n' ;;
+        T3) printf 'Starfix\n' ;;
+        T4) printf 'System Bay\n' ;;
     esac
 }
 
@@ -620,10 +620,10 @@ guided_set() {
 
     echo
     echo "Choose a theme:"
-    echo "  1) T1 — Industrial Device Frame"
-    echo "  2) T2 — Cyber Red Structural Grid"
-    echo "  3) T3 — STARFIX Network Map"
-    echo "  4) T4 — Maintenance Console"
+    echo "  1) T1 — Frame 704"
+    echo "  2) T2 — Gridline"
+    echo "  3) T3 — Starfix"
+    echo "  4) T4 — System Bay"
     printf 'Theme [4]: '
     read -r THEME_CHOICE
     THEME_CHOICE="${THEME_CHOICE:-4}"
@@ -666,11 +666,11 @@ uninstall_sidonia() {
 
 list_themes() {
     cat <<'EOF'
-THEME  NAME                         PROFILES
-T1     Industrial Device Frame      720p  1080p  1440p
-T2     Cyber Red Structural Grid    720p  1080p  1440p
-T3     STARFIX Network Map          720p  1080p  1440p
-T4     Maintenance Console          720p  1080p  1440p
+THEME  NAME        PROFILES
+T1     Frame 704   720p  1080p  1440p
+T2     Gridline    720p  1080p  1440p
+T3     Starfix     720p  1080p  1440p
+T4     System Bay  720p  1080p  1440p
 EOF
 }
 

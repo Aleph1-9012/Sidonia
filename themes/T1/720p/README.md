@@ -1,4 +1,4 @@
-# Sidonia T1 — Industrial Device Frame (720p)
+# Sidonia T1 — Frame 704 (720p)
 
 Required framebuffer: **1280×720**. This profile has absolute pixel geometry and is not a fallback for another resolution.
 

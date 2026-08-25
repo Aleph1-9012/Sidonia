@@ -9,13 +9,15 @@ Runtime files:
 - `theme.txt`
 - `background.png`
 - `fonts/sidonia-t1-720p.pf2`
+- `f/sidonia-t1-720p-upper.pf2`
+- `f/sidonia-t1-720p-lower.pf2`
 - `selectors/*.png`
 - `progress/*.png`
 
-Load the PF2 through the distribution's `GRUB_FONT` mechanism before selecting `theme.txt`. Production menu titles remain dynamic and come from the existing GRUB configuration.
+Load `fonts/sidonia-t1-720p.pf2` through the distribution's `GRUB_FONT` mechanism before selecting `theme.txt`. GRUB's standard theme loader loads the two role-specific PF2 files under `f/`. Production menu titles remain dynamic and come from the existing GRUB configuration.
 
 The upper `T-%02d` counter, lower zero-padded counter, and thin right-anchored remaining-time line all use GRUB's native timeout value. They begin at the user's configured timeout; the theme does not change `GRUB_TIMEOUT`. Grey shows elapsed time and red shows remaining time.
 
-Known limitation: The live menu font is a stock-GRUB DejaVu approximation.
+The menu uses Space Mono Bold at the 46px master-design scale. Both countdown labels also use Space Mono Bold at their independently scaled reference sizes.
 
-See the repository/package `NOTICE.md` for artwork and DejaVu font notices.
+See the repository/package `NOTICE.md` for artwork and font notices.

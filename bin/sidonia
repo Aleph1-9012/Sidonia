@@ -147,10 +147,18 @@ detect_grub() {
 validate_profile() {
     local SOURCE="$1"
     local FONT="$2"
+    local FONT_STEM="${FONT%.pf2}"
 
     test -f "$SOURCE/theme.txt" || die "theme.txt is missing from $SOURCE"
     test -f "$SOURCE/background.png" || die "background.png is missing from $SOURCE"
     test -f "$SOURCE/fonts/$FONT" || die "font is missing from $SOURCE"
+
+    if test -d "$SOURCE/f"; then
+        test -f "$SOURCE/f/$FONT_STEM-upper.pf2" ||
+            die "upper label font is missing from $SOURCE"
+        test -f "$SOURCE/f/$FONT_STEM-lower.pf2" ||
+            die "lower label font is missing from $SOURCE"
+    fi
 }
 
 is_managed_theme_path() {
@@ -405,6 +413,12 @@ apply_theme() (
         die "generated grub.cfg does not reference the selected theme"
     grep -qF "$DEST_NAME/fonts/$FONT" "$CONFIG_STAGE" ||
         die "generated grub.cfg does not reference the selected font"
+    if test -d "$SOURCE/f"; then
+        grep -qF "$DEST_NAME/f/${FONT%.pf2}-upper.pf2" "$CONFIG_STAGE" ||
+            die "generated grub.cfg does not load the upper label font"
+        grep -qF "$DEST_NAME/f/${FONT%.pf2}-lower.pf2" "$CONFIG_STAGE" ||
+            die "generated grub.cfg does not load the lower label font"
+    fi
     grep -qE "^[[:space:]]*set gfxmode=$GFXMODE[[:space:]]*$" "$CONFIG_STAGE" ||
         die "generated grub.cfg does not contain the selected graphics mode"
 

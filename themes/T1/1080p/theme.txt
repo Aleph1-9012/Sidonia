@@ -7,23 +7,22 @@ desktop-image-scale-method: "stretch"
 
 + boot_menu {
   id = "__menu__"
-  left = 696
-  top = 416
-  width = 400
-  height = 251
-  item_font = "Sidonia T1 Mono 1080p Regular 19"
-  selected_item_font = "Sidonia T1 Mono 1080p Regular 19"
-  item_color = "#F2F0EA"
-  selected_item_color = "#07080A"
-  item_height = 58
+  left = 698
+  top = 429
+  width = 390
+  height = 272
+  item_font = "Sidonia T1 Space Mono 1080p Menu Bold 23"
+  selected_item_font = "Sidonia T1 Space Mono 1080p Menu Bold 23"
+  item_color = "#E2E1DF"
+  selected_item_color = "#1A1C1D"
+  item_height = 65
   item_padding = 0
-  item_spacing = 5
+  item_spacing = 4
   icon_width = 0
   icon_height = 0
-  item_icon_space = 7
-  menu_pixmap_style = "selectors/menu_*.png"
+  item_icon_space = 0
   selected_item_pixmap_style = "selectors/runtime_selected_*.png"
-  scrollbar = true
+  scrollbar = false
   scrollbar_width = 7
   scrollbar_frame = "selectors/scrollbar_*.png"
   scrollbar_thumb = "selectors/thumb_*.png"
@@ -38,37 +37,38 @@ desktop-image-scale-method: "stretch"
 + progress_bar {
   id = "__timeout__"
   left = 303
-  top = 254
-  width = 182
-  height = 4
+  top = 255
+  # GRUB clamps progress widgets to 200x28. Transparent texture padding keeps
+  # the visible reference line at exactly 164x4.
+  width = 200
+  height = 28
   bar_style = "progress/highlight_*.png"
   highlight_style = "progress/frame_*.png"
   highlight_overlay = true
-  fg_color = "#343638"
-  bg_color = "#E31A24"
-  text = ""
+  fg_color = "#383A3A"
+  bg_color = "#DF1E28"
 }
 
 + label {
   id = "__timeout__"
-  left = 236
+  left = 227
   top = 244
-  width = 56
-  height = 19
+  width = 52
+  height = 31
   text = "T-%02d"
-  font = "Sidonia T1 Mono 1080p Regular 19"
-  color = "#343638"
+  font = "Sidonia T1 Space Mono 1080p Upper Bold 21"
+  color = "#202224"
   align = "left"
 }
 
 + label {
   id = "__timeout__"
-  left = 395
-  top = 294
-  width = 20
-  height = 19
+  left = 392
+  top = 298
+  width = 22
+  height = 26
   text = "%02d"
-  font = "Sidonia T1 Mono 1080p Regular 19"
-  color = "#E31A24"
+  font = "Sidonia T1 Space Mono 1080p Lower Bold 18"
+  color = "#F0222D"
   align = "left"
 }

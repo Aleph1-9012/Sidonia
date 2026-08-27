@@ -113,8 +113,18 @@ detect_grub() {
         GRUB_DIR="/boot/grub"
     elif test -f /boot/grub2/grub.cfg; then
         GRUB_DIR="/boot/grub2"
+    elif test -f /efi/grub/grub.cfg; then
+        GRUB_DIR="/efi/grub"
+    elif test -f /boot/efi/grub/grub.cfg; then
+        GRUB_DIR="/boot/efi/grub"
     else
-        die "could not find /boot/grub/grub.cfg or /boot/grub2/grub.cfg"
+        local ESP_MOUNT
+        ESP_MOUNT="$(findmnt -no TARGET -t vfat 2>/dev/null | head -n1)"
+        if test -n "$ESP_MOUNT" && test -f "$ESP_MOUNT/grub/grub.cfg"; then
+            GRUB_DIR="$ESP_MOUNT/grub"
+        else
+            die "could not find grub.cfg under /boot/grub, /boot/grub2, /efi/grub, /boot/efi/grub, or the mounted EFI system partition (set SIDONIA_GRUB_DIR to override)"
+        fi
     fi
 
     GRUB_CFG="${SIDONIA_GRUB_CFG:-$GRUB_DIR/grub.cfg}"

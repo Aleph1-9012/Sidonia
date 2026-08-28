@@ -26,7 +26,7 @@ screen the feeling of a ship interface.
 Sidonia is designed for GNU GRUB systems that use `/etc/default/grub`.
 
 ```bash
-git clone https://github.com/Aleph1-9012/Sidonia.git
+git clone --depth 1 https://github.com/Aleph1-9012/Sidonia.git
 cd Sidonia
 sudo ./install.sh
 ```
@@ -72,6 +72,7 @@ sudo sidonia uninstall
 
 ## More information
 
+- [Editable source assets](https://github.com/Aleph1-9012/Sidonia/releases/tag/v1.0.0)
 - [Advanced installation and troubleshooting](docs/ADVANCED.md)
 - [License](LICENSE)
 - [Artwork and font notices](NOTICE.md)

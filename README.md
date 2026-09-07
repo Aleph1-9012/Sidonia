@@ -3,7 +3,6 @@
 Sidonia is a small collection of four sci-fi GRUB themes made to give the boot
 screen the feeling of a ship interface.
 
-[![Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/G3M826JKYV)
 
 ## Themes
 
@@ -71,6 +70,11 @@ Remove Sidonia and restore the original GRUB appearance:
 ```bash
 sudo sidonia uninstall
 ```
+
+
+[![Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/G3M826JKYV)
+
+
 
 ## More information
 

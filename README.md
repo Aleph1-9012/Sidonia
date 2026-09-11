@@ -77,10 +77,13 @@ The 1440p canvas stays at 2560×1440 on larger displays, with black padding.
 At 2560×1600 that adds 80 pixels above and below; at 3840×2160 it adds
 640 pixels on each side and 360 pixels above and below.
 
-Echelon requires Python 3, Pillow and `rsvg-convert` from librsvg. It supports
+Echelon assembles its entry labels with Bash, `awk` and `gzip`, using the
+prebuilt artwork and character library included in the download. Installing
+or updating it does not require Python, Pillow or `rsvg-convert`. It supports
 one to four cards. Larger menus and entries discovered only at boot use the
 complete standard GRUB list. Long card titles are shortened to fit; the original
-menu and entry editor keep their full names.
+menu and entry editor keep their full names. Titles containing characters
+outside the bundled fonts use the complete standard menu.
 
 Echelon's countdown is
 six seconds; an existing disabled or immediate timeout stays disabled or

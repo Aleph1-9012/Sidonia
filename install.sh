@@ -74,7 +74,14 @@ install -d -o root -g root -m 0755 "$(dirname "$INSTALL_ROOT")"
 STAGE="$(mktemp -d "$(dirname "$INSTALL_ROOT")/.sidonia.new.XXXXXX")"
 umask 022
 cp -R --no-preserve=ownership -- "$SOURCE_THEMES" "$STAGE/themes"
-cp -R --no-preserve=ownership -- "$REPO_ROOT/lib" "$STAGE/lib"
+install -d -m 0755 "$STAGE/lib/cascade" "$STAGE/lib/grub.d"
+# Keep an already-installed legacy renderer for rollback to the old T5 release.
+# Fresh installs copy only the shell runtime; the new loader never calls Python.
+if test -f "$INSTALL_ROOT/lib/cascade/runtime.py"; then
+    cp -R --no-preserve=ownership -- "$INSTALL_ROOT/lib/cascade/." "$STAGE/lib/cascade/"
+fi
+install -m 0644 "$REPO_ROOT/lib/cascade/"*.awk "$REPO_ROOT/lib/cascade/runtime.sh" "$STAGE/lib/cascade/"
+install -m 0644 "$REPO_ROOT/lib/grub.d/99_zz_sidonia" "$STAGE/lib/grub.d/"
 install -o root -g root -m 0644 "$REPO_ROOT/LICENSE" "$STAGE/LICENSE"
 install -o root -g root -m 0644 "$REPO_ROOT/NOTICE.md" "$STAGE/NOTICE.md"
 

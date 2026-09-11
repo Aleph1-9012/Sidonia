@@ -1,11 +1,7 @@
 {
-  "sha256": "c23bd78e83e1570e9a3b9a5ffe1dbfd28b94879023d27ea7c785d4fca4534bf7",
   "cards": [
     {
-      "id": "sidonia_system",
       "marker": 57344,
-      "title": "SID0NIA SYSTEM",
-      "code": "SYS_001",
       "bounds": [
         268.12525,
         196.87525,
@@ -23,10 +19,7 @@
       ]
     },
     {
-      "id": "advanced_options",
       "marker": 57345,
-      "title": "ADVANCED 0PTI0NS",
-      "code": "0PT_002",
       "bounds": [
         457.50025,
         420.00025,
@@ -45,10 +38,7 @@
       ]
     },
     {
-      "id": "memory_test",
       "marker": 57346,
-      "title": "MEM0RY TEST",
-      "code": "MEM_003",
       "bounds": [
         838.12525,
         643.12525,
@@ -72,10 +62,7 @@
       ]
     },
     {
-      "id": "uefi_firmware",
       "marker": 57347,
-      "title": "UEFI FIRMWARE",
-      "code": "FW_004",
       "bounds": [
         1640.61625,
         1063.11625,
@@ -104,68 +91,32 @@
     {
       "id": 6,
       "surface": "timer-cell-06",
-      "label": "timer-label-06",
-      "bounds": [
-        2486.251875,
-        1516.881875,
-        191.25025,
-        172.50025
-      ]
+      "label": "timer-label-06"
     },
     {
       "id": 5,
       "surface": "timer-cell-05",
-      "label": "timer-label-05",
-      "bounds": [
-        2677.501875,
-        1516.881875,
-        195.00025,
-        172.50025
-      ]
+      "label": "timer-label-05"
     },
     {
       "id": 4,
       "surface": "timer-cell-04",
-      "label": "timer-label-04",
-      "bounds": [
-        2872.501875,
-        1516.881875,
-        210.00025,
-        172.50025
-      ]
+      "label": "timer-label-04"
     },
     {
       "id": 3,
       "surface": "timer-cell-03",
-      "label": "timer-label-03",
-      "bounds": [
-        3082.501875,
-        1516.881875,
-        198.75025,
-        172.50025
-      ]
+      "label": "timer-label-03"
     },
     {
       "id": 2,
       "surface": "timer-cell-02",
-      "label": "timer-label-02",
-      "bounds": [
-        3281.251875,
-        1516.881875,
-        196.87025,
-        172.50025
-      ]
+      "label": "timer-label-02"
     },
     {
       "id": 1,
       "surface": "timer-cell-01",
-      "label": "timer-label-01",
-      "bounds": [
-        3478.121875,
-        1516.881875,
-        198.76025,
-        172.50025
-      ]
+      "label": "timer-label-01"
     }
   ],
   "colors": {

@@ -26,17 +26,19 @@ conditions and entry order. Submenus use a readable list and return to the cards
 Escape opens the complete original menu. No OS names or boot paths are built
 into the shipped profiles, and the theme adds no extra boot actions.
 
-Use `grub-mkconfig -o FILE` or the distribution's equivalent. The renderer needs
-Python 3, Pillow and `rsvg-convert`. It writes each entry generation to a separate
+Use `grub-mkconfig -o FILE` or the distribution's equivalent. The shell runtime
+uses awk to assemble entry-name glyphs from the compressed character library.
+It requires Bash, awk, gzip and standard system utilities, alongside GRUB's
+configuration checker. It writes each entry generation to a separate
 directory, checks it, and then emits the loader that selects it. Earlier assets
 stay available while an update is being generated. An unsuccessful Sidonia
 installation restores the previous configuration and artwork.
 
 Normal Echelon generation writes only the boot menu and its required assets.
-Reference screenshots and diagnostic files are available for local development
-by setting `SIDONIA_DEVELOPMENT=1` for a configuration-generation command, or by
-passing `--development` to `lib/cascade/runtime.py`. Development output uses a
-separate generation directory so it cannot replace the normal assets.
+Python, Pillow and rsvg-convert are maintainer tools used to build release
+artwork and character libraries. Fresh installations copy only the shell/awk
+runtime. An upgrade preserves an already-installed legacy Python renderer
+so rollback to the previous T5 version can still regenerate its artwork.
 
 Backups are stored below `/var/lib/sidonia`. The first installation preserves
 the original GRUB appearance; every later switch also keeps one-step rollback
@@ -119,6 +121,8 @@ recovery medium and restore the files saved below `/var/lib/sidonia/original`.
   resolved only at boot also keep the native list so no entries are omitted.
 - Long T5 titles shrink to fit, then use an ellipsis when needed. Their full
   names remain available through Escape and the entry editor.
+- T5's character library covers the bundled Inconsolata and Noto Sans JP fonts.
+  Unsupported characters or invalid UTF-8 use the complete original menu.
 - GRUB supplies one font and style per live title; T2 cannot independently
   style a number and its title while keeping both dynamic.
 - T3's continuous timeout fill may bridge gaps between its static slots.

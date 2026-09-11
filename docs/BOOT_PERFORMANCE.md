@@ -107,7 +107,8 @@ is 1,539,223 bytes smaller. These remain asset measurements, not hardware
 boot-time measurements.
 
 The optimization tools require Python 3 and Pillow. T1 through T4 do not need
-them during installation or boot. Echelon has separate rendering dependencies.
+them during installation or boot. Echelon also uses prebuilt release assets;
+its installation-time label assembler runs with shell, awk and gzip.
 
 Preview the changes against an original copy of the themes:
 

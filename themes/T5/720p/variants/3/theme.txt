@@ -1,0 +1,108 @@
+# Fixed 1280x720 canvas, centered with black padding.
+desktop-color: "#000000"
+title-text: ""
+message-font: "Cascade UI 14"
+terminal-font: "Cascade UI 14"
++ label {
+  id = "__timeout__"
+  left = 50%+181
+  top = 50%+103
+  width = 421
+  height = 107
+  text = "%d"
+  font = "Cascade library timer-ink 16"
+  color = "#090A08"
+}
++ label {
+  id = "__timeout__"
+  left = 50%+181
+  top = 50%+103
+  width = 421
+  height = 107
+  text = "%d"
+  font = "Cascade library timer-detail 16"
+  color = "#F4EFDF"
+}
++ label {
+  id = "__timeout__"
+  left = 50%+181
+  top = 50%+103
+  width = 421
+  height = 107
+  text = "%d"
+  font = "Cascade library timer-fill 16"
+  color = "#EEE7DA"
+}
+
++ boot_menu {
+  left = 50%-640
+  top = 50%-360
+  width = 1280
+  height = 720
+  item_height = 390
+  item_spacing = -389
+  item_padding = 0
+  item_icon_space = 0
+  icon_width = 0
+  icon_height = 0
+  scrollbar = false
+  scrollbar_left_pad = 0
+  scrollbar_right_pad = 0
+  item_font = "Cascade library labels 16"
+  selected_item_font = "Cascade library labels 16"
+  item_color = "#090A08"
+  selected_item_color = "#F4EFDF"
+}
++ boot_menu {
+  left = 50%-640
+  top = 50%-360
+  width = 1280
+  height = 720
+  item_height = 390
+  item_spacing = -389
+  item_padding = 0
+  item_icon_space = 0
+  icon_width = 0
+  icon_height = 0
+  scrollbar = false
+  scrollbar_left_pad = 0
+  scrollbar_right_pad = 0
+  item_font = "Cascade library status 16"
+  selected_item_font = "Cascade library status-selected 16"
+  item_color = "#F4EFDF"
+  selected_item_color = "#F01B21"
+}
++ image {
+  left = 50%-640
+  top = 50%-360
+  width = 1280
+  height = 720
+  file = "foreground.png"
+}
++ boot_menu {
+  left = 50%-640
+  top = 50%-360
+  width = 1280
+  height = 720
+  item_height = 390
+  item_spacing = -389
+  item_padding = 0
+  item_icon_space = 0
+  icon_width = 0
+  icon_height = 0
+  scrollbar = false
+  scrollbar_left_pad = 0
+  scrollbar_right_pad = 0
+  item_font = "Cascade library shapes 16"
+  selected_item_font = "Cascade library shapes 16"
+  item_color = "#EEE7DA"
+  selected_item_color = "#D71920"
+}
+
++ image {
+  left = 50%-640
+  top = 50%-360
+  width = 1280
+  height = 720
+  file = "background.png"
+}

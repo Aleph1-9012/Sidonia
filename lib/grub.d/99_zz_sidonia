@@ -17,8 +17,7 @@ if test "${name#Sidonia-T5-}" != "$name"; then
   runtime=${SIDONIA_RUNTIME_ROOT:-${SIDONIA_INSTALL_ROOT:-/usr/local/share/sidonia}/lib}
   printf '%s\n' '# Sidonia owns the final theme selection, after other theme loaders.'
   set -- "$themedir" --mode "$GRUB_GFXMODE"
-  if test "${SIDONIA_DEVELOPMENT:-0}" = 1; then set -- "$@" --development; fi
-  python3 "$runtime/cascade/runtime.py" "$@"
+  bash "$runtime/cascade/runtime.sh" "$@"
   exit $?
 fi
 cat <<EOF

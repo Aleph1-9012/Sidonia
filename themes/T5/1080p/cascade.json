@@ -1,9 +1,0 @@
-{
-  "version": 2,
-  "profile": "1080p",
-  "canvas": [
-    1920,
-    1080
-  ],
-  "entries": "discovered by grub-mkconfig"
-}

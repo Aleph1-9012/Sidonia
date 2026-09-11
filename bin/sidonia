@@ -313,10 +313,9 @@ apply_theme() (
     FONT="$(font_file "$THEME" "$PROFILE")"
     GFXMODE="$(choose_gfxmode "$PROFILE" "$REQUESTED_MODE")"
     if test "$THEME" = T5; then
-        command -v python3 >/dev/null 2>&1 || die "Echelon entry validation requires python3"
-        test -f "$RUNTIME_ROOT/cascade/runtime.py" || die "Echelon generator is missing; run the updated install.sh"
-        python3 -c 'from PIL import Image, ImageFont' || die "Echelon requires Python Pillow"
-        command -v rsvg-convert >/dev/null 2>&1 || die "Echelon requires rsvg-convert from librsvg"
+        test -f "$RUNTIME_ROOT/cascade/runtime.sh" || die "Echelon generator is missing; run the updated install.sh"
+        command -v awk >/dev/null 2>&1 || die "Echelon requires awk"
+        command -v gzip >/dev/null 2>&1 || die "Echelon requires gzip"
         WIDTH="${GFXMODE%x*}"
         HEIGHT="${GFXMODE#*x}"
         if test "$PROFILE" = 1440p; then
@@ -327,7 +326,7 @@ apply_theme() (
                 die "Echelon $PROFILE requires $(profile_mode "$PROFILE"); use 1440p for larger displays"
         fi
         test "$(cat "$SOURCE/framebuffer")" = "$(profile_mode "$PROFILE")" || die "Echelon canvas does not match its profile"
-        test -f "$SOURCE/cascade.json" || die "Echelon profile metadata is missing"
+        test "$(cat "$SOURCE/library-version")" = 1 || die "Echelon character library is missing or unsupported"
     fi
     validate_profile "$SOURCE" "$FONT"
     test -f "$RUNTIME_ROOT/grub.d/99_zz_sidonia" || die "runtime loader is missing; run the updated install.sh"
@@ -487,8 +486,8 @@ apply_theme() (
     grep -qF '# Sidonia owns the final theme selection' "$CONFIG_STAGE" ||
         die "generated grub.cfg did not include the Sidonia late loader"
     if test "$THEME" = T5; then
-        grep -qF '# Cascade entries generated from current GRUB configuration.' "$CONFIG_STAGE" ||
-            die "generated grub.cfg did not discover the Echelon entries"
+        grep -qFx "set sidonia_base_dir=\"\$prefix/themes/$DEST_NAME\"" "$CONFIG_STAGE" ||
+            die "generated grub.cfg did not include the Echelon loader"
         for GENERATED_MENU in "$DESTINATION"/generated/*/menu.cfg; do
             test -f "$GENERATED_MENU" || continue
             "$GRUB_SCRIPT_CHECK" "$GENERATED_MENU"

@@ -10,7 +10,7 @@ terminal-font: "Cascade UI 24"
   width = 842
   height = 216
   text = "%d"
-  font = "Cascade 7bb7ab137715 timer-ink 16"
+  font = "Cascade library timer-ink 16"
   color = "#090A08"
 }
 + label {
@@ -20,7 +20,7 @@ terminal-font: "Cascade UI 24"
   width = 842
   height = 216
   text = "%d"
-  font = "Cascade 7bb7ab137715 timer-detail 16"
+  font = "Cascade library timer-detail 16"
   color = "#F4EFDF"
 }
 + label {
@@ -30,7 +30,7 @@ terminal-font: "Cascade UI 24"
   width = 842
   height = 216
   text = "%d"
-  font = "Cascade 7bb7ab137715 timer-fill 16"
+  font = "Cascade library timer-fill 16"
   color = "#EEE7DA"
 }
 
@@ -48,8 +48,8 @@ terminal-font: "Cascade UI 24"
   scrollbar = false
   scrollbar_left_pad = 0
   scrollbar_right_pad = 0
-  item_font = "Cascade 7bb7ab137715 labels 16"
-  selected_item_font = "Cascade 7bb7ab137715 labels 16"
+  item_font = "Cascade library labels 16"
+  selected_item_font = "Cascade library labels 16"
   item_color = "#090A08"
   selected_item_color = "#F4EFDF"
 }
@@ -67,8 +67,8 @@ terminal-font: "Cascade UI 24"
   scrollbar = false
   scrollbar_left_pad = 0
   scrollbar_right_pad = 0
-  item_font = "Cascade 7bb7ab137715 status 16"
-  selected_item_font = "Cascade 7bb7ab137715 status-selected 16"
+  item_font = "Cascade library status 16"
+  selected_item_font = "Cascade library status-selected 16"
   item_color = "#F4EFDF"
   selected_item_color = "#F01B21"
 }
@@ -93,8 +93,8 @@ terminal-font: "Cascade UI 24"
   scrollbar = false
   scrollbar_left_pad = 0
   scrollbar_right_pad = 0
-  item_font = "Cascade 7bb7ab137715 shapes 16"
-  selected_item_font = "Cascade 7bb7ab137715 shapes 16"
+  item_font = "Cascade library shapes 16"
+  selected_item_font = "Cascade library shapes 16"
   item_color = "#EEE7DA"
   selected_item_color = "#D71920"
 }

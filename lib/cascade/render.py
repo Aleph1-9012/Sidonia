@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render Echelon graphics from the supplied SVG and a discovered entry list."""
+"""Build Echelon's fixed artwork and font templates from the supplied SVG."""
 import copy
 import io
 import json
@@ -24,19 +24,12 @@ class Artwork:
         self.master = ET.parse(ROOT / "artwork/Gridcase-editable.svg").getroot()
         self.nodes = {e.get("id"): e for e in self.master.iter() if e.get("id")}
         self.scale = min(width / 3840, height / 2160)
-        self.offset = ((width-3840*self.scale)/2, (height-2160*self.scale)/2)
         self.env = os.environ.copy()
         # Use only the bundled font files, with a cache inside this build.
         config = output / "fontconfig.xml"
         config.write_text(f'<?xml version="1.0"?><!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd">'
                           f'<fontconfig><dir>{ROOT / "fonts"}</dir><cachedir>{output / "font-cache"}</cachedir></fontconfig>')
         self.env["FONTCONFIG_FILE"] = str(config)
-
-    def rect(self, box):
-        x,y,w,h = box
-        ox,oy = self.offset
-        left,top = round(ox+x*self.scale),round(oy+y*self.scale)
-        return [left,top,round(ox+(x+w)*self.scale)-left,round(oy+(y+h)*self.scale)-top]
 
     def parts(self, ids, fill=None, stroke=None, caption=None, status_width=None):
         result = []
@@ -91,7 +84,7 @@ def menu(font, selected_font, color, selected_color, width, height, row_height):
 '''
 
 
-def build(art, namespace, *, development=False):
+def build(art, namespace):
     out = art.output.resolve()
     theme = out / "theme"
     theme.mkdir(parents=True, exist_ok=True)
@@ -120,7 +113,7 @@ def build(art, namespace, *, development=False):
     fonts = {}
     for key,group in masks.items():
         fonts[key] = "Cascade " + namespace + " " + key + " 16"
-        glyphs = {cp:empty_glyph() for cp in set(range(32,127)) | {ord(c) for card in cards for c in card["title"]}}
+        glyphs = {cp:empty_glyph() for cp in range(32,127)}
         for i,mask in enumerate(group):
             l,t,r,b = mask.getbbox()
             glyphs[cards[i]["marker"]] = glyph(mask.crop((l,t,r,b)),l,baseline-(t-i)-(b-t),0)
@@ -148,7 +141,7 @@ def build(art, namespace, *, development=False):
     timer_components = ""
     for key,color in (("timer-ink",colors["ink"]),("timer-detail",colors["detail"]),("timer-fill",colors["card"])):
         name = "Cascade " + namespace + " " + key + " 16"
-        glyphs = {cp:empty_glyph() for cp in set(range(32,127)) | {ord(c) for card in cards for c in card["title"]}}
+        glyphs = {cp:empty_glyph() for cp in range(32,127)}
         for remaining,state in timer_parts.items():
             glyphs[ord(str(remaining))] = glyph(state[key].crop((l,t,r,b)),0,-1,r-l)
         write_pf2(theme / f"{key}.pf2",name,glyphs,b-t-1,1,16)
@@ -183,35 +176,4 @@ terminal-font: "{uiname}"
 '''
     themetxt += menu(fonts["shapes"],fonts["shapes"],colors["card"],colors["selected"],art.width,art.height,row_height)
     (theme / "theme.txt").write_text(themetxt)
-    if not development:
-        return theme
-    previews = out / "expected-previews"
-    previews.mkdir(exist_ok=True)
-    timer_bbox = [l,t,r-l,b-t]
-    def preview(selected,remaining=None):
-        image = background.convert("RGB")
-        for i in range(len(cards)):
-            image.paste(colors["selected"] if i==selected else colors["card"],(0,0),masks["shapes"][i])
-        image.paste(foreground,(0,0),foreground)
-        for i in range(len(cards)):
-            image.paste(colors["status_selected"] if i==selected else colors["detail"],(0,0),masks["status-selected" if i==selected else "status"][i])
-            image.paste(colors["detail"] if i==selected else colors["ink"],(0,0),masks["labels"][i])
-        if remaining is not None:
-            for key,color in (("timer-fill",colors["card"]),("timer-detail",colors["detail"]),("timer-ink",colors["ink"])):
-                image.paste(color,(0,0),timer_parts[remaining][key])
-        return image
-    for i in range(len(cards)):
-        preview(i).save(previews / f"expected-selection-{i+1}.png")
-    for remaining in range(7):
-        preview(0,remaining).save(previews / f"expected-timer-{remaining}.png")
-    cell_rects = [art.rect(c["bounds"]) for c in art.spec["timer_cells"]]
-    layout = {"kind":"gridcase-vector-artwork", "width":art.width,"height":art.height,
-              "scale":art.scale,"letterbox_offset":art.offset,"design_size":[3840,2160],
-              "cards":[{**c,**dict(zip(("x","y","width","height"),art.rect(c["bounds"])))} for c in cards],
-              "menu":{"row_height":row_height,"item_spacing":1-row_height,"configured_entry_count":len(cards)},
-              "timer":{"mode":"glyphs",
-                       "layer_bounds":timer_bbox,"cells":[dict(zip(("x","y","width","height"),box)) for box in cell_rects],
-                       **dict(zip(("x","y","width","height"),[cell_rects[0][0],cell_rects[0][1],sum(c[2] for c in cell_rects),cell_rects[0][3]]))},
-              "source_svg_sha256":art.spec["sha256"],"fonts":json.loads((ROOT / "fonts/sources.json").read_text())}
-    (out / "layout.json").write_text(json.dumps(layout,indent=2)+"\n")
     return theme

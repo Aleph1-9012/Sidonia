@@ -26,7 +26,7 @@ utilities and GRUB's own configuration checker. They do not run Python or
 an image renderer. The fixed artwork and 17,049-character library are prebuilt
 for each profile, including the one-, two-, three- and four-card layouts.
 
-Maintainers need Python 3, Pillow and rsvg-convert from librsvg to rebuild
-release assets. The editable SVG, Inconsolata fonts and Noto Sans JP font are
-in lib/cascade. Run `python3 tools/build_cascade_theme.py` to rebuild the three
-profiles, character libraries and project preview.
+The runtime helpers are embedded in `install.sh` and written into the installed
+Sidonia directory. Asset-building scripts are not shipped. The editable SVG,
+layout data, Inconsolata fonts and Noto Sans JP font remain in
+`docs/design/echelon` as source material.

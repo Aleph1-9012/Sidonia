@@ -20,4 +20,5 @@ The upper `T-%02d` counter, lower zero-padded counter, and thin right-anchored r
 
 The menu uses Space Mono Bold at the 46px master-design scale. Both countdown labels also use Space Mono Bold at their independently scaled reference sizes.
 
-See the repository/package `NOTICE.md` for artwork and font notices.
+See `docs/NOTICE.md` in the repository or `NOTICE.md` in the installed package
+for artwork and font notices.

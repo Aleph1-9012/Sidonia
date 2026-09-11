@@ -85,6 +85,9 @@ complete standard GRUB list. Long card titles are shortened to fit; the original
 menu and entry editor keep their full names. Titles containing characters
 outside the bundled fonts use the complete standard menu.
 
+`install.sh` contains the runtime helpers. Artwork and character data are
+prebuilt; asset-building scripts are not included in the repository.
+
 Echelon's countdown is
 six seconds; an existing disabled or immediate timeout stays disabled or
 immediate. Escape opens the original boot menu. If the requested graphics mode
@@ -104,15 +107,13 @@ Remove Sidonia and restore the original GRUB appearance:
 sudo sidonia uninstall
 ```
 
-[![Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/G3M826JKYV)
-
 ## More information
 
 - [Editable source assets](https://github.com/Aleph1-9012/Sidonia/releases/tag/v1.0.0)
 - [Advanced installation and troubleshooting](docs/ADVANCED.md)
 - [License](LICENSE)
-- [Artwork and font notices](NOTICE.md)
-- [Echelon design sources and rebuilds](design/cascade/README.md)
+- [Artwork and font notices](docs/NOTICE.md)
+- [Echelon design sources](docs/design/echelon/README.md)
 
 Sidonia is an independent project and is not affiliated with the GRUB project
 or any media franchise.

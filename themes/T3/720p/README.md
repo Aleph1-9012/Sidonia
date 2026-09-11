@@ -16,4 +16,5 @@ Load the PF2 through the distribution's `GRUB_FONT` mechanism before selecting `
 
 Known limitation: The continuous stock-GRUB timeout fill can bridge the gaps between the eight static slot outlines while it advances.
 
-See the repository/package `NOTICE.md` for artwork and DejaVu font notices.
+See `docs/NOTICE.md` in the repository or `NOTICE.md` in the installed package
+for artwork and DejaVu font notices.

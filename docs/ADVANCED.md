@@ -35,9 +35,10 @@ stay available while an update is being generated. An unsuccessful Sidonia
 installation restores the previous configuration and artwork.
 
 Normal Echelon generation writes only the boot menu and its required assets.
-Python, Pillow and rsvg-convert are maintainer tools used to build release
-artwork and character libraries. Fresh installations copy only the shell/awk
-runtime. An upgrade preserves an already-installed legacy Python renderer
+The shell/awk runtime and late loader are embedded in `install.sh`, which writes
+them into the installed Sidonia directory for later GRUB configuration updates.
+Artwork and character libraries are prebuilt; their build tools are not shipped.
+An upgrade preserves an already-installed legacy Python renderer
 so rollback to the previous T5 version can still regenerate its artwork.
 
 Backups are stored below `/var/lib/sidonia`. The first installation preserves

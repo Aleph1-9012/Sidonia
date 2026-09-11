@@ -20,4 +20,5 @@ Transparent style padding confines GRUB's mandatory 200×28 progress-widget allo
 
 Known limitation: The intended overlap uses negative item spacing. Some GRUB builds may clamp or clip it; BIOS/UEFI capture testing is recommended.
 
-See the repository/package `NOTICE.md` for artwork and DejaVu font notices.
+See `docs/NOTICE.md` in the repository or `NOTICE.md` in the installed package
+for artwork and DejaVu font notices.

@@ -18,4 +18,5 @@ The timer is driven entirely by stock GRUB's native `__timeout__` components. `T
 
 Known limitation: Stock GRUB supplies one font and style per live title, so the reference's separate large number and smaller title cannot both remain dynamic.
 
-See the repository/package `NOTICE.md` for artwork and DejaVu font notices.
+See `docs/NOTICE.md` in the repository or `NOTICE.md` in the installed package
+for artwork and DejaVu font notices.

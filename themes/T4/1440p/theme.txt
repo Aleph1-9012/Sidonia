@@ -45,14 +45,6 @@ desktop-color: "#000000"
   align = "left"
 }
 
-+ image {
-  left = 50%-82
-  top = 50%-656
-  width = 112
-  height = 56
-  file = "progress/timer_base.png"
-}
-
 + progress_bar {
   id = "__timeout__"
   left = 50%+725

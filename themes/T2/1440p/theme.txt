@@ -67,14 +67,6 @@ desktop-color: "#07080A"
   text = ""
 }
 
-+ image {
-  left = 50%-480
-  top = 50%+475
-  width = 1080
-  height = 90
-  file = "progress/timer_base.png"
-}
-
 # GRUB paints components in reverse declaration order; keep the canvas last.
 + image {
   left = 50%-1280

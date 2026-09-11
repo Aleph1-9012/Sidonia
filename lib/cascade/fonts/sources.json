@@ -1,0 +1,38 @@
+[
+  {
+    "file": "Inconsolata-Regular.ttf",
+    "url": "https://raw.githubusercontent.com/googlefonts/Inconsolata/main/fonts/ttf/Inconsolata-Regular.ttf",
+    "sha256": "ab56ea18c5c24d2b909261f0c63a14f9576dfabaf2e9ebd353062aa4149cefc7",
+    "bytes": 105284
+  },
+  {
+    "file": "Inconsolata-Medium.ttf",
+    "url": "https://raw.githubusercontent.com/googlefonts/Inconsolata/main/fonts/ttf/Inconsolata-Medium.ttf",
+    "sha256": "613ecdc530fb849189d3dd8c812289f12f2775e1858734f42e3066c97a7086c1",
+    "bytes": 105620
+  },
+  {
+    "file": "Inconsolata-SemiBold.ttf",
+    "url": "https://raw.githubusercontent.com/googlefonts/Inconsolata/main/fonts/ttf/Inconsolata-SemiBold.ttf",
+    "sha256": "269a659a373678bce38d5e1f34856b5006027eb38184639799f105aeba8b94a4",
+    "bytes": 105428
+  },
+  {
+    "file": "Inconsolata-OFL.txt",
+    "url": "https://raw.githubusercontent.com/googlefonts/Inconsolata/main/OFL.txt",
+    "sha256": "5d362a6f8690517fd9a5573128a081d8bbbb2f92714cf00556e08fbbe9600426",
+    "bytes": 4394
+  },
+  {
+    "file": "NotoSansJP-Regular.otf",
+    "url": "https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/SubsetOTF/JP/NotoSansJP-Regular.otf",
+    "sha256": "dff723ba59d57d136764a04b9b2d03205544f7cd785a711442d6d2d085ac5073",
+    "bytes": 4533028
+  },
+  {
+    "file": "NotoSansJP-LICENSE.txt",
+    "url": "https://raw.githubusercontent.com/notofonts/noto-cjk/main/Sans/LICENSE",
+    "sha256": "6a73f9541c2de74158c0e7cf6b0a58ef774f5a780bf191f2d7ec9cc53efe2bf2",
+    "bytes": 4301
+  }
+]

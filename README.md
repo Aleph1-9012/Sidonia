@@ -1,8 +1,7 @@
 # Sidonia
 
-Sidonia is a small collection of four sci-fi GRUB themes made to give the boot
+Sidonia is a small collection of five sci-fi GRUB themes made to give the boot
 screen the feeling of a ship interface.
-
 
 ## Themes
 
@@ -21,6 +20,14 @@ screen the feeling of a ship interface.
 ### T4 — System Bay
 
 ![T4 System Bay](previews/T4.png)
+
+### T5 — Echelon
+
+![T5 Echelon](previews/T5.png)
+
+Echelon fills its cards from your actual GRUB entries, using their names,
+order and boot commands. It refreshes the artwork whenever `grub-mkconfig`
+writes a new configuration. Escape opens the complete original menu.
 
 ## Install
 
@@ -51,11 +58,34 @@ You can also select a theme directly:
 sudo sidonia set T2 1080p
 ```
 
+Install and activate Echelon on a 2560×1600 display:
+
+```bash
+sudo ./install.sh T5 1440p --gfxmode 2560x1600
+```
+
+After installation, switch to it with `sudo sidonia set T5 1440p`.
+It appears automatically on the next boot. No GRUB console command is needed.
+
 Available display profiles:
 
 - `720p` — 1280×720
 - `1080p` — 1920×1080
 - `1440p` — 2560×1440 and larger
+
+The 1440p canvas stays at 2560×1440 on larger displays, with black padding.
+At 2560×1600 that adds 80 pixels above and below; at 3840×2160 it adds
+640 pixels on each side and 360 pixels above and below.
+
+Echelon requires Python 3, Pillow and `rsvg-convert` from librsvg. It supports
+one to four cards. Larger menus and entries discovered only at boot use the
+complete standard GRUB list. Long card titles are shortened to fit; the original
+menu and entry editor keep their full names.
+
+Echelon's countdown is
+six seconds; an existing disabled or immediate timeout stays disabled or
+immediate. Escape opens the original boot menu. If the requested graphics mode
+or a required font fails, the original menu remains available in text mode.
 
 ## Restore
 
@@ -71,10 +101,7 @@ Remove Sidonia and restore the original GRUB appearance:
 sudo sidonia uninstall
 ```
 
-
 [![Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/G3M826JKYV)
-
-
 
 ## More information
 
@@ -82,6 +109,7 @@ sudo sidonia uninstall
 - [Advanced installation and troubleshooting](docs/ADVANCED.md)
 - [License](LICENSE)
 - [Artwork and font notices](NOTICE.md)
+- [Echelon design sources and rebuilds](design/cascade/README.md)
 
 Sidonia is an independent project and is not affiliated with the GRUB project
 or any media franchise.

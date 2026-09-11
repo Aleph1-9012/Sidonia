@@ -63,7 +63,7 @@ if test "${1:-}" = "--help" || test "${1:-}" = "-h"; then
     exit 0
 fi
 
-for THEME in T1 T2 T3 T4; do
+for THEME in T1 T2 T3 T4 T5; do
     for PROFILE in 720p 1080p 1440p; do
         test -f "$SOURCE_THEMES/$THEME/$PROFILE/theme.txt"
         test -f "$SOURCE_THEMES/$THEME/$PROFILE/background.png"
@@ -74,6 +74,7 @@ install -d -o root -g root -m 0755 "$(dirname "$INSTALL_ROOT")"
 STAGE="$(mktemp -d "$(dirname "$INSTALL_ROOT")/.sidonia.new.XXXXXX")"
 umask 022
 cp -R --no-preserve=ownership -- "$SOURCE_THEMES" "$STAGE/themes"
+cp -R --no-preserve=ownership -- "$REPO_ROOT/lib" "$STAGE/lib"
 install -o root -g root -m 0644 "$REPO_ROOT/LICENSE" "$STAGE/LICENSE"
 install -o root -g root -m 0644 "$REPO_ROOT/NOTICE.md" "$STAGE/NOTICE.md"
 
@@ -105,7 +106,6 @@ fi
 export SIDONIA_ASSET_ROOT="$INSTALL_ROOT/themes"
 export SIDONIA_INSTALL_ROOT="$INSTALL_ROOT"
 export SIDONIA_COMMAND_PATH="$COMMAND_PATH"
-export SIDONIA_LEGACY_COMMAND_PATH="$LEGACY_COMMAND_PATH"
 
 if test "$#" -gt 0; then
     "$COMMAND_PATH" set "$@"

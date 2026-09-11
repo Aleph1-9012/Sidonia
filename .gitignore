@@ -1,0 +1,12 @@
+# Runtime sources override a local generic lib/ ignore.
+!lib/
+!lib/**
+
+# Local development material is not part of the release.
+/tests/
+/.local-backups/
+/recordings/
+/design/cascade/original-plan.md
+
+__pycache__/
+*.pyc

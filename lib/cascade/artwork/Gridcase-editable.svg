@@ -1,0 +1,620 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" width="3840" height="2160" viewBox="0 0 3840 2160" fill="none">
+<g id="Gridcase" clip-path="url(#clip0_80_841)">
+<g id="background">
+<path id="black-canvas" d="M3840 0H0V2160H3840V0Z" fill="black" />
+</g>
+<g id="grid">
+<path id="Vector" d="M35.625 176.25V1863.75" stroke="#B6B5A1" stroke-width="1.59375" />
+<path id="Vector_2" d="M268.125 176.25V1863.75" stroke="#B6B5A1" stroke-width="1.59375" />
+<path id="Vector_3" d="M457.5 176.25V1863.75" stroke="#B6B5A1" stroke-width="1.59375" />
+<path id="Vector_4" d="M838.125 176.25V1863.75" stroke="#B6B5A1" stroke-width="1.59375" />
+<path id="Vector_5" d="M1098.75 176.25V1863.75" stroke="#B6B5A1" stroke-width="1.59375" />
+<path id="Vector_6" d="M1370.62 176.25V1863.75" stroke="#B6B5A1" stroke-width="1.59375" />
+<path id="Vector_7" d="M1640.62 176.25V1863.75" stroke="#B6B5A1" stroke-width="1.59375" />
+<path id="Vector_8" d="M1888.12 176.25V1863.75" stroke="#B6B5A1" stroke-width="1.59375" />
+<path id="Vector_9" d="M2135.62 176.25V1863.75" stroke="#B6B5A1" stroke-width="1.59375" />
+<path id="Vector_10" d="M2379.38 176.25V1863.75" stroke="#B6B5A1" stroke-width="1.59375" />
+<path id="Vector_11" d="M2626.88 176.25V1863.75" stroke="#B6B5A1" stroke-width="1.59375" />
+<path id="Vector_12" d="M2874.38 176.25V1863.75" stroke="#B6B5A1" stroke-width="1.59375" />
+<path id="Vector_13" d="M3121.88 176.25V1863.75" stroke="#B6B5A1" stroke-width="1.59375" />
+<path id="Vector_14" d="M3373.12 176.25V1372.5" stroke="#B6B5A1" stroke-width="1.59375" />
+<path id="Vector_15" d="M3373.12 1443.75V1863.75" stroke="#B6B5A1" stroke-width="1.59375" />
+<path id="Vector_16" d="M3624.38 176.25V1863.75" stroke="#B6B5A1" stroke-width="1.59375" />
+<path id="Vector_17" d="M3826.88 176.25V1863.75" stroke="#B6B5A1" stroke-width="1.59375" />
+<path id="Vector_18" d="M0 196.875H3840" stroke="#B6B5A1" stroke-width="1.78125" />
+<path id="Vector_19" d="M0 420H3840" stroke="#B6B5A1" stroke-width="1.78125" />
+<path id="Vector_20" d="M0 643.125H3840" stroke="#B6B5A1" stroke-width="1.78125" />
+<path id="Vector_21" d="M0 937.5H3840" stroke="#B6B5A1" stroke-width="1.78125" />
+<path id="Vector_22" d="M0 1170H3840" stroke="#B6B5A1" stroke-width="1.78125" />
+<path id="Vector_23" d="M0 1464.38H1640.62" stroke="#B6B5A1" stroke-width="1.78125" />
+<path id="Vector_24" d="M0 1683.75H3840" stroke="#B6B5A1" stroke-width="1.78125" />
+<path id="Vector_25" d="M0 1845H3840" stroke="#B6B5A1" stroke-width="1.78125" />
+<path id="Vector_26" d="M3676.88 1571.25H3840" stroke="#B6B5A1" stroke-width="1.59375" />
+<g id="grid-registration-ticks">
+<path id="Vector_27" d="M22.5 196.875H48.75M35.625 183.75V210" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_28" d="M255 196.875H281.25M268.125 183.75V210" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_29" d="M444.375 196.875H470.625M457.5 183.75V210" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_30" d="M825 196.875H851.25M838.125 183.75V210" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_31" d="M1085.62 196.875H1111.88M1098.75 183.75V210" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_32" d="M1357.5 196.875H1383.75M1370.62 183.75V210" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_33" d="M1627.5 196.875H1653.75M1640.62 183.75V210" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_34" d="M1875 196.875H1901.25M1888.12 183.75V210" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_35" d="M2122.5 196.875H2148.75M2135.62 183.75V210" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_36" d="M2366.25 196.875H2392.5M2379.38 183.75V210" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_37" d="M2613.75 196.875H2640M2626.88 183.75V210" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_38" d="M2861.25 196.875H2887.5M2874.38 183.75V210" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_39" d="M3108.75 196.875H3135M3121.88 183.75V210" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_40" d="M3360 196.875H3386.25M3373.12 183.75V210" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_41" d="M3611.25 196.875H3637.5M3624.38 183.75V210" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_42" d="M3813.75 196.875H3840M3826.88 183.75V210" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_43" d="M22.5 420H48.75M35.625 406.875V433.125" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_44" d="M255 420H281.25M268.125 406.875V433.125" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_45" d="M444.375 420H470.625M457.5 406.875V433.125" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_46" d="M825 420H851.25M838.125 406.875V433.125" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_47" d="M1085.62 420H1111.88M1098.75 406.875V433.125" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_48" d="M1357.5 420H1383.75M1370.62 406.875V433.125" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_49" d="M1627.5 420H1653.75M1640.62 406.875V433.125" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_50" d="M1875 420H1901.25M1888.12 406.875V433.125" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_51" d="M2122.5 420H2148.75M2135.62 406.875V433.125" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_52" d="M2366.25 420H2392.5M2379.38 406.875V433.125" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_53" d="M2613.75 420H2640M2626.88 406.875V433.125" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_54" d="M2861.25 420H2887.5M2874.38 406.875V433.125" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_55" d="M3108.75 420H3135M3121.88 406.875V433.125" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_56" d="M3360 420H3386.25M3373.12 406.875V433.125" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_57" d="M3611.25 420H3637.5M3624.38 406.875V433.125" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_58" d="M3813.75 420H3840M3826.88 406.875V433.125" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_59" d="M22.5 643.125H48.75M35.625 630V656.25" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_60" d="M255 643.125H281.25M268.125 630V656.25" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_61" d="M444.375 643.125H470.625M457.5 630V656.25" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_62" d="M825 643.125H851.25M838.125 630V656.25" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_63" d="M1085.62 643.125H1111.88M1098.75 630V656.25" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_64" d="M1357.5 643.125H1383.75M1370.62 630V656.25" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_65" d="M1627.5 643.125H1653.75M1640.62 630V656.25" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_66" d="M1875 643.125H1901.25M1888.12 630V656.25" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_67" d="M2122.5 643.125H2148.75M2135.62 630V656.25" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_68" d="M2366.25 643.125H2392.5M2379.38 630V656.25" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_69" d="M2613.75 643.125H2640M2626.88 630V656.25" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_70" d="M2861.25 643.125H2887.5M2874.38 630V656.25" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_71" d="M3108.75 643.125H3135M3121.88 630V656.25" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_72" d="M3360 643.125H3386.25M3373.12 630V656.25" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_73" d="M3611.25 643.125H3637.5M3624.38 630V656.25" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_74" d="M3813.75 643.125H3840M3826.88 630V656.25" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_75" d="M22.5 937.5H48.75M35.625 924.375V950.625" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_76" d="M255 937.5H281.25M268.125 924.375V950.625" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_77" d="M444.375 937.5H470.625M457.5 924.375V950.625" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_78" d="M825 937.5H851.25M838.125 924.375V950.625" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_79" d="M1085.62 937.5H1111.88M1098.75 924.375V950.625" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_80" d="M1357.5 937.5H1383.75M1370.62 924.375V950.625" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_81" d="M1627.5 937.5H1653.75M1640.62 924.375V950.625" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_82" d="M1875 937.5H1901.25M1888.12 924.375V950.625" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_83" d="M2122.5 937.5H2148.75M2135.62 924.375V950.625" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_84" d="M2366.25 937.5H2392.5M2379.38 924.375V950.625" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_85" d="M2613.75 937.5H2640M2626.88 924.375V950.625" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_86" d="M2861.25 937.5H2887.5M2874.38 924.375V950.625" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_87" d="M3108.75 937.5H3135M3121.88 924.375V950.625" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_88" d="M3360 937.5H3386.25M3373.12 924.375V950.625" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_89" d="M3611.25 937.5H3637.5M3624.38 924.375V950.625" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_90" d="M3813.75 937.5H3840M3826.88 924.375V950.625" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_91" d="M22.5 1170H48.75M35.625 1156.88V1183.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_92" d="M255 1170H281.25M268.125 1156.88V1183.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_93" d="M444.375 1170H470.625M457.5 1156.88V1183.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_94" d="M825 1170H851.25M838.125 1156.88V1183.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_95" d="M1085.62 1170H1111.88M1098.75 1156.88V1183.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_96" d="M1357.5 1170H1383.75M1370.62 1156.88V1183.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_97" d="M1627.5 1170H1653.75M1640.62 1156.88V1183.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_98" d="M1875 1170H1901.25M1888.12 1156.88V1183.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_99" d="M2122.5 1170H2148.75M2135.62 1156.88V1183.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_100" d="M2366.25 1170H2392.5M2379.38 1156.88V1183.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_101" d="M2613.75 1170H2640M2626.88 1156.88V1183.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_102" d="M2861.25 1170H2887.5M2874.38 1156.88V1183.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_103" d="M3108.75 1170H3135M3121.88 1156.88V1183.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_104" d="M3360 1170H3386.25M3373.12 1156.88V1183.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_105" d="M3611.25 1170H3637.5M3624.38 1156.88V1183.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_106" d="M3813.75 1170H3840M3826.88 1156.88V1183.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_107" d="M22.5 1464.38H48.75M35.625 1451.25V1477.5" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_108" d="M255 1464.38H281.25M268.125 1451.25V1477.5" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_109" d="M444.375 1464.38H470.625M457.5 1451.25V1477.5" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_110" d="M825 1464.38H851.25M838.125 1451.25V1477.5" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_111" d="M1085.62 1464.38H1111.88M1098.75 1451.25V1477.5" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_112" d="M1357.5 1464.38H1383.75M1370.62 1451.25V1477.5" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_113" d="M1627.5 1464.38H1653.75M1640.62 1451.25V1477.5" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_114" d="M22.5 1683.75H48.75M35.625 1670.62V1696.88" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_115" d="M255 1683.75H281.25M268.125 1670.62V1696.88" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_116" d="M444.375 1683.75H470.625M457.5 1670.62V1696.88" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_117" d="M825 1683.75H851.25M838.125 1670.62V1696.88" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_118" d="M1085.62 1683.75H1111.88M1098.75 1670.62V1696.88" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_119" d="M1357.5 1683.75H1383.75M1370.62 1670.62V1696.88" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_120" d="M1627.5 1683.75H1653.75M1640.62 1670.62V1696.88" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_121" d="M1875 1683.75H1901.25M1888.12 1670.62V1696.88" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_122" d="M2122.5 1683.75H2148.75M2135.62 1670.62V1696.88" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_123" d="M2366.25 1683.75H2392.5M2379.38 1670.62V1696.88" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_124" d="M2613.75 1683.75H2640M2626.88 1670.62V1696.88" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_125" d="M2861.25 1683.75H2887.5M2874.38 1670.62V1696.88" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_126" d="M3108.75 1683.75H3135M3121.88 1670.62V1696.88" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_127" d="M3360 1683.75H3386.25M3373.12 1670.62V1696.88" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_128" d="M3611.25 1683.75H3637.5M3624.38 1670.62V1696.88" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_129" d="M3813.75 1683.75H3840M3826.88 1670.62V1696.88" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_130" d="M22.5 1845H48.75M35.625 1831.88V1858.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_131" d="M255 1845H281.25M268.125 1831.88V1858.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_132" d="M444.375 1845H470.625M457.5 1831.88V1858.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_133" d="M825 1845H851.25M838.125 1831.88V1858.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_134" d="M1085.62 1845H1111.88M1098.75 1831.88V1858.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_135" d="M1357.5 1845H1383.75M1370.62 1831.88V1858.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_136" d="M1627.5 1845H1653.75M1640.62 1831.88V1858.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_137" d="M1875 1845H1901.25M1888.12 1831.88V1858.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_138" d="M2122.5 1845H2148.75M2135.62 1831.88V1858.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_139" d="M2366.25 1845H2392.5M2379.38 1831.88V1858.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_140" d="M2613.75 1845H2640M2626.88 1831.88V1858.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_141" d="M2861.25 1845H2887.5M2874.38 1831.88V1858.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_142" d="M3108.75 1845H3135M3121.88 1831.88V1858.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_143" d="M3360 1845H3386.25M3373.12 1831.88V1858.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_144" d="M3611.25 1845H3637.5M3624.38 1831.88V1858.12" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_145" d="M3813.75 1845H3840M3826.88 1831.88V1858.12" stroke="#F4EFDF" stroke-width="1.875" />
+</g>
+<g id="hatch-upper-right">
+<path id="Vector_146" d="M2874.38 453.75L2908.12 420" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_147" d="M2874.38 487.5L2941.88 420" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_148" d="M2874.38 521.25L2975.62 420" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_149" d="M2874.38 555L3009.38 420" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_150" d="M2874.38 588.75L3043.12 420" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_151" d="M2874.38 622.5L3076.88 420" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_152" d="M2887.5 643.125L3110.62 420" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_153" d="M2921.25 643.125L3121.88 442.5" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_154" d="M2955 643.125L3121.88 476.25" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_155" d="M2988.75 643.125L3121.88 510" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_156" d="M3022.5 643.125L3121.88 543.75" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_157" d="M3056.25 643.125L3121.88 577.5" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_158" d="M3090 643.125L3121.88 611.25" stroke="#F4EFDF" stroke-width="1.5" />
+</g>
+<g id="hatch-middle-right">
+<path id="Vector_159" d="M3373.12 676.875L3406.88 643.125" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_160" d="M3373.12 710.625L3440.62 643.125" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_161" d="M3373.12 744.375L3474.38 643.125" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_162" d="M3373.12 778.125L3508.12 643.125" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_163" d="M3373.12 811.875L3541.88 643.125" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_164" d="M3373.12 845.625L3575.62 643.125" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_165" d="M3373.12 879.375L3609.38 643.125" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_166" d="M3373.12 913.125L3624.38 661.875" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_167" d="M3382.5 937.5L3624.38 695.625" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_168" d="M3416.25 937.5L3624.38 729.375" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_169" d="M3450 937.5L3624.38 763.125" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_170" d="M3483.75 937.5L3624.38 796.875" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_171" d="M3517.5 937.5L3624.38 830.625" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_172" d="M3551.25 937.5L3624.38 864.375" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_173" d="M3585 937.5L3624.38 898.125" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_174" d="M3618.75 937.5L3624.38 931.875" stroke="#F4EFDF" stroke-width="1.5" />
+</g>
+<g id="hatch-lower-left">
+<path id="Vector_175" d="M457.5 1498.12L491.25 1464.38" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_176" d="M457.5 1531.88L525 1464.38" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_177" d="M457.5 1565.62L558.75 1464.38" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_178" d="M457.5 1599.38L592.5 1464.38" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_179" d="M457.5 1633.12L626.25 1464.38" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_180" d="M457.5 1666.88L660 1464.38" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_181" d="M474.375 1683.75L693.75 1464.38" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_182" d="M508.125 1683.75L727.5 1464.38" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_183" d="M541.875 1683.75L761.25 1464.38" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_184" d="M575.625 1683.75L795 1464.38" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_185" d="M609.375 1683.75L828.75 1464.38" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_186" d="M643.125 1683.75L838.125 1488.75" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_187" d="M676.875 1683.75L838.125 1522.5" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_188" d="M710.625 1683.75L838.125 1556.25" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_189" d="M744.375 1683.75L838.125 1590" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_190" d="M778.125 1683.75L838.125 1623.75" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_191" d="M811.875 1683.75L838.125 1657.5" stroke="#F4EFDF" stroke-width="1.5" />
+</g>
+<g id="hatch-bottom">
+<path id="Vector_192" d="M1098.75 1717.5L1132.5 1683.75" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_193" d="M1098.75 1751.25L1166.25 1683.75" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_194" d="M1098.75 1785L1200 1683.75" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_195" d="M1098.75 1818.75L1233.75 1683.75" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_196" d="M1106.25 1845L1267.5 1683.75" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_197" d="M1140 1845L1301.25 1683.75" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_198" d="M1173.75 1845L1335 1683.75" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_199" d="M1207.5 1845L1368.75 1683.75" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_200" d="M1241.25 1845L1370.62 1715.62" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_201" d="M1275 1845L1370.62 1749.38" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_202" d="M1308.75 1845L1370.62 1783.12" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_203" d="M1342.5 1845L1370.62 1816.88" stroke="#F4EFDF" stroke-width="1.5" />
+</g>
+</g>
+<g id="header">
+<g id="brand-hatch">
+<path id="Vector_204" d="M53.4375 78.75L73.125 59.0625" stroke="#F4EFDF" stroke-width="1.6875" />
+<path id="Vector_205" d="M53.4375 98.4375L92.8125 59.0625" stroke="#F4EFDF" stroke-width="1.6875" />
+<path id="Vector_206" d="M53.4375 118.125L112.5 59.0625" stroke="#F4EFDF" stroke-width="1.6875" />
+<path id="Vector_207" d="M57.1875 134.062L128.438 62.8125" stroke="#F4EFDF" stroke-width="1.6875" />
+<path id="Vector_208" d="M76.875 134.062L128.438 82.5" stroke="#F4EFDF" stroke-width="1.6875" />
+<path id="Vector_209" d="M96.5625 134.062L128.438 102.188" stroke="#F4EFDF" stroke-width="1.6875" />
+<path id="Vector_210" d="M116.25 134.062L128.438 121.875" stroke="#F4EFDF" stroke-width="1.6875" />
+<path id="Vector_211" d="M128.438 59.0625H53.4375V134.062H128.438V59.0625Z" stroke="#F4EFDF" stroke-width="1.875" />
+</g>
+<path id="Vector_212" d="M162.188 45V138.75" stroke="#B6B5A1" stroke-width="1.875" />
+<g id="header-title">
+<text x="201.9670" y="111.2952" font-family="Inconsolata" font-weight="600" font-size="90.4237" fill="#F4EFDF" id="header-title-live-text">SID0NIA // ECHEL0N</text></g>
+<g id="page-number">
+<text x="2503.2300" y="104.8931" font-family="Inconsolata" font-weight="400" font-size="50.9901" fill="#F4EFDF" id="page-number-live-text">P.NUMBER 704</text></g>
+<path id="Vector_213" d="M2876.25 43.125V153.75" stroke="#B6B5A1" stroke-width="1.59375" />
+<path id="Vector_214" d="M3281.25 43.125V153.75" stroke="#B6B5A1" stroke-width="1.59375" />
+<path id="Vector_215" d="M3551.25 43.125V153.75" stroke="#B6B5A1" stroke-width="1.59375" />
+<g id="transmission-label">
+<text x="2936.2500" y="64.7635" font-family="Noto Sans JP" font-weight="400" font-size="33.4567" fill="#F4EFDF" id="transmission-label-live-text">通信中</text></g>
+<g id="header-barcode">
+<path id="header-barcode-bar-000" d="M2940 86.25H2934.38V121.875H2940V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-005" d="M2947.5 86.25H2943.75V121.875H2947.5V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-011" d="M2958.75 86.25H2955V121.875H2958.75V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-015" d="M2966.25 86.25H2962.5V121.875H2966.25V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-020" d="M2975.62 86.25H2971.88V121.875H2975.62V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-024" d="M2981.25 86.25H2979.38V121.875H2981.25V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-027" d="M2988.75 86.25H2985V121.875H2988.75V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-031" d="M2998.12 86.25H2992.5V121.875H2998.12V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-036" d="M3005.62 86.25H3001.88V121.875H3005.62V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-040" d="M3011.25 86.25H3009.38V121.875H3011.25V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-043" d="M3022.5 86.25H3015V121.875H3022.5V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-048" d="M3028.12 86.25H3024.38V121.875H3028.12V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-053" d="M3037.5 86.25H3033.75V121.875H3037.5V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-056" d="M3045 86.25H3039.38V121.875H3045V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-062" d="M3052.5 86.25H3050.62V121.875H3052.5V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-066" d="M3060 86.25H3058.12V121.875H3060V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-070" d="M3069.38 86.25H3065.62V121.875H3069.38V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-073" d="M3078.75 86.25H3071.25V121.875H3078.75V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-079" d="M3086.25 86.25H3082.5V121.875H3086.25V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-083" d="M3093.75 86.25H3090V121.875H3093.75V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-088" d="M3101.25 86.25H3099.38V121.875H3101.25V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-091" d="M3110.62 86.25H3105V121.875H3110.62V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-096" d="M3116.25 86.25H3114.38V121.875H3116.25V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-100" d="M3125.62 86.25H3121.88V121.875H3125.62V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-104" d="M3135 86.25H3129.38V121.875H3135V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-109" d="M3142.5 86.25H3138.75V121.875H3142.5V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-114" d="M3151.88 86.25H3148.12V121.875H3151.88V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-118" d="M3161.25 86.25H3155.62V121.875H3161.25V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-123" d="M3168.75 86.25H3165V121.875H3168.75V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-128" d="M3178.12 86.25H3174.38V121.875H3178.12V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-134" d="M3187.5 86.25H3185.62V121.875H3187.5V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-138" d="M3196.88 86.25H3193.12V121.875H3196.88V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-141" d="M3202.5 86.25H3198.75V121.875H3202.5V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-146" d="M3215.62 86.25H3208.12V121.875H3215.62V86.25Z" fill="#F4EFDF" />
+<path id="header-barcode-bar-151" d="M3221.25 86.25H3217.5V121.875H3221.25V86.25Z" fill="#F4EFDF" />
+</g>
+<g id="header-serial">
+<text x="2934.3400" y="155.4719" font-family="Inconsolata" font-weight="400" font-size="37.9586" fill="#F4EFDF" id="header-serial-live-text">SN-704-1138-09</text></g>
+<g id="waiting-label">
+<text x="3341.2400" y="65.1412" font-family="Noto Sans JP" font-weight="400" font-size="34.1100" fill="#F4EFDF" id="waiting-label-live-text">待機</text></g>
+<path id="waiting-icon" d="M3408.75 86.25H3341.25V153.75H3408.75V86.25Z" stroke="#F4EFDF" stroke-width="2.0625" />
+<path id="Vector_216" d="M3358.12 86.25V153.75" stroke="#F4EFDF" stroke-width="1.96875" />
+<path id="Vector_217" d="M3375 86.25V153.75" stroke="#F4EFDF" stroke-width="1.96875" />
+<path id="Vector_218" d="M3391.88 86.25V153.75" stroke="#F4EFDF" stroke-width="1.96875" />
+<g id="not-recommended-label">
+<text x="3611.2400" y="65.3854" font-family="Noto Sans JP" font-weight="400" font-size="33.8367" fill="#F4EFDF" id="not-recommended-label-live-text">非推奨</text></g>
+<g id="not-recommended-icon">
+<path id="Vector_219" d="M3609.38 105.938L3629.06 86.25" stroke="#F4EFDF" stroke-width="1.6875" />
+<path id="Vector_220" d="M3609.38 125.625L3648.75 86.25" stroke="#F4EFDF" stroke-width="1.6875" />
+<path id="Vector_221" d="M3609.38 145.312L3668.44 86.25" stroke="#F4EFDF" stroke-width="1.6875" />
+<path id="Vector_222" d="M3620.62 153.75L3688.12 86.25" stroke="#F4EFDF" stroke-width="1.6875" />
+<path id="Vector_223" d="M3640.31 153.75L3707.81 86.25" stroke="#F4EFDF" stroke-width="1.6875" />
+<path id="Vector_224" d="M3660 153.75L3725.62 88.125" stroke="#F4EFDF" stroke-width="1.6875" />
+<path id="Vector_225" d="M3679.69 153.75L3725.62 107.812" stroke="#F4EFDF" stroke-width="1.6875" />
+<path id="Vector_226" d="M3699.38 153.75L3725.62 127.5" stroke="#F4EFDF" stroke-width="1.6875" />
+<path id="Vector_227" d="M3719.06 153.75L3725.62 147.188" stroke="#F4EFDF" stroke-width="1.6875" />
+<path id="Vector_228" d="M3725.62 86.25H3609.38V153.75H3725.62V86.25Z" stroke="#F4EFDF" stroke-width="1.875" />
+</g>
+</g>
+<g id="card-surfaces">
+<g id="card-01-surface">
+<path id="card-01-fill" d="M838.125 196.875H268.125V420H838.125V196.875Z" fill="#EEE7DA" stroke="#F4EFDF" stroke-width="2.8125" />
+</g>
+<g id="card-02-surface">
+<path id="card-02-fill" d="M1372.5 420H457.5V643.125H1372.5V420Z" fill="#D71920" stroke="#F4EFDF" stroke-width="2.8125" />
+</g>
+<g id="card-03-surface">
+<path id="card-03-fill" d="M1640.62 643.125H838.125V1170H1640.62V643.125Z" fill="#EEE7DA" stroke="#F4EFDF" stroke-width="2.8125" />
+</g>
+<g id="card-04-surface">
+<path id="card-04-fill" d="M2486.25 1063.12H1640.62V1687.5H2486.25V1063.12Z" fill="#EEE7DA" stroke="#F4EFDF" stroke-width="2.8125" />
+</g>
+</g>
+<g id="card-rules">
+<g id="card-edge-registration">
+<path id="Vector_229" d="M251.25 196.875H285M268.125 180V213.75" stroke="#F4EFDF" stroke-width="2.0625" />
+<path id="Vector_230" d="M821.25 196.875H855M838.125 180V213.75" stroke="#F4EFDF" stroke-width="2.0625" />
+<path id="Vector_231" d="M251.25 420H285M268.125 403.125V436.875" stroke="#F4EFDF" stroke-width="2.0625" />
+<path id="Vector_232" d="M440.625 420H474.375M457.5 403.125V436.875" stroke="#F4EFDF" stroke-width="2.0625" />
+<path id="Vector_233" d="M821.25 420H855M838.125 403.125V436.875" stroke="#F4EFDF" stroke-width="2.0625" />
+<path id="Vector_234" d="M1081.88 420H1115.62M1098.75 403.125V436.875" stroke="#F4EFDF" stroke-width="2.0625" />
+<path id="Vector_235" d="M1353.75 420H1387.5M1370.62 403.125V436.875" stroke="#F4EFDF" stroke-width="2.0625" />
+<path id="Vector_236" d="M440.625 643.125H474.375M457.5 626.25V660" stroke="#F4EFDF" stroke-width="2.0625" />
+<path id="Vector_237" d="M821.25 643.125H855M838.125 626.25V660" stroke="#F4EFDF" stroke-width="2.0625" />
+<path id="Vector_238" d="M1081.88 643.125H1115.62M1098.75 626.25V660" stroke="#F4EFDF" stroke-width="2.0625" />
+<path id="Vector_239" d="M1353.75 643.125H1387.5M1370.62 626.25V660" stroke="#F4EFDF" stroke-width="2.0625" />
+<path id="Vector_240" d="M1623.75 643.125H1657.5M1640.62 626.25V660" stroke="#F4EFDF" stroke-width="2.0625" />
+<path id="Vector_241" d="M821.25 937.5H855M838.125 920.625V954.375" stroke="#F4EFDF" stroke-width="2.0625" />
+<path id="Vector_242" d="M1623.75 937.5H1657.5M1640.62 920.625V954.375" stroke="#F4EFDF" stroke-width="2.0625" />
+<path id="Vector_243" d="M821.25 1170H855M838.125 1153.12V1186.88" stroke="#F4EFDF" stroke-width="2.0625" />
+<path id="Vector_244" d="M1081.88 1170H1115.62M1098.75 1153.12V1186.88" stroke="#F4EFDF" stroke-width="2.0625" />
+<path id="Vector_245" d="M1623.75 1170H1657.5M1640.62 1153.12V1186.88" stroke="#F4EFDF" stroke-width="2.0625" />
+<path id="Vector_246" d="M1871.25 1063.12H1905M1888.12 1046.25V1080" stroke="#F4EFDF" stroke-width="2.0625" />
+<path id="Vector_247" d="M2118.75 1063.12H2152.5M2135.62 1046.25V1080" stroke="#F4EFDF" stroke-width="2.0625" />
+<path id="Vector_248" d="M2362.5 1063.12H2396.25M2379.38 1046.25V1080" stroke="#F4EFDF" stroke-width="2.0625" />
+<path id="Vector_249" d="M1623.75 1687.5H1657.5M1640.62 1670.62V1704.38" stroke="#F4EFDF" stroke-width="2.0625" />
+<path id="Vector_250" d="M1871.25 1687.5H1905M1888.12 1670.62V1704.38" stroke="#F4EFDF" stroke-width="2.0625" />
+<path id="Vector_251" d="M2362.5 1687.5H2396.25M2379.38 1670.62V1704.38" stroke="#F4EFDF" stroke-width="2.0625" />
+</g>
+<path id="Vector_252" d="M1098.75 420V643.125" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_253" d="M1098.75 643.125V1170" stroke="#090A08" stroke-width="1.5" />
+<path id="Vector_254" d="M838.125 937.5H1640.62" stroke="#090A08" stroke-width="1.5" />
+<path id="Vector_255" d="M1888.12 1063.12V1687.5" stroke="#090A08" stroke-width="1.3125" />
+<path id="Vector_256" d="M2379.38 1063.12V1687.5" stroke="#090A08" stroke-width="1.3125" />
+<path id="Vector_257" d="M2135.62 1063.12V1175.62" stroke="#090A08" stroke-width="1.3125" />
+<path id="Vector_258" d="M2135.62 1246.88V1687.5" stroke="#090A08" stroke-width="1.3125" />
+<path id="Vector_259" d="M1640.62 1329.38H2486.25" stroke="#090A08" stroke-width="1.5" />
+<path id="Vector_260" d="M1640.62 1520.62H2486.25" stroke="#090A08" stroke-width="1.5" />
+<path id="Vector_261" d="M1640.62 1063.12V1170" stroke="#090A08" stroke-width="2.0625" />
+<path id="Vector_262" d="M839.531 644.531H1639.22" stroke="#090A08" stroke-width="1.3125" />
+<path id="Vector_263" d="M839.531 644.531V1168.59" stroke="#090A08" stroke-width="1.3125" />
+<path id="Vector_264" d="M839.531 1168.59H1639.22" stroke="#090A08" stroke-width="1.3125" />
+<path id="Vector_265" d="M1639.22 644.531V1168.59" stroke="#090A08" stroke-width="1.3125" />
+<g id="card01-corner">
+<path id="Vector_266" d="M780 380.625H804.375V356.25" stroke="#090A08" stroke-width="3.75" />
+</g>
+<g id="card02-corner">
+<path id="Vector_267" d="M1308.75 601.875H1333.12V577.5" stroke="#F4EFDF" stroke-width="3.75" />
+</g>
+<g id="card03-corner">
+<path id="Vector_268" d="M1558.12 894.375H1582.5V870" stroke="#090A08" stroke-width="3.75" />
+</g>
+<g id="card04-corner">
+<path id="Vector_269" d="M2416.88 1646.25H2441.25V1621.88" stroke="#090A08" stroke-width="3.75" />
+</g>
+<g id="card02-ticks">
+<path id="Vector_270" d="M1381.88 476.25H1411.88" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_271" d="M1381.88 497.344H1411.88" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_272" d="M1381.88 518.438H1411.88" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_273" d="M1381.88 539.531H1411.88" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_274" d="M1381.88 560.625H1411.88" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_275" d="M1381.88 581.719H1411.88" stroke="#F4EFDF" stroke-width="3.09375" />
+</g>
+<g id="card03-ticks">
+<path id="Vector_276" d="M1650 699.375H1681.88" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_277" d="M1650 719.438H1681.88" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_278" d="M1650 739.5H1681.88" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_279" d="M1650 759.562H1681.88" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_280" d="M1650 779.625H1681.88" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_281" d="M1650 799.688H1681.88" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_282" d="M1650 819.75H1681.88" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_283" d="M1650 839.812H1681.88" stroke="#F4EFDF" stroke-width="3.09375" />
+</g>
+<g id="card04-ticks">
+<path id="Vector_284" d="M2495.62 1115.62H2527.5" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_285" d="M2495.62 1137.94H2527.5" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_286" d="M2495.62 1160.25H2527.5" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_287" d="M2495.62 1182.56H2527.5" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_288" d="M2495.62 1204.88H2527.5" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_289" d="M2495.62 1227.19H2527.5" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_290" d="M2495.62 1249.5H2527.5" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_291" d="M2495.62 1271.81H2527.5" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_292" d="M2495.62 1294.12H2527.5" stroke="#F4EFDF" stroke-width="3.09375" />
+</g>
+</g>
+<g id="menu-text">
+<g id="card-01-text">
+<g id="entry-01-number">
+<text x="313.5150" y="328.6956" font-family="Inconsolata" font-weight="500" font-size="111.6750" fill="#090A08" id="entry-01-number-live-text">01</text></g>
+<g id="entry-01-title">
+<text x="459.7680" y="298.7812" font-family="Inconsolata" font-weight="500" font-size="49.5209" fill="#090A08" id="entry-01-title-live-text">SID0NIA SYSTEM</text></g>
+<g id="entry-01-code">
+<text x="459.2640" y="345.7940" font-family="Inconsolata" font-weight="400" font-size="31.2314" fill="#090A08" id="entry-01-code-live-text">SYS_001</text></g>
+</g>
+<g id="card-02-text">
+<g id="entry-02-number">
+<text x="507.0890" y="545.6952" font-family="Inconsolata" font-weight="500" font-size="101.7969" fill="#F4EFDF" id="entry-02-number-live-text">02</text></g>
+<g id="entry-02-title">
+<text x="654.4580" y="530.5760" font-family="Inconsolata" font-weight="500" font-size="50.6202" fill="#F4EFDF" id="entry-02-title-live-text">ADVANCED 0PTI0NS</text></g>
+<g id="entry-02-code">
+<text x="655.3320" y="578.9173" font-family="Inconsolata" font-weight="400" font-size="32.5794" fill="#F4EFDF" id="entry-02-code-live-text">0PT_002</text></g>
+</g>
+<g id="card-03-text">
+<g id="entry-03-number">
+<text x="885.7610" y="805.4815" font-family="Inconsolata" font-weight="500" font-size="107.0453" fill="#090A08" id="entry-03-number-live-text">03</text></g>
+<g id="entry-03-title">
+<text x="1123.3200" y="787.3886" font-family="Inconsolata" font-weight="500" font-size="50.7145" fill="#090A08" id="entry-03-title-live-text">MEM0RY TEST</text></g>
+<g id="entry-03-code">
+<text x="1123.0400" y="833.9378" font-family="Inconsolata" font-weight="400" font-size="32.7429" fill="#090A08" id="entry-03-code-live-text">MEM_003</text></g>
+</g>
+<g id="card-04-text">
+<g id="entry-04-number">
+<text x="1690.2400" y="1238.4791" font-family="Inconsolata" font-weight="500" font-size="104.6250" fill="#090A08" id="entry-04-number-live-text">04</text></g>
+<g id="entry-04-title">
+<text x="1912.8300" y="1219.3093" font-family="Inconsolata" font-weight="500" font-size="49.2077" fill="#090A08" id="entry-04-title-live-text">UEFI FIRMWARE</text></g>
+<g id="entry-04-code">
+<text x="1912.2400" y="1266.1065" font-family="Inconsolata" font-weight="400" font-size="33.6467" fill="#090A08" id="entry-04-code-live-text">FW_004</text></g>
+</g>
+</g>
+<g id="sidebar-status">
+<g id="status-01">
+<g id="status-01-s">
+<text x="69.3219" y="287.5824" font-family="Inconsolata" font-weight="400" font-size="36.6076" fill="#F4EFDF" id="status-01-s-live-text">S-01</text></g>
+<g id="status-01-a">
+<text x="69.3243" y="332.6437" font-family="Inconsolata" font-weight="400" font-size="33.7298" fill="#F4EFDF" id="status-01-a-live-text">A-01</text></g>
+<path id="Vector_293" d="M211.875 380.625H236.25V356.25" stroke="#F4EFDF" stroke-width="3.28125" />
+</g>
+<g id="status-02">
+<g id="status-02-s">
+<text x="69.4045" y="512.4749" font-family="Inconsolata" font-weight="400" font-size="38.0348" fill="#F01B21" id="status-02-s-live-text">S-02</text></g>
+<g id="status-02-a">
+<text x="69.3493" y="557.3440" font-family="Inconsolata" font-weight="400" font-size="35.0189" fill="#F4EFDF" id="status-02-a-live-text">A-02</text></g>
+<path id="Vector_294" d="M211.875 601.875H236.25V577.5" stroke="#F01B21" stroke-width="5.625" />
+</g>
+<g id="status-03">
+<g id="status-03-s">
+<text x="69.3980" y="824.5677" font-family="Inconsolata" font-weight="400" font-size="37.9140" fill="#F4EFDF" id="status-03-s-live-text">S-03</text></g>
+<g id="status-03-a">
+<text x="69.3474" y="868.4518" font-family="Inconsolata" font-weight="400" font-size="34.9098" fill="#F4EFDF" id="status-03-a-live-text">A-03</text></g>
+<path id="Vector_295" d="M211.875 900H236.25V875.625" stroke="#F4EFDF" stroke-width="3.28125" />
+</g>
+<g id="status-04">
+<g id="status-04-s">
+<text x="69.4219" y="1319.1490" font-family="Inconsolata" font-weight="400" font-size="38.3661" fill="#F4EFDF" id="status-04-s-live-text">S-04</text></g>
+<g id="status-04-a">
+<text x="69.3547" y="1363.9817" font-family="Inconsolata" font-weight="400" font-size="35.3182" fill="#F4EFDF" id="status-04-a-live-text">A-04</text></g>
+<path id="Vector_296" d="M211.875 1417.5H236.25V1393.12" stroke="#F4EFDF" stroke-width="3.28125" />
+</g>
+</g>
+<g id="timer">
+<g id="timer-cell-surfaces">
+<path id="timer-cell-06" d="M2677.5 1516.88H2486.25V1689.38H2677.5V1516.88Z" fill="#EEE7DA" stroke="#F4EFDF" stroke-width="2.34375" />
+<path id="timer-cell-05" d="M2872.5 1516.88H2677.5V1689.38H2872.5V1516.88Z" fill="#EEE7DA" stroke="#F4EFDF" stroke-width="2.34375" />
+<path id="timer-cell-04" d="M3082.5 1516.88H2872.5V1689.38H3082.5V1516.88Z" fill="#EEE7DA" stroke="#F4EFDF" stroke-width="2.34375" />
+<path id="timer-cell-03" d="M3281.25 1516.88H3082.5V1689.38H3281.25V1516.88Z" fill="#EEE7DA" stroke="#F4EFDF" stroke-width="2.34375" />
+<path id="timer-cell-02" d="M3478.12 1516.88H3281.25V1689.38H3478.12V1516.88Z" fill="#EEE7DA" stroke="#F4EFDF" stroke-width="2.34375" />
+<path id="timer-cell-01" d="M3676.88 1516.88H3478.12V1689.38H3676.88V1516.88Z" fill="#EEE7DA" stroke="#F4EFDF" stroke-width="2.34375" />
+</g>
+<g id="timer-divider-rules">
+<path id="Vector_297" d="M2463.75 1516.88H2508.75M2486.25 1494.38V1539.38" stroke="#F4EFDF" stroke-width="2.25" />
+<path id="Vector_298" d="M2655 1516.88H2700M2677.5 1494.38V1539.38" stroke="#F4EFDF" stroke-width="2.25" />
+<path id="Vector_299" d="M2850 1516.88H2895M2872.5 1494.38V1539.38" stroke="#F4EFDF" stroke-width="2.25" />
+<path id="Vector_300" d="M3099.38 1516.88H3144.38M3121.88 1494.38V1539.38" stroke="#F4EFDF" stroke-width="2.25" />
+<path id="Vector_301" d="M2463.75 1689.38H2508.75M2486.25 1666.88V1711.88" stroke="#F4EFDF" stroke-width="2.25" />
+<path id="Vector_302" d="M2486.25 1516.88V1689.38" stroke="#090A08" stroke-width="1.875" />
+<path id="Vector_303" d="M2677.5 1516.88V1689.38" stroke="#090A08" stroke-width="1.5" />
+<path id="Vector_304" d="M2872.5 1516.88V1689.38" stroke="#090A08" stroke-width="1.5" />
+<path id="Vector_305" d="M3082.5 1516.88V1689.38" stroke="#090A08" stroke-width="1.5" />
+<path id="Vector_306" d="M3281.25 1516.88V1689.38" stroke="#090A08" stroke-width="1.5" />
+<path id="Vector_307" d="M3478.12 1516.88V1689.38" stroke="#090A08" stroke-width="1.5" />
+</g>
+<g id="timer-numbers">
+<g id="timer-label-06">
+<text x="2542.2900" y="1610.5408" font-family="Inconsolata" font-weight="400" font-size="50.8267" fill="#090A08" id="timer-label-06-live-text">-06</text></g>
+<g id="timer-label-05">
+<text x="2735.4500" y="1610.4304" font-family="Inconsolata" font-weight="400" font-size="51.0533" fill="#090A08" id="timer-label-05-live-text">-05</text></g>
+<g id="timer-label-04">
+<text x="2938.0100" y="1611.1165" font-family="Inconsolata" font-weight="400" font-size="51.5733" fill="#090A08" id="timer-label-04-live-text">-04</text></g>
+<g id="timer-label-03">
+<text x="3142.2700" y="1610.9814" font-family="Inconsolata" font-weight="400" font-size="50.7200" fill="#090A08" id="timer-label-03-live-text">-03</text></g>
+<g id="timer-label-02">
+<text x="3340.1200" y="1610.2794" font-family="Inconsolata" font-weight="400" font-size="50.9400" fill="#090A08" id="timer-label-02-live-text">-02</text></g>
+<g id="timer-label-01">
+<text x="3537.5200" y="1609.5156" font-family="Inconsolata" font-weight="400" font-size="48.2067" fill="#090A08" id="timer-label-01-live-text">-01</text></g>
+</g>
+<g id="countdown-live-caption">
+<text x="3196.9100" y="1419.8259" font-family="Inconsolata" font-weight="400" font-size="47.9788" fill="#F4EFDF" id="countdown-live-caption-live-text">AUT0 B00T // T-06</text></g>
+<path id="Vector_308" d="M3560.62 1479.38H3585V1455" stroke="#F4EFDF" stroke-width="2.8125" />
+<g id="timer-end-ticks">
+<path id="Vector_309" d="M3688.12 1526.25H3725.62" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_310" d="M3688.12 1547.81H3725.62" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_311" d="M3688.12 1569.38H3725.62" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_312" d="M3688.12 1590.94H3725.62" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_313" d="M3688.12 1612.5H3725.62" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_314" d="M3688.12 1634.06H3725.62" stroke="#F4EFDF" stroke-width="3.09375" />
+<path id="Vector_315" d="M3688.12 1655.62H3725.62" stroke="#F4EFDF" stroke-width="3.09375" />
+</g>
+</g>
+<g id="footer">
+<g id="grid-state-diagram">
+<g id="grid-state-label">
+<text x="82.5096" y="1920.1688" font-family="Inconsolata" font-weight="400" font-size="44.4644" fill="#F4EFDF" id="grid-state-label-live-text">GRID STATE / 1x1 &gt; 1x2 &gt; 2x3</text></g>
+<path id="Vector_316" d="M155.625 1989.38H82.5V2062.5H155.625V1989.38Z" stroke="#F4EFDF" stroke-width="2.25" />
+<path id="Vector_317" d="M200.625 2011.88L221.25 2026.88L200.625 2041.88" stroke="#F4EFDF" stroke-width="3.1875" />
+<path id="Vector_318" d="M418.125 1989.38H268.125V2062.5H418.125V1989.38Z" stroke="#F4EFDF" stroke-width="2.25" />
+<path id="Vector_319" d="M343.125 1989.38V2062.5" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_320" d="M463.125 2011.88L483.75 2026.88L463.125 2041.88" stroke="#F4EFDF" stroke-width="3.1875" />
+<path id="Vector_321" d="M703.125 1966.88H530.625V2101.88H703.125V1966.88Z" stroke="#F4EFDF" stroke-width="2.25" />
+<path id="Vector_322" d="M588.125 1966.88V2101.88" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_323" d="M645.625 1966.88V2101.88" stroke="#F4EFDF" stroke-width="1.875" />
+<path id="Vector_324" d="M530.625 2034.38H703.125" stroke="#F4EFDF" stroke-width="1.875" />
+</g>
+<g id="keyboard-controls">
+<path id="Vector_325" d="M849.375 1966.88V2070" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_326" d="M840 1974.38H860.625" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_327" d="M840 2060.62H860.625" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_328" d="M1323.75 1966.88V2070" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_329" d="M1314.38 1974.38H1335" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_330" d="M1314.38 2060.62H1335" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_331" d="M1728.75 1966.88V2070" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_332" d="M1719.38 1974.38H1740" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_333" d="M1719.38 2060.62H1740" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_334" d="M2023.12 1966.88V2070" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_335" d="M2013.75 1974.38H2034.38" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_336" d="M2013.75 2060.62H2034.38" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_337" d="M2396.25 1966.88V2070" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_338" d="M2386.88 1974.38H2407.5" stroke="#F4EFDF" stroke-width="1.5" />
+<path id="Vector_339" d="M2386.88 2060.62H2407.5" stroke="#F4EFDF" stroke-width="1.5" />
+<g id="control-select">
+<text x="896.1320" y="2027.2190" font-family="Inconsolata" font-weight="400" font-size="49.3669" fill="#F4EFDF" id="control-select-live-text">UP/D0WN SELECT</text></g>
+<g id="control-boot">
+<text x="1395.0000" y="2025.2599" font-family="Inconsolata" font-weight="400" font-size="51.8180" fill="#F4EFDF" id="control-boot-live-text">ENTER B00T</text></g>
+<g id="control-edit">
+<text x="1805.6600" y="2025.2562" font-family="Inconsolata" font-weight="400" font-size="51.7567" fill="#F4EFDF" id="control-edit-live-text">E EDIT</text></g>
+<g id="control-console">
+<text x="2099.9900" y="2026.4879" font-family="Inconsolata" font-weight="400" font-size="51.7400" fill="#F4EFDF" id="control-console-live-text">C C0NS0LE</text></g>
+</g>
+<g id="footer-barcode">
+<path id="footer-barcode-bar-000" d="M2566.88 1950H2559.38V2023.12H2566.88V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-005" d="M2572.5 1950H2568.75V2023.12H2572.5V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-011" d="M2583.75 1950H2580V2023.12H2583.75V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-015" d="M2593.12 1950H2587.5V2023.12H2593.12V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-020" d="M2600.62 1950H2596.88V2023.12H2600.62V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-024" d="M2606.25 1950H2604.38V2023.12H2606.25V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-028" d="M2613.75 1950H2611.88V2023.12H2613.75V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-032" d="M2625 1950H2619.38V2023.12H2625V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-037" d="M2630.62 1950H2628.75V2023.12H2630.62V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-041" d="M2638.12 1950H2636.25V2023.12H2638.12V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-044" d="M2649.38 1950H2641.88V2023.12H2649.38V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-050" d="M2656.88 1950H2653.12V2023.12H2656.88V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-056" d="M2666.25 1950H2664.38V2023.12H2666.25V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-060" d="M2679.38 1950H2671.88V2023.12H2679.38V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-065" d="M2685 1950H2681.25V2023.12H2685V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-071" d="M2696.25 1950H2692.5V2023.12H2696.25V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-075" d="M2705.62 1950H2700V2023.12H2705.62V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-080" d="M2711.25 1950H2709.38V2023.12H2711.25V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-083" d="M2716.88 1950H2715V2023.12H2716.88V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-087" d="M2726.25 1950H2722.5V2023.12H2726.25V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-092" d="M2737.5 1950H2731.88V2023.12H2737.5V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-099" d="M2748.75 1950H2745V2023.12H2748.75V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-103" d="M2758.12 1950H2752.5V2023.12H2758.12V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-108" d="M2767.5 1950H2761.88V2023.12H2767.5V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-114" d="M2776.88 1950H2773.12V2023.12H2776.88V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-118" d="M2788.12 1950H2780.62V2023.12H2788.12V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-124" d="M2795.62 1950H2791.88V2023.12H2795.62V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-129" d="M2805 1950H2801.25V2023.12H2805V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-134" d="M2814.38 1950H2810.62V2023.12H2814.38V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-139" d="M2821.88 1950H2820V2023.12H2821.88V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-141" d="M2827.5 1950H2823.75V2023.12H2827.5V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-147" d="M2840.62 1950H2835V2023.12H2840.62V1950Z" fill="#F4EFDF" />
+<path id="footer-barcode-bar-152" d="M2848.12 1950H2844.38V2023.12H2848.12V1950Z" fill="#F4EFDF" />
+</g>
+<g id="footer-barcode-caption">
+<text x="2557.5100" y="2064.5378" font-family="Inconsolata" font-weight="400" font-size="34.3814" fill="#F4EFDF" id="footer-barcode-caption-live-text">GRUB-SID0NIA-200G</text></g>
+<path id="Vector_340" d="M2908.12 1929.38V2086.88" stroke="#F4EFDF" stroke-width="1.59375" />
+<g id="footer-transmission-status">
+<path id="Vector_341" d="M3251.25 1923.75H2962.5V2092.5H3251.25V1923.75Z" stroke="#F4EFDF" stroke-width="2.0625" />
+<g id="footer-transmission-label">
+<text x="2988.7500" y="1983.9423" font-family="Noto Sans JP" font-weight="400" font-size="39.5033" fill="#F4EFDF" id="footer-transmission-label-live-text">通信中</text></g>
+<g id="footer-transmission-code">
+<text x="2986.8300" y="2040.2516" font-family="Inconsolata" font-weight="400" font-size="34.5767" fill="#F4EFDF" id="footer-transmission-code-live-text">C0DE_704A_09</text></g>
+<path id="Vector_342" d="M3195 2073.75H3221.25V2047.5" stroke="#F4EFDF" stroke-width="1.875" />
+</g>
+<g id="squad-index">
+<g id="squad-heading">
+<text x="3328.0900" y="1960.1590" font-family="Inconsolata" font-weight="400" font-size="38.5473" fill="#F4EFDF" id="squad-heading-live-text">SQUAD INDEX</text></g>
+<g id="squad-01">
+<text x="3328.0200" y="2015.5709" font-family="Inconsolata" font-weight="400" font-size="34.8350" fill="#F4EFDF" id="squad-01-live-text">S-01</text></g>
+<path id="Vector_343" d="M3331.88 2081.25V2051.25H3361.88" stroke="#F4EFDF" stroke-width="2.625" />
+<g id="squad-02">
+<text x="3457.4800" y="2016.3759" font-family="Inconsolata" font-weight="400" font-size="36.1900" fill="#F4EFDF" id="squad-02-live-text">S-02</text></g>
+<path id="Vector_344" d="M3461.25 2081.25V2051.25H3491.25" stroke="#F4EFDF" stroke-width="2.625" />
+<g id="squad-03">
+<text x="3586.8500" y="2016.2233" font-family="Inconsolata" font-weight="400" font-size="36.0750" fill="#F4EFDF" id="squad-03-live-text">S-03</text></g>
+<path id="Vector_345" d="M3590.62 2081.25V2051.25H3620.62" stroke="#F4EFDF" stroke-width="2.625" />
+<g id="squad-04">
+<text x="3716.2500" y="2016.7847" font-family="Inconsolata" font-weight="400" font-size="36.5050" fill="#F4EFDF" id="squad-04-live-text">S-04</text></g>
+<path id="Vector_346" d="M3720 2081.25V2051.25H3750" stroke="#F4EFDF" stroke-width="2.625" />
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_80_841">
+<rect width="3840" height="2160" fill="white" />
+</clipPath>
+</defs>
+</svg>

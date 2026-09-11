@@ -92,6 +92,7 @@ class Counts:
     converted: int = 0
     deleted: int = 0
     identical: int = 0
+    unused: int = 0
 
 
 def verify_profile(baseline: Path, candidate: Path, profile: Path, counts: Counts) -> tuple[set[Path], set[Path]]:
@@ -115,7 +116,12 @@ def verify_profile(baseline: Path, candidate: Path, profile: Path, counts: Count
         if before[end:end + 1] == "\n":
             end += 1
         expected_text = expected_text[:block.start()] + expected_text[end:]
-    require(after == expected_text, f"{profile}: theme changed beyond removing the timer backing block")
+    scrollbar_cleaned = profile.parts[0] == 'T1' and after != expected_text
+    if scrollbar_cleaned:
+        require('scrollbar = false' in before and 'scrollbar = false' in after,
+                f"{profile}: scrollbar must remain disabled")
+        expected_text = re.sub(r'^\s*scrollbar_(?!left_pad\b|right_pad\b)\w+ = .*\n', '', expected_text, flags=re.M)
+    require(after == expected_text, f"{profile}: theme changed beyond static backing or disabled scrollbar cleanup")
     if bases:
         require("timer_base.png" not in after, f"{profile}: timer backing remains referenced")
 
@@ -177,10 +183,19 @@ def verify_profile(baseline: Path, candidate: Path, profile: Path, counts: Count
     new_files = {path.relative_to(new_dir) for path in new_dir.rglob("*") if path.is_file()}
     require(not new_files - old_files, f"{profile}: unexpected added files: {sorted(new_files - old_files)}")
     removed = old_files - new_files
-    require(removed <= removable, f"{profile}: unexpected removed files: {sorted(removed - removable)}")
-    counts.deleted += len(removed)
     old_references = referenced_pngs(old_dir, before)
     new_references = referenced_pngs(new_dir, after)
+    unreferenced = {p for p in old_files if p.suffix == '.png' and old_dir / p not in old_references}
+    inactive = set()
+    if scrollbar_cleaned:
+        inactive = {p.relative_to(old_dir) for pattern in ('scrollbar_*.png', 'thumb_*.png')
+                    for p in (old_dir / 'selectors').glob(pattern)}
+        require(not any(new_dir / p in new_references for p in inactive),
+                f"{profile}: inactive scrollbar images remain referenced")
+    allowed = removable | unreferenced | inactive
+    require(removed <= allowed, f"{profile}: unexpected removed files: {sorted(removed - allowed)}")
+    counts.deleted += len(removed & removable)
+    counts.unused += len(removed - removable)
 
     for relative in sorted(old_files & new_files):
         old_path, new_path = old_dir / relative, new_dir / relative
@@ -231,6 +246,7 @@ def main() -> int:
     print(f"Verified all 12 profiles: {counts.baked} baked timer backings, "
           f"{counts.converted} opaque RGB conversions, {counts.deleted} removed backing files.")
     print(f"Unchanged original files: {counts.identical}.")
+    print(f"Unused or inactive PNGs removed: {counts.unused}.")
     print(f"Referenced PNGs: {len(before_references)} -> {len(after_references)}.")
     print(f"Referenced PNG file bytes: {before_disk:,} -> {after_disk:,}; saved {before_disk - after_disk:,}.")
     print(f"Referenced PNG decoded pixel bytes: {before_decoded:,} -> {after_decoded:,}; "

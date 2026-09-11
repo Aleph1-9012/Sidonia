@@ -23,15 +23,8 @@ desktop-image-scale-method: "stretch"
   item_icon_space = 0
   selected_item_pixmap_style = "selectors/runtime_selected_*.png"
   scrollbar = false
-  scrollbar_width = 4
-  scrollbar_frame = "selectors/scrollbar_*.png"
-  scrollbar_thumb = "selectors/thumb_*.png"
-  scrollbar_thumb_overlay = true
-  scrollbar_slice = east
   scrollbar_left_pad = 0
   scrollbar_right_pad = 0
-  scrollbar_top_pad = 0
-  scrollbar_bottom_pad = 0
 }
 
 + progress_bar {

@@ -87,6 +87,25 @@ physical boot speed. Hardware verification remains the final acceptance step.
 
 ## Reproduce the asset changes
 
+The later unused-file cleanup removed 114 unreferenced selector PNGs and six
+sprites for T1's disabled scrollbar, saving another 706,834 stored bytes.
+T1 retains `scrollbar = false` and zero left/right scrollbar padding, which
+affects the selection width even when the scrollbar is hidden. Its inactive
+scrollbar styling was removed.
+These deletions leave the visible artwork and active selector styles intact.
+
+The verifier accepts these removals only when the PNGs were unreferenced in
+the original theme, or belonged to T1's disabled scrollbar. It still checks
+every surviving changed image and the remaining theme geometry. Against the
+original baseline, the cleaned tree has 46 surviving RGB conversions, three
+baked timer backings and 120 removed unused or inactive images.
+
+Across all PNGs, the initial optimization and later cleanup together save
+1,248,945 bytes. Of that total, 542,669 bytes come from images referenced by
+the original themes. Decoded source bitmap data for those referenced images
+is 1,539,223 bytes smaller. These remain asset measurements, not hardware
+boot-time measurements.
+
 The optimization tools require Python 3 and Pillow. T1 through T4 do not need
 them during installation or boot. Echelon has separate rendering dependencies.
 

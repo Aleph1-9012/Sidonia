@@ -12,6 +12,10 @@ subject to the SIL Open Font License reproduced below. The T2 through T4
 runtime PF2 files are derived from DejaVu Sans Mono and remain subject to the
 DejaVu font terms reproduced afterward.
 
+T5 Echelon uses Inconsolata and Noto Sans JP. Their SIL Open Font License
+notices are included in each T5 profile as `Inconsolata-OFL.txt` and
+`NotoSansJP-LICENSE.txt`. Its generated PF2 font names use Cascade.
+
 ## Space Mono Font License
 
 Copyright 2016 The Space Mono Project Authors (https://github.com/googlefonts/spacemono)

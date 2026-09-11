@@ -4,12 +4,15 @@
 
 set -Eeuo pipefail
 
-VERSION="1.0.0"
+VERSION="1.1.0"
 ASSET_ROOT="${SIDONIA_ASSET_ROOT:-/usr/local/share/sidonia/themes}"
 INSTALL_ROOT="${SIDONIA_INSTALL_ROOT:-$(dirname "$ASSET_ROOT")}"
 STATE_ROOT="${SIDONIA_STATE_ROOT:-/var/lib/sidonia}"
 DEFAULTS="${SIDONIA_DEFAULTS:-/etc/default/grub}"
 COMMAND_PATH="${SIDONIA_COMMAND_PATH:-/usr/local/bin/sidonia}"
+GRUB_D="${SIDONIA_GRUB_D:-/etc/grub.d}"
+LATE_LOADER="$GRUB_D/99_zz_sidonia"
+RUNTIME_ROOT="${SIDONIA_RUNTIME_ROOT:-$INSTALL_ROOT/lib}"
 
 usage() {
     cat <<'EOF'
@@ -24,8 +27,8 @@ Usage:
   sudo sidonia rollback
   sudo sidonia uninstall
 
-Themes:   T1, T2, T3, T4
-Profiles: 720p, 1080p, 1440p
+Themes:   T1, T2, T3, T4, T5 (Echelon)
+Profiles: 720p, 1080p, 1440p (centered with padding on larger displays)
 
 Examples:
   sudo sidonia
@@ -51,6 +54,7 @@ normalize_theme() {
         2|T2) printf 'T2\n' ;;
         3|T3) printf 'T3\n' ;;
         4|T4) printf 'T4\n' ;;
+        5|T5|ECHELON|CASCADE) printf 'T5\n' ;;
         *) return 1 ;;
     esac
 }
@@ -70,6 +74,7 @@ theme_name() {
         T2) printf 'Gridline\n' ;;
         T3) printf 'Starfix\n' ;;
         T4) printf 'System Bay\n' ;;
+        T5) printf 'Echelon\n' ;;
     esac
 }
 
@@ -82,6 +87,7 @@ profile_mode() {
 }
 
 font_file() {
+    if test "$1" = T5; then printf 'ui.pf2\n'; return; fi
     local THEME_LOWER="${1,,}"
     printf 'sidonia-%s-%s.pf2\n' "$THEME_LOWER" "$2"
 }
@@ -148,10 +154,20 @@ validate_profile() {
     local SOURCE="$1"
     local FONT="$2"
     local FONT_STEM="${FONT%.pf2}"
+    local MANIFEST
 
     test -f "$SOURCE/theme.txt" || die "theme.txt is missing from $SOURCE"
     test -f "$SOURCE/background.png" || die "background.png is missing from $SOURCE"
     test -f "$SOURCE/fonts/$FONT" || die "font is missing from $SOURCE"
+
+    if test -f "$SOURCE/framebuffer"; then
+        test -f "$SOURCE/SHA256SUMS" || die "Echelon asset checksums are missing"
+        (cd -- "$SOURCE" && sha256sum --quiet -c SHA256SUMS) || die "Echelon assets failed validation"
+        for MANIFEST in "$SOURCE"/generated/*/SHA256SUMS; do
+            test -f "$MANIFEST" || continue
+            (cd -- "$(dirname "$MANIFEST")" && sha256sum --quiet -c SHA256SUMS) || die "Generated Echelon assets failed validation"
+        done
+    fi
 
     if test -d "$SOURCE/f"; then
         test -f "$SOURCE/f/$FONT_STEM-upper.pf2" ||
@@ -170,7 +186,7 @@ is_managed_theme_path() {
     NAME="$(basename "$PATH_TO_REMOVE")"
 
     case "$NAME" in
-        Sidonia-T[1-4]-720p|Sidonia-T[1-4]-1080p|Sidonia-T[1-4]-1440p)
+        Sidonia-T[1-5]-720p|Sidonia-T[1-5]-1080p|Sidonia-T[1-5]-1440p|Sidonia-T5-1600p|Sidonia-T5-2160p)
             return 0
             ;;
     esac
@@ -210,6 +226,9 @@ ensure_original_backup() {
             die "the original defaults backup is incomplete"
         test -f "$ORIGINAL/grub.cfg" ||
             die "the original grub.cfg backup is incomplete"
+        if test ! -e "$ORIGINAL/late-loader" && test ! -e "$ORIGINAL/late-loader.absent"; then
+            backup_loader "$ORIGINAL"
+        fi
         return 0
     fi
 
@@ -218,6 +237,23 @@ ensure_original_backup() {
     cp -p -- "$GRUB_CFG" "$ORIGINAL/grub.cfg"
     printf 'GRUB_CFG=%s\n' "$GRUB_CFG" > "$ORIGINAL/location"
     chmod 0600 "$ORIGINAL/location"
+    backup_loader "$ORIGINAL"
+}
+
+backup_loader() {
+    if test -e "$LATE_LOADER"; then
+        cp -p -- "$LATE_LOADER" "$1/late-loader"
+    else
+        touch "$1/late-loader.absent"
+    fi
+}
+
+restore_loader() {
+    if test -f "$1/late-loader"; then
+        install -o root -g root -m 0755 "$1/late-loader" "$LATE_LOADER"
+    elif test -f "$LATE_LOADER" && grep -qF '# Sidonia managed late loader' "$LATE_LOADER"; then
+        rm -f -- "$LATE_LOADER"
+    fi
 }
 
 choose_gfxmode() {
@@ -259,7 +295,7 @@ apply_theme() (
     local THEME="$1"
     local PROFILE="$2"
     local REQUESTED_MODE="$3"
-    local SOURCE FONT GFXMODE DEST_NAME DESTINATION
+    local SOURCE FONT GFXMODE DEST_NAME DESTINATION WIDTH HEIGHT GENERATED_MENU
     local CURRENT_STATE="$STATE_ROOT/current"
     local OLD_MANAGED=""
     local OLD_BACKUP=""
@@ -267,7 +303,7 @@ apply_theme() (
     local STAMP BACKUP_DIR TEMP_DIR DEFAULTS_NEW CONFIG_STAGE
     local THEME_STAGE THEME_OLD=""
     local DEFAULTS_WRITTEN=0 ACTIVE_WRITTEN=0 DESTINATION_WRITTEN=0 SUCCESS=0
-    local STATE_WRITTEN=0 POINTER_WRITTEN=0
+    local STATE_WRITTEN=0 POINTER_WRITTEN=0 LOADER_WRITTEN=0
 
     require_root
     detect_grub
@@ -275,8 +311,30 @@ apply_theme() (
 
     SOURCE="$ASSET_ROOT/$THEME/$PROFILE"
     FONT="$(font_file "$THEME" "$PROFILE")"
-    validate_profile "$SOURCE" "$FONT"
     GFXMODE="$(choose_gfxmode "$PROFILE" "$REQUESTED_MODE")"
+    if test "$THEME" = T5; then
+        command -v python3 >/dev/null 2>&1 || die "Echelon entry validation requires python3"
+        test -f "$RUNTIME_ROOT/cascade/runtime.py" || die "Echelon generator is missing; run the updated install.sh"
+        python3 -c 'from PIL import Image, ImageFont' || die "Echelon requires Python Pillow"
+        command -v rsvg-convert >/dev/null 2>&1 || die "Echelon requires rsvg-convert from librsvg"
+        WIDTH="${GFXMODE%x*}"
+        HEIGHT="${GFXMODE#*x}"
+        if test "$PROFILE" = 1440p; then
+            test "$WIDTH" -ge 2560 && test "$HEIGHT" -ge 1440 ||
+                die "Echelon 1440p requires at least 2560x1440; choose 720p or 1080p for smaller displays"
+        else
+            test "$GFXMODE" = "$(profile_mode "$PROFILE")" ||
+                die "Echelon $PROFILE requires $(profile_mode "$PROFILE"); use 1440p for larger displays"
+        fi
+        test "$(cat "$SOURCE/framebuffer")" = "$(profile_mode "$PROFILE")" || die "Echelon canvas does not match its profile"
+        test -f "$SOURCE/cascade.json" || die "Echelon profile metadata is missing"
+    fi
+    validate_profile "$SOURCE" "$FONT"
+    test -f "$RUNTIME_ROOT/grub.d/99_zz_sidonia" || die "runtime loader is missing; run the updated install.sh"
+    if test -e "$LATE_LOADER"; then
+        test ! -L "$LATE_LOADER" && grep -qF '# Sidonia managed late loader' "$LATE_LOADER" ||
+            die "$LATE_LOADER belongs to another configuration"
+    fi
     DEST_NAME="Sidonia-$THEME-$PROFILE"
     DESTINATION="$THEME_ROOT/$DEST_NAME"
 
@@ -322,6 +380,7 @@ apply_theme() (
                 install -o root -g root -m 0644 \
                     "$BACKUP_DIR/default-grub" "$DEFAULTS"
             fi
+            if test "$LOADER_WRITTEN" -eq 1; then restore_loader "$BACKUP_DIR"; fi
             if test "$DESTINATION_WRITTEN" -eq 1; then
                 rm -rf -- "$DESTINATION"
                 if test -n "$THEME_OLD" && test -d "$THEME_OLD"; then
@@ -362,6 +421,7 @@ apply_theme() (
     ensure_original_backup
     cp -p -- "$DEFAULTS" "$BACKUP_DIR/default-grub"
     cp -p -- "$GRUB_CFG" "$BACKUP_DIR/grub.cfg"
+    backup_loader "$BACKUP_DIR"
     if test -f "$CURRENT_STATE"; then
         cp -p -- "$CURRENT_STATE" "$BACKUP_DIR/state"
     fi
@@ -407,6 +467,9 @@ apply_theme() (
     DEFAULTS_WRITTEN=1
     install -o root -g root -m 0644 "$DEFAULTS_NEW" "$DEFAULTS"
 
+    LOADER_WRITTEN=1
+    install -D -o root -g root -m 0755 "$RUNTIME_ROOT/grub.d/99_zz_sidonia" "$LATE_LOADER"
+
     "$GRUB_MKCONFIG" -o "$CONFIG_STAGE"
     "$GRUB_SCRIPT_CHECK" "$CONFIG_STAGE"
     grep -qF "$DEST_NAME/theme.txt" "$CONFIG_STAGE" ||
@@ -421,6 +484,17 @@ apply_theme() (
     fi
     grep -qE "^[[:space:]]*set gfxmode=$GFXMODE[[:space:]]*$" "$CONFIG_STAGE" ||
         die "generated grub.cfg does not contain the selected graphics mode"
+    grep -qF '# Sidonia owns the final theme selection' "$CONFIG_STAGE" ||
+        die "generated grub.cfg did not include the Sidonia late loader"
+    if test "$THEME" = T5; then
+        grep -qF '# Cascade entries generated from current GRUB configuration.' "$CONFIG_STAGE" ||
+            die "generated grub.cfg did not discover the Echelon entries"
+        for GENERATED_MENU in "$DESTINATION"/generated/*/menu.cfg; do
+            test -f "$GENERATED_MENU" || continue
+            "$GRUB_SCRIPT_CHECK" "$GENERATED_MENU"
+        done
+        validate_profile "$DESTINATION" "$FONT"
+    fi
 
     ACTIVE_WRITTEN=1
     mv -- "$CONFIG_STAGE" "$GRUB_CFG"
@@ -458,7 +532,7 @@ restore_pair() (
     local THEME_STAGE="" THEME_REPLACED=""
     local SUCCESS=0 DEFAULTS_WRITTEN=0 ACTIVE_WRITTEN=0
     local THEME_WRITTEN=0 THEME_CREATED=0
-    local STATE_WRITTEN=0 CURRENT_STATE_EXISTED=0
+    local STATE_WRITTEN=0 CURRENT_STATE_EXISTED=0 LOADER_WRITTEN=0
 
     require_root
     detect_grub
@@ -483,6 +557,7 @@ restore_pair() (
     CONFIG_STAGE="$GRUB_DIR/.grub.cfg.sidonia.restore.$$"
     cp -p -- "$DEFAULTS" "$TEMP_DIR/default-grub.current"
     cp -p -- "$GRUB_CFG" "$TEMP_DIR/grub.cfg.current"
+    backup_loader "$TEMP_DIR"
     if test -f "$CURRENT_STATE"; then
         cp -p -- "$CURRENT_STATE" "$TEMP_DIR/state.current"
         CURRENT_STATE_EXISTED=1
@@ -504,6 +579,7 @@ restore_pair() (
                 install -o root -g root -m 0644 \
                     "$TEMP_DIR/default-grub.current" "$DEFAULTS"
             fi
+            if test "$LOADER_WRITTEN" -eq 1; then restore_loader "$TEMP_DIR"; fi
             if test "$STATE_WRITTEN" -eq 1; then
                 if test "$CURRENT_STATE_EXISTED" -eq 1; then
                     install -o root -g root -m 0644 \
@@ -577,6 +653,8 @@ restore_pair() (
         fi
     fi
 
+    LOADER_WRITTEN=1
+    restore_loader "$SOURCE_DIR"
     DEFAULTS_WRITTEN=1
     install -o root -g root -m 0644 "$SOURCE_DIR/default-grub" "$DEFAULTS"
     cp -- "$SOURCE_DIR/grub.cfg" "$CONFIG_STAGE"
@@ -638,9 +716,10 @@ guided_set() {
     echo "  2) T2 — Gridline"
     echo "  3) T3 — Starfix"
     echo "  4) T4 — System Bay"
-    printf 'Theme [4]: '
+    echo "  5) T5 — Echelon"
+    printf 'Theme [5]: '
     read -r THEME_CHOICE
-    THEME_CHOICE="${THEME_CHOICE:-4}"
+    THEME_CHOICE="${THEME_CHOICE:-5}"
     THEME="$(normalize_theme "$THEME_CHOICE")" ||
         die "unknown theme selection: $THEME_CHOICE"
 
@@ -685,6 +764,7 @@ T1     Frame 704   720p  1080p  1440p
 T2     Gridline    720p  1080p  1440p
 T3     Starfix     720p  1080p  1440p
 T4     System Bay  720p  1080p  1440p
+T5     Echelon     720p  1080p  1440p
 EOF
 }
 

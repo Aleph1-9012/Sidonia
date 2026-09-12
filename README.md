@@ -1,7 +1,7 @@
 # Sidonia
 
-Sidonia is a small collection of five sci-fi GRUB themes made to give the boot
-screen the feeling of a ship interface.
+A collection of five sci-fi themes for GNU GRUB, with 720p, 1080p and 1440p
+layouts and an interactive installer.
 
 ## Themes
 
@@ -25,10 +25,6 @@ screen the feeling of a ship interface.
 
 ![T5 Echelon](previews/T5.png)
 
-Echelon fills its cards from your actual GRUB entries, using their names,
-order and boot commands. It refreshes the artwork whenever `grub-mkconfig`
-writes a new configuration. Escape opens the complete original menu.
-
 ## Install
 
 Sidonia is designed for GNU GRUB systems that use `/etc/default/grub`.
@@ -39,10 +35,8 @@ cd Sidonia
 sudo ./install.sh
 ```
 
-The installer guides you through choosing a theme and display profile. It also
-keeps a rollback copy and never runs `grub-install`.
-
-Sidonia changes the GRUB configuration, so use it with `sudo`.
+Choose a theme and display profile when prompted. The installer backs up your
+current GRUB configuration, and the theme appears on the next boot.
 
 ## Switch themes
 
@@ -58,40 +52,18 @@ You can also select a theme directly:
 sudo sidonia set T2 1080p
 ```
 
-Install and activate Echelon on a 2560×1600 display:
+## Display profiles
 
-```bash
-sudo ./install.sh T5 1440p --gfxmode 2560x1600
-```
+All five themes include these profiles:
 
-After installation, switch to it with `sudo sidonia set T5 1440p`.
-It appears automatically on the next boot. No GRUB console command is needed.
+| Profile | Resolution |
+| --- | --- |
+| `720p` | 1280×720 |
+| `1080p` | 1920×1080 |
+| `1440p` | 2560×1440 and larger |
 
-Available display profiles:
-
-- `720p` — 1280×720
-- `1080p` — 1920×1080
-- `1440p` — 2560×1440 and larger
-
-The 1440p canvas stays at 2560×1440 on larger displays, with black padding.
-At 2560×1600 that adds 80 pixels above and below; at 3840×2160 it adds
-640 pixels on each side and 360 pixels above and below.
-
-Echelon assembles its entry labels with Bash, `awk` and `gzip`, using the
-prebuilt artwork and character library included in the download. Installing
-or updating it does not require Python, Pillow or `rsvg-convert`. It supports
-one to four cards. Larger menus and entries discovered only at boot use the
-complete standard GRUB list. Long card titles are shortened to fit; the original
-menu and entry editor keep their full names. Titles containing characters
-outside the bundled fonts use the complete standard menu.
-
-`install.sh` contains the runtime helpers. Artwork and character data are
-prebuilt; asset-building scripts are not included in the repository.
-
-Echelon's countdown is
-six seconds; an existing disabled or immediate timeout stays disabled or
-immediate. Escape opens the original boot menu. If the requested graphics mode
-or a required font fails, the original menu remains available in text mode.
+Choose the profile that matches your GRUB display mode. On larger displays,
+the 1440p layout stays centered at 2560×1440 with padding around it.
 
 ## Restore
 
@@ -113,7 +85,6 @@ sudo sidonia uninstall
 - [Advanced installation and troubleshooting](docs/ADVANCED.md)
 - [License](LICENSE)
 - [Artwork and font notices](docs/NOTICE.md)
-- [Echelon design sources](docs/design/echelon/README.md)
 
 Sidonia is an independent project and is not affiliated with the GRUB project
 or any media franchise.

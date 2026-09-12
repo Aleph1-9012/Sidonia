@@ -15,6 +15,10 @@ from prebuilt characters and your current boot entries. Names, order, boot comma
 arguments come from GRUB. The theme does not add a memory tester, firmware
 entry or any other action. Escape opens the original menu.
 
+The countdown lasts six seconds. An existing disabled or immediate timeout
+stays disabled or immediate. If the requested graphics mode or a required
+font fails, the original menu remains available in text mode.
+
 One to four entries use cards. Larger menus, BLS entries, external custom.cfg
 files and titles resolved at boot use the complete standard GRUB list.
 Long titles use a smaller prebuilt size or an ellipsis on the cards; the entry
@@ -27,6 +31,5 @@ an image renderer. The fixed artwork and 17,049-character library are prebuilt
 for each profile, including the one-, two-, three- and four-card layouts.
 
 The runtime helpers are embedded in `install.sh` and written into the installed
-Sidonia directory. Asset-building scripts are not shipped. The editable SVG,
-layout data, Inconsolata fonts and Noto Sans JP font remain in
-`docs/design/echelon` as source material.
+Sidonia directory. All required artwork and fonts are included in the theme
+profiles. Editable design sources and asset-building scripts are not shipped.

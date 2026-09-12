@@ -2,7 +2,6 @@
 /tests/
 /.local-backups/
 /recordings/
-/docs/design/echelon/original-plan.md
 
 __pycache__/
 *.pyc

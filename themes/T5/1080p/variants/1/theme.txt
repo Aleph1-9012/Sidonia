@@ -34,11 +34,12 @@ terminal-font: "Cascade UI 18"
   color = "#EEE7DA"
 }
 
+# Bound redraws to this layer while keeping the original font baseline.
 + boot_menu {
-  left = 50%-960
+  left = 50%-800
   top = 50%-540
-  width = 1920
-  height = 1080
+  width = 243
+  height = 212
   item_height = 212
   item_spacing = -211
   item_padding = 0
@@ -54,10 +55,10 @@ terminal-font: "Cascade UI 18"
   selected_item_color = "#F4EFDF"
 }
 + boot_menu {
-  left = 50%-960
+  left = 50%-924
   top = 50%-540
-  width = 1920
-  height = 1080
+  width = 84
+  height = 212
   item_height = 212
   item_spacing = -211
   item_padding = 0
@@ -72,18 +73,19 @@ terminal-font: "Cascade UI 18"
   item_color = "#F4EFDF"
   selected_item_color = "#F01B21"
 }
+# Static details outside the card area are baked into the background.
 + image {
-  left = 50%-960
-  top = 50%-540
-  width = 1920
-  height = 1080
+  left = 50%-826
+  top = 50%-442
+  width = 285
+  height = 112
   file = "foreground.png"
 }
 + boot_menu {
-  left = 50%-960
+  left = 50%-826
   top = 50%-540
-  width = 1920
-  height = 1080
+  width = 285
+  height = 212
   item_height = 212
   item_spacing = -211
   item_padding = 0

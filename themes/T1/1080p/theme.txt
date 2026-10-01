@@ -15,9 +15,10 @@ desktop-image-scale-method: "stretch"
   selected_item_font = "Sidonia T1 Space Mono 1080p Menu Bold 23"
   item_color = "#E2E1DF"
   selected_item_color = "#1A1C1D"
-  item_height = 65
+  # Opaque selector rows; spacing and menu-font baseline preserve the artwork.
+  item_height = 61
   item_padding = 0
-  item_spacing = 4
+  item_spacing = 8
   icon_width = 0
   icon_height = 0
   item_icon_space = 0

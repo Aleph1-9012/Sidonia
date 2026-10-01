@@ -1,7 +1,13 @@
 # Sidonia notices
 
 Sidonia project code, documentation, and original theme artwork are Copyright
-2026 Aleph1-9012 and are licensed under the Apache License, Version 2.0.
+2026 Aleph1-9012 and are licensed under the Apache License, Version 2.0,
+except for the renderer described below and the separately licensed fonts.
+
+The optional renderer in `bin/renderer` is GPL-3.0-or-later. Its list declarations
+are derived from GNU GRUB 2.14, Copyright 2008, 2009 Free Software Foundation,
+Inc. Renderer source and build instructions accompany the prebuilt modules;
+the complete license is in `bin/renderer/COPYING`.
 
 Sidonia is an independent project. It is not affiliated with or endorsed by
 the GNU GRUB project or any media franchise. Third-party names and trademarks

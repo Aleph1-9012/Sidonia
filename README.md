@@ -38,6 +38,10 @@ sudo ./install.sh
 Choose a theme and display profile when prompted. The installer backs up your
 current GRUB configuration, and the theme appears on the next boot.
 
+On supported GRUB 2.14 systems, all five themes include a short selector glide
+and reduced menu redraws. The renderer is prebuilt; no compiler is needed.
+Other GRUB versions use the standard theme renderer.
+
 ## Switch themes
 
 Open the guided theme chooser whenever you want to switch:
@@ -84,7 +88,7 @@ sudo sidonia uninstall
 - [Editable source assets](https://github.com/Aleph1-9012/Sidonia/releases/tag/v1.0.0)
 - [Advanced installation and troubleshooting](docs/ADVANCED.md)
 - [License](LICENSE)
-- [Artwork and font notices](docs/NOTICE.md)
+- [Licenses and notices](docs/NOTICE.md)
 
 Sidonia is an independent project and is not affiliated with the GRUB project
 or any media franchise.

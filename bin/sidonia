@@ -443,6 +443,25 @@ apply_theme() (
     validate_profile "$THEME_STAGE" "$FONT"
     diff -qr --no-dereference "$SOURCE" "$THEME_STAGE" >/dev/null
 
+    # The optional renderer uses GRUB 2.14's GUI ABI. Other versions retain
+    # the standard renderer. Keep its files within the theme's rollback unit.
+    if test "${SIDONIA_MOTION:-1}" != 0 && test -f "$RUNTIME_ROOT/motion/SHA256SUMS" &&
+        [[ "$("$GRUB_MKCONFIG" --version 2>/dev/null)" =~ \)\ ([0-9]+:)?2\.14($|[-.]) ]]; then
+        (cd -- "$RUNTIME_ROOT/motion" && sha256sum --quiet -c SHA256SUMS)
+        cp -R --no-preserve=ownership,mode,timestamps -- "$RUNTIME_ROOT/motion" "$THEME_STAGE/motion"
+        local MOTION_KIND=list
+        test "$THEME" != T5 || MOTION_KIND=echelon
+        cat > "$THEME_STAGE/motion.cfg" <<EOF
+# Optional Sidonia renderer. GRUB keeps the ordinary menu if loading fails.
+if [ -f "\$prefix/themes/$DEST_NAME/motion/\${grub_cpu}-\${grub_platform}/sidonia_motion.mod" ]; then
+  if insmod "\$prefix/themes/$DEST_NAME/motion/\${grub_cpu}-\${grub_platform}/sidonia_motion.mod"; then
+    sidonia_motion $MOTION_KIND
+  fi
+fi
+EOF
+        "$GRUB_SCRIPT_CHECK" "$THEME_STAGE/motion.cfg"
+    fi
+
     if test -e "$DESTINATION"; then
         THEME_OLD="$THEME_ROOT/.$DEST_NAME.old.$$"
         test ! -e "$THEME_OLD"

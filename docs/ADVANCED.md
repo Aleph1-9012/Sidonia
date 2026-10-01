@@ -45,6 +45,43 @@ Backups are stored below `/var/lib/sidonia`. The first installation preserves
 the original GRUB appearance; every later switch also keeps one-step rollback
 data.
 
+## Selector motion
+
+The installer bundles a C renderer for GRUB 2.14 on `x86_64-efi` and `i386-pc`.
+It enables a 100 ms selector glide, redraws the affected menu regions, and skips
+unchanged selections. Direction changes retarget the glide; Enter uses the
+currently selected native boot entry immediately. Scrolling repaints the list
+without animating the scroll. Echelon reuses its prepared label glyphs and draws
+solid card fills directly.
+
+When the menu closes, the renderer clears the artwork and restores a full-screen
+boot console. Loading messages and errors remain visible, including during
+automatic boot. A `Booting...` message gives quiet entries visible feedback.
+This changes the display handoff, not the OS loading time or the display after
+the operating system takes control.
+
+The installer and theme manager remain Bash. Users do not need a compiler or
+an additional language runtime. The module lives inside the installed theme
+directory and is included in theme backups. It does not replace GRUB's modules,
+core image, or EFI executable. Unsupported GRUB versions, unsupported layouts,
+and failed module loads retain the standard renderer. Systems that reject
+unsigned modules also use the standard renderer.
+
+To install with the standard renderer explicitly:
+
+```bash
+sudo env SIDONIA_MOTION=0 ./install.sh T5 1440p --gfxmode 2560x1600
+```
+
+At the GRUB console, `sidonia_motion status` reports the last renderer used,
+selection changes, skipped unchanged selections, and redraw timings in guest
+milliseconds. These timings are diagnostic and do not measure physical keyboard
+latency or guarantee a display frame rate.
+
+Renderer source, build instructions, and its GPL license are in
+[`bin/renderer`](../bin/renderer). Manual copying of theme assets alone uses
+GRUB's standard renderer.
+
 ## Manual installation
 
 Each directory below `themes/T1` through `themes/T4` is a complete,

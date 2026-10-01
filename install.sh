@@ -148,6 +148,9 @@ EOF
   export gfxmode
   set theme="\$sidonia_theme_dir/theme.txt"
   export theme
+  if [ "\$sidonia_motion_supported" = 1 ]; then
+    if [ -f "\$sidonia_base_dir/motion.cfg" ]; then source "\$sidonia_base_dir/motion.cfg"; fi
+  fi
   if [ "\$sidonia_font_error" = 0 ]; then terminal_output gfxterm; else false; fi
 }
 EOF
@@ -538,6 +541,20 @@ test -f "$themedir/theme.txt" || exit 0
 case "${GRUB_GFXMODE:-}" in
   ''|*[!0-9x]*) echo 'Sidonia requires a single numeric graphics mode' >&2; exit 1 ;;
 esac
+# Recheck on every grub-mkconfig run, including distribution upgrades.
+# A renderer copied by an earlier installation must not cross GRUB ABIs.
+motion_mkconfig=${SIDONIA_GRUB_MKCONFIG:-}
+if test -z "$motion_mkconfig"; then
+  motion_mkconfig=$(command -v grub-mkconfig || command -v grub2-mkconfig || true)
+fi
+motion_version=$("$motion_mkconfig" --version 2>/dev/null || true)
+motion_version=${motion_version##*) }
+motion_version=${motion_version#*:}
+case "$motion_version" in
+  2.14|2.14-*|2.14.*) printf '%s\n' 'set sidonia_motion_supported=1' ;;
+  *) printf '%s\n' 'set sidonia_motion_supported=0' ;;
+esac
+printf '%s\n' 'export sidonia_motion_supported'
 if test "${name#Sidonia-T5-}" != "$name"; then
   runtime=${SIDONIA_RUNTIME_ROOT:-${SIDONIA_INSTALL_ROOT:-/usr/local/share/sidonia}/lib}
   printf '%s\n' '# Sidonia owns the final theme selection, after other theme loaders.'
@@ -567,6 +584,9 @@ cat <<'EOF'
 if terminal_output gfxterm; then
   set theme="$sidonia_theme_dir/theme.txt"
   export theme
+  if [ "$sidonia_motion_supported" = 1 ]; then
+    if [ -f "$sidonia_theme_dir/motion.cfg" ]; then source "$sidonia_theme_dir/motion.cfg"; fi
+  fi
 else
   set gfxmode=auto
   loadfont "$prefix/fonts/unicode.pf2"
@@ -629,6 +649,16 @@ if test -f "$INSTALL_ROOT/lib/cascade/runtime.py"; then
     cp -R --no-preserve=ownership -- "$INSTALL_ROOT/lib/cascade/." "$STAGE/lib/cascade/"
 fi
 write_runtime "$STAGE/lib"
+if test -f "$REPO_ROOT/bin/renderer/SHA256SUMS"; then
+    (cd -- "$REPO_ROOT/bin/renderer" && sha256sum --quiet -c SHA256SUMS)
+    install -d -m 0755 "$STAGE/lib/motion"
+    for TARGET in x86_64-efi i386-pc; do
+        install -D -m 0644 "$REPO_ROOT/bin/renderer/$TARGET/sidonia_motion.mod" \
+            "$STAGE/lib/motion/$TARGET/sidonia_motion.mod"
+    done
+    install -m 0644 "$REPO_ROOT/bin/renderer/SHA256SUMS" \
+        "$REPO_ROOT/bin/renderer/COPYING" "$STAGE/lib/motion/"
+fi
 install -o root -g root -m 0644 "$REPO_ROOT/LICENSE" "$STAGE/LICENSE"
 install -o root -g root -m 0644 "$REPO_ROOT/docs/NOTICE.md" "$STAGE/NOTICE.md"
 

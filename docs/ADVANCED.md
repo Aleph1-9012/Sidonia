@@ -154,9 +154,21 @@ recovery medium and restore the files saved below `/var/lib/sidonia/original`.
 ## Stock-GRUB limitations
 
 - Live menu titles come from the existing GRUB configuration.
-- T5 uses one to four cards. Larger menus use the complete native GRUB list.
-  Boot Loader Specification entries, external `custom.cfg` files and titles
-  resolved only at boot also keep the native list so no entries are omitted.
+- T5 uses one to four cards. Larger menus show the first three entries and a
+  **More entries** card that opens the complete native GRUB menu. If the saved
+  default is outside those three entries, GRUB opens the complete menu directly
+  to preserve its default selection and automatic boot behavior.
+- T5 supports Fedora-style type-1 BLS entries without disabling BLS or editing
+  its source records. A kernel-install hook refreshes the cards after kernel
+  additions and removals. Reapply T5 with `sudo sidonia` after manual BLS edits
+  or on systems that do not use kernel-install. Changed or removed BLS records
+  return to the native menu until the cards are refreshed. Verification uses
+  the distribution's installed GRUB comparison module. If that module cannot
+  load, T5 keeps the native menu.
+- External `custom.cfg` files, titles resolved only at boot, and BLS records
+  that the card generator cannot represent keep the complete native menu.
+  This includes custom BLS directories, separate early-initrd settings and
+  boot-time device-tree settings.
 - Long T5 titles shrink to fit, then use an ellipsis when needed. Their full
   names remain available through Escape and the entry editor.
 - T5's character library covers the bundled Inconsolata and Noto Sans JP fonts.

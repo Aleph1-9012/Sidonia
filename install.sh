@@ -16,6 +16,9 @@ SOURCE_COMMAND="$REPO_ROOT/bin/sidonia"
 INSTALL_ROOT="${SIDONIA_INSTALL_ROOT:-/usr/local/share/sidonia}"
 COMMAND_PATH="${SIDONIA_COMMAND_PATH:-/usr/local/bin/sidonia}"
 LEGACY_COMMAND_PATH="${SIDONIA_LEGACY_COMMAND_PATH:-$(dirname "$COMMAND_PATH")/sidonia-theme}"
+KERNEL_INSTALL_DIR="${SIDONIA_KERNEL_INSTALL_DIR:-/etc/kernel/install.d}"
+KERNEL_HOOK="$KERNEL_INSTALL_DIR/99-zz-sidonia.install"
+KERNEL_HOOK_CREATED=0
 STAGE=""
 OLD_INSTALL=""
 SUCCESS=0
@@ -92,20 +95,87 @@ function sidonia_plain_menu {
     loadfont "\$prefix/fonts/unicode.pf2"
     set gfxterm_font='Unifont Regular 16'
   fi
-  if terminal_output gfxterm; then true; else terminal_output console; fi
+  if terminal_output gfxterm; then [ 1 = 1 ]; else terminal_output console; fi
 }
 EOF
 fallback() {
     printf '%s\n' '# Echelon used the complete original menu.' 'sidonia_plain_menu'
 }
 if [[ -f "$THEME/../../custom.cfg" ]]; then fallback; exit; fi
+# Keep BLS enabled in the native menu. Build cards from a checked snapshot and
+# compare it at boot so edited/removed kernels always return to the live menu.
+BLS_ACTIVE=0
+if grep -qE '^[[:space:]]*blscfg([[:space:]]|$)' "$ECHELON_WORK/input.cfg"; then
+    BLS_DIR=${SIDONIA_BLS_DIR:-/boot/loader/entries}
+    BLS_RELPATH=$(command -v grub-mkrelpath || command -v grub2-mkrelpath || true)
+    BLS_PROBE=$(command -v grub-probe || command -v grub2-probe || true)
+    if [[ ! -d "$BLS_DIR" || -z "$BLS_RELPATH" || -z "$BLS_PROBE" ]]; then fallback; exit; fi
+    mkdir "$ECHELON_WORK/cmp"
+    for BLS_PLATFORM in x86_64-efi i386-pc; do
+        BLS_MODULE="${SIDONIA_GRUB_MODULE_DIR:-/usr/lib/grub}/$BLS_PLATFORM/cmp.mod"
+        if [[ -f "$BLS_MODULE" ]]; then cp -- "$BLS_MODULE" "$ECHELON_WORK/cmp/$BLS_PLATFORM.mod"; fi
+    done
+    BLS_PATH=$("$BLS_RELPATH" "$BLS_DIR")
+    BLS_UUID=$("$BLS_PROBE" --target=fs_uuid "$BLS_DIR")
+    [[ "$BLS_PATH" =~ ^/[a-zA-Z0-9_./@+-]+$ && "$BLS_UUID" =~ ^[a-zA-Z0-9-]+$ ]] || { fallback; exit; }
+    mkdir "$ECHELON_WORK/bls"
+    for BLS_FILE in "$BLS_DIR"/*.conf; do
+        [[ -f "$BLS_FILE" ]] || continue
+        [[ "${BLS_FILE##*/}" =~ ^[a-zA-Z0-9_+.~:-]+\.conf$ ]] || { fallback; exit; }
+        cp -- "$BLS_FILE" "$ECHELON_WORK/bls/"
+    done
+    if ! awk -f "$RUNTIME/bls.awk" "$ECHELON_WORK"/bls/*.conf > "$ECHELON_WORK/bls.cfg"; then fallback; exit; fi
+    if ! awk -v replacement="$ECHELON_WORK/bls.cfg" '
+        /^[[:space:]]*blscfg[[:space:]]*$/ {
+            count++
+            while ((getline line < replacement)>0) print line
+            close(replacement); next
+        }
+        { print }
+        END { exit count != 1 }
+    ' "$ECHELON_WORK/input.cfg" > "$ECHELON_WORK/bls-input.cfg"; then fallback; exit; fi
+    mv "$ECHELON_WORK/bls-input.cfg" "$ECHELON_WORK/input.cfg"
+    stat -c '%Y' "$BLS_DIR" > "$ECHELON_WORK/bls.stamp"
+    touch -r "$BLS_DIR" "$ECHELON_WORK/bls.stamp"
+    {
+        printf '%s\n' 'set sidonia_bls_cmp_ready=0' 'if [ -f "$sidonia_theme_dir/cmp/$grub_cpu-$grub_platform.mod" ]; then' '  if insmod "$sidonia_theme_dir/cmp/$grub_cpu-$grub_platform.mod"; then set sidonia_bls_cmp_ready=1; fi' 'fi'
+        printf 'search --no-floppy --fs-uuid --set=sidonia_bls_device %s\n' "$BLS_UUID"
+        printf 'set sidonia_bls_path="($sidonia_bls_device)%s"\n' "$BLS_PATH"
+        printf '%s\n' 'if [ -n "$early_initrd" -o -n "$devicetree" ]; then set sidonia_show_cards=0; fi'
+        printf 'if [ -n "$blsdir" -a "$blsdir" != "%s" -a "$blsdir" != "%s" ]; then set sidonia_show_cards=0; fi\n' "$BLS_PATH" "${BLS_PATH#/}"
+        printf '%s\n' 'if [ "$sidonia_bls_path" -nt "$sidonia_theme_dir/bls.stamp" -o "$sidonia_bls_path" -ot "$sidonia_theme_dir/bls.stamp" ]; then set sidonia_show_cards=0; fi'
+        # Older GRUB builds may report success for an unknown command. A
+        # known unequal pair must compare unequal before checking live files.
+        printf '%s\n' 'if [ "$sidonia_bls_cmp_ready" = 1 ]; then' '  if cmp "$sidonia_theme_dir/bls.stamp" "$sidonia_theme_dir/theme.txt"; then set sidonia_bls_cmp_ready=0; fi' 'fi'
+        printf '%s\n' 'if [ "$sidonia_bls_cmp_ready" = 1 ]; then'
+        for BLS_FILE in "$ECHELON_WORK"/bls/*.conf; do
+            printf '  if cmp "$sidonia_bls_path/%s" "$sidonia_theme_dir/bls/%s"; then [ 1 = 1 ]; else set sidonia_show_cards=0; fi\n' "${BLS_FILE##*/}" "${BLS_FILE##*/}"
+        done
+        printf '%s\n' 'else' '  set sidonia_show_cards=0' 'fi'
+    } > "$ECHELON_WORK/bls-guard.cfg"
+    BLS_ACTIVE=1
+fi
 if ! awk -f "$RUNTIME/menu.awk" "$ECHELON_WORK/input.cfg"; then fallback; exit; fi
+if [[ "$BLS_ACTIVE" == 1 ]]; then
+    cat "$ECHELON_WORK/bls-guard.cfg" >> "$ECHELON_WORK/defaults.cfg"
+fi
 COUNT=$(cat "$ECHELON_WORK/count")
 ECHELON_VARIANT=$THEME
 [[ "$COUNT" == 4 ]] || ECHELON_VARIANT="$THEME/variants/$COUNT"
 ECHELON_GENERATION=$(
     cat -- "$ECHELON_WORK/native.cfg" "$THEME/SHA256SUMS" \
-        "$RUNTIME/runtime.sh" "$RUNTIME/menu.awk" "$RUNTIME/labels.awk" | sha256sum
+        "$RUNTIME/runtime.sh" "$RUNTIME/menu.awk" "$RUNTIME/labels.awk" \
+        "$RUNTIME/bls.awk" "$ECHELON_WORK/defaults.cfg" > "$ECHELON_WORK/generation"
+    if [[ "$BLS_ACTIVE" == 1 ]]; then
+        cat "$ECHELON_WORK/bls.stamp" "$ECHELON_WORK"/bls/*.conf >> "$ECHELON_WORK/generation"
+        for BLS_MODULE in "$ECHELON_WORK"/cmp/*.mod; do
+            if [[ -f "$BLS_MODULE" ]]; then
+                printf '%s\n' "${BLS_MODULE##*/}" >> "$ECHELON_WORK/generation"
+                sha256sum "$BLS_MODULE" | awk '{print $1}' >> "$ECHELON_WORK/generation"
+            fi
+        done
+    fi
+    sha256sum "$ECHELON_WORK/generation"
 )
 ECHELON_GENERATION=${ECHELON_GENERATION:0:20}
 TARGET="$THEME/generated/$ECHELON_GENERATION"
@@ -115,6 +185,10 @@ if [[ -d "$TARGET" ]]; then
     (cd -- "$TARGET" && sha256sum --quiet -c SHA256SUMS) >&2
 else
     mkdir -- "$ECHELON_READY"
+    if [[ "$BLS_ACTIVE" == 1 ]]; then
+        cp -R -- "$ECHELON_WORK/bls" "$ECHELON_WORK/cmp" "$ECHELON_READY/"
+        cp -p -- "$ECHELON_WORK/bls.stamp" "$ECHELON_READY/"
+    fi
     cp -- "$ECHELON_VARIANT/background.png" "$ECHELON_VARIANT/foreground.png" "$ECHELON_READY/"
     # Only the four entry fonts have a generation-specific name. Timer fonts
     # remain prebuilt because their content never depends on boot entries.
@@ -122,6 +196,17 @@ else
         "$ECHELON_VARIANT/theme.txt" > "$ECHELON_READY/theme.txt"
     cp -- "$THEME"/timer-*.pf2 "$ECHELON_READY/"
     cp -- "$THEME/fonts/ui.pf2" "$ECHELON_READY/ui.pf2"
+    cp -- "$ECHELON_WORK/defaults.cfg" "$ECHELON_READY/defaults.cfg"
+    cp -- "$ECHELON_WORK/native.cfg" "$ECHELON_READY/native.cfg"
+    cat > "$ECHELON_READY/full.cfg" <<'EOF'
+sidonia_plain_menu
+set config_directory="$sidonia_native_config_directory"
+set config_file="$sidonia_native_config_file"
+set default="$sidonia_system_default"
+set timeout_style=menu
+set timeout=-1
+source "$sidonia_theme_dir/native.cfg"
+EOF
     # Decompress completely before awk, so a damaged library cannot be mistaken
     # for a supported title with only some of its character data present.
     gzip -cd -- "$THEME/characters.gz" > "$ECHELON_WORK/characters"
@@ -131,6 +216,7 @@ else
     {
         cat <<'EOF'
 function sidonia_graphics {
+  if [ -f "$sidonia_theme_dir/entries.cfg" ]; then [ 1 = 1 ]; else return 1; fi
   terminal_output console
   insmod all_video
   insmod gfxterm
@@ -139,7 +225,7 @@ function sidonia_graphics {
   set sidonia_font_error=0
 EOF
         for FONT in labels shapes status status-selected timer-detail timer-fill timer-ink ui; do
-            printf '  if loadfont "$sidonia_theme_dir/%s.pf2"; then true; else set sidonia_font_error=1; fi\n' "$FONT"
+            printf '  if loadfont "$sidonia_theme_dir/%s.pf2"; then [ 1 = 1 ]; else set sidonia_font_error=1; fi\n' "$FONT"
         done
         cat <<EOF
   set gfxterm_font='Cascade UI $UI_SIZE'
@@ -151,7 +237,7 @@ EOF
   if [ "\$sidonia_motion_supported" = 1 ]; then
     if [ -f "\$sidonia_base_dir/motion.cfg" ]; then source "\$sidonia_base_dir/motion.cfg"; fi
   fi
-  if [ "\$sidonia_font_error" = 0 ]; then terminal_output gfxterm; else false; fi
+  if [ "\$sidonia_font_error" = 0 ]; then terminal_output gfxterm; else return 1; fi
 }
 EOF
         cat <<'EOF'
@@ -164,22 +250,41 @@ if [ "$sidonia_original_timeout" = -1 ]; then set timeout=-1; fi
 if [ "$sidonia_original_timeout" = 0 ]; then set timeout=0; fi
 EOF
         cat -- "$ECHELON_WORK/remaps.cfg"
-        printf '\nif sidonia_graphics; then\n'
-        cat -- "$ECHELON_WORK/body.cfg"
         cat <<'EOF'
+if sidonia_graphics; then
+  source "$sidonia_theme_dir/entries.cfg"
 else
-  set sidonia_original_menu=1
-  export sidonia_original_menu
-  configfile "$prefix/grub.cfg"
+  sidonia_plain_menu
+  source "$sidonia_theme_dir/native.cfg"
 fi
 EOF
     } > "$ECHELON_READY/menu.cfg"
+    # GRUB 2.12 rejects function definitions inside an if block. Distro menu
+    # sections can define helpers, so parse them in a separate sourced file.
+    {
+        printf '%s\n' 'set config_directory="$sidonia_native_config_directory"' \
+            'set config_file="$sidonia_native_config_file"'
+        cat -- "$ECHELON_WORK/body.cfg"
+    } > "$ECHELON_READY/entries.cfg"
     CHECK=${SIDONIA_GRUB_SCRIPT_CHECK:-}
     if [[ -z "$CHECK" ]]; then
         CHECK=$(command -v grub-script-check || command -v grub2-script-check)
     fi
     "$CHECK" "$ECHELON_READY/menu.cfg" >&2
-    (cd -- "$ECHELON_READY" && sha256sum ./*.pf2 ./*.png menu.cfg theme.txt > SHA256SUMS)
+    "$CHECK" "$ECHELON_READY/entries.cfg" >&2
+    "$CHECK" "$ECHELON_READY/defaults.cfg" >&2
+    "$CHECK" "$ECHELON_READY/full.cfg" >&2
+    "$CHECK" "$ECHELON_READY/native.cfg" >&2
+    (
+        cd -- "$ECHELON_READY"
+        sha256sum ./*.pf2 ./*.png menu.cfg entries.cfg defaults.cfg full.cfg native.cfg theme.txt > SHA256SUMS
+        if [[ "$BLS_ACTIVE" == 1 ]]; then
+            sha256sum bls.stamp bls/*.conf >> SHA256SUMS
+            for BLS_MODULE in cmp/*.mod; do
+                [[ ! -f "$BLS_MODULE" ]] || sha256sum "$BLS_MODULE" >> SHA256SUMS
+            done
+        fi
+    )
     mv -- "$ECHELON_READY" "$TARGET"
 fi
 cat <<EOF
@@ -205,13 +310,133 @@ cat <<'EOF'
   export sidonia_system_default
   set sidonia_original_timeout="$timeout"
   export sidonia_original_timeout
-  configfile "$sidonia_theme_dir/menu.cfg"
+  source "$sidonia_theme_dir/defaults.cfg"
+  if [ "$sidonia_show_cards" = 1 ]; then
+    configfile "$sidonia_theme_dir/menu.cfg"
+    set timeout_style=menu
+    set timeout=-1
+  fi
   sidonia_plain_menu
-  set timeout_style=menu
-  set timeout=-1
 fi
 EOF
 SIDONIA_ECHELON_RUNTIME
+
+    cat > "$RUNTIME_DEST/cascade/bls.awk" <<'SIDONIA_ECHELON_BLS_AWK'
+# Convert Fedora type-1 BLS records to the equivalent native GRUB commands.
+# Input is data: no shell command or BLS value is executed while generating.
+function quote(s,    r,i,c) {
+    r="'"
+    for(i=1;i<=length(s);i++) {c=substr(s,i,1); r=r (c=="'" ? "'\\''" : c)}
+    return r "'"
+}
+function versioncmp(a,b,    x,y,numeric) {
+    while(a!="" || b!="") {
+        sub(/^[^[:alnum:]~+]+/,"",a); sub(/^[^[:alnum:]~+]+/,"",b)
+        x=substr(a,1,1); y=substr(b,1,1)
+        if(x=="~" || y=="~") {
+            if(x!="~") return 1
+            if(y!="~") return -1
+            a=substr(a,2); b=substr(b,2); continue
+        }
+        if(x=="+" || y=="+") {
+            if(a=="") return -1
+            if(b=="") return 1
+            if(x!="+") return 1
+            if(y!="+") return -1
+            a=substr(a,2); b=substr(b,2); continue
+        }
+        if(a=="" || b=="") break
+        numeric=(a ~ /^[0-9]/)
+        if(numeric) {match(a,/^[0-9]+/);x=substr(a,1,RLENGTH);match(b,/^[0-9]*/);y=substr(b,1,RLENGTH)}
+        else {match(a,/^[[:alpha:]]+/);x=substr(a,1,RLENGTH);match(b,/^[[:alpha:]]*/);y=substr(b,1,RLENGTH)}
+        if(y=="") return (numeric ? 1 : -1)
+        a=substr(a,length(x)+1); b=substr(b,length(y)+1)
+        if(numeric) {
+            sub(/^0+/,"",x); sub(/^0+/,"",y)
+            if(length(x)!=length(y)) return (length(x)>length(y) ? 1 : -1)
+        }
+        if("x" x != "x" y) return ("x" x > "x" y ? 1 : -1)
+    }
+    return (a!="" ? 1 : (b!="" ? -1 : 0))
+}
+function compare(a,b,    na,nb,va,vb,ra,rb,r) {
+    na=a; nb=b; sub(/-[^-]*$/,"",na); sub(/-[^-]*$/,"",nb)
+    ra=substr(a,length(na)+2); rb=substr(b,length(nb)+2)
+    va=na; vb=nb; sub(/-[^-]*$/,"",na); sub(/-[^-]*$/,"",nb)
+    va=substr(va,length(na)+2); vb=substr(vb,length(nb)+2)
+    r=versioncmp(na,nb); if(r) return r
+    r=versioncmp(va,vb); if(r) return r
+    return versioncmp(ra,rb)
+}
+function path(s) {return s ~ /^\/[[:alnum:]_+.\/~:-]+$/ && s !~ /(^|\/)\.\.(\/|$)/}
+function emit(id,    title,linux,options,j,header,initrd,value,dt) {
+    linux=fields[id,"linux",1]
+    if(linux=="") return
+    if(!path(linux)) {failed=1; return}
+    title=fields[id,"title",1]; if(title=="") title=linux
+    if(title ~ /[$\\[:cntrl:]]/) {failed=1;return}
+    header="menuentry " quote(title) " --id=" quote(id)
+    for(j=1;j<=counts[id,"grub_arg"];j++) {
+        value=fields[id,"grub_arg",j]
+        if(value!="--unrestricted") {failed=1;return}
+    }
+    value=fields[id,"grub_users",1]
+    if(value=="$grub_users") {
+        print "set sidonia_bls_access=--unrestricted"
+        print "if [ -n \"$grub_users\" ]; then set sidonia_bls_access=\"--users=$grub_users\"; fi"
+        header=header " $sidonia_bls_access"
+    } else if(value=="") header=header " --unrestricted"
+    else if(value ~ /^[[:alnum:]_,.-]+$/) header=header " --users " quote(value)
+    else {failed=1;return}
+    for(j=1;j<=counts[id,"grub_class"];j++) header=header " --class " quote(fields[id,"grub_class",j])
+    value=fields[id,"grub_hotkey",1]
+    if(value!="") header=header " --hotkey " quote(value)
+    print header " {"
+    print "  set root=\"$sidonia_bls_root\""
+    print "  if [ \"$save_default\" = true ]; then savedefault; fi"
+    print "  load_video\n  set gfxpayload=keep\n  insmod gzio"
+    options=fields[id,"options",1]
+    if(options=="") options="$default_kernelopts"
+    if(options ~ /[;{}\r\n]/) {failed=1;return}
+    print "  linux ($root)" linux " " options
+    initrd=""
+    for(j=1;j<=counts[id,"initrd"];j++) {
+        value=fields[id,"initrd",j]
+        if(!path(value)) {failed=1;return}
+        initrd=initrd " ($root)" value
+    }
+    if(initrd!="") print "  initrd" initrd
+    dt=fields[id,"devicetree",1]
+    if(dt!="") {
+        if(!path(dt)) {failed=1;return}
+        print "  devicetree ($root)" dt
+    }
+    print "}"
+    entries++
+}
+FNR==1 {
+    id=FILENAME; sub(/^.*\//,"",id); sub(/\.conf$/,"",id)
+    if(id !~ /^[[:alnum:]_+.~:-]+$/) {failed=1;exit 2}
+    names[++n]=id
+}
+{
+    sub(/\r$/,"",$0)
+    if($0 ~ /^[[:space:]]*(#|$)/) next
+    key=$1; value=$0; sub(/^[^[:space:]]+[[:space:]]*/,"",value)
+    fields[id,key,++counts[id,key]]=value
+}
+END {
+    if(failed) exit 2
+    for(i=2;i<=n;i++) {
+        id=names[i]; j=i-1
+        while(j>0 && compare(id,names[j])>0) {names[j+1]=names[j];j--}
+        names[j+1]=id
+    }
+    print "set sidonia_bls_root=\"$root\""
+    for(i=1;i<=n;i++) emit(names[i])
+    if(failed || !entries) exit 2
+}
+SIDONIA_ECHELON_BLS_AWK
 
     cat > "$RUNTIME_DEST/cascade/menu.awk" <<'SIDONIA_ECHELON_MENU_AWK'
 # Parse literal GRUB entries without executing configuration text.
@@ -324,11 +549,17 @@ END {
         if(found<0) exit 2
         for(i=1;i<=found;i++) native=native substr(source,first[i],last[i]-first[i]) "\n"
     }
-    if(parse(native)<1 || count>4) exit 2
-    print count > (out "/count")
+    if(parse(native)<1) exit 2
+    total=count; cards=(total>4 ? 3 : total)
+    print (total>4 ? 4 : cards) > (out "/count")
     printf "%s",native > (out "/native.cfg")
     modified=""; cursor=1
-    for(i=1;i<=count;i++) {
+    for(i=1;i<=total;i++) {
+        if(i>cards) {
+            modified=modified substr(native,cursor,first[i]-cursor) "set sidonia_omitted_entry=1\n"
+            cursor=last[i]
+            continue
+        }
         print title[i] > (out "/titles")
         id=(ids[i]!="" ? ids[i] : title[i])
         if(id ~ /[[:cntrl:]]/) exit 2
@@ -348,7 +579,31 @@ END {
                   " \"$default\"; then set default=" quote(dest ">") "\"$sidonia_default_tail\"; fi" > (out "/remaps.cfg")
         }
     }
-    printf "%s",modified substr(native,cursor) > (out "/body.cfg")
+    modified=modified substr(native,cursor)
+    if(total>4) {
+        print "More entries" > (out "/titles")
+        marker=sprintf("%c%c%c",238,128,131)
+        modified=modified "\nmenuentry " quote(marker " More entries") " {\n  configfile \"$sidonia_theme_dir/full.cfg\"\n  sidonia_graphics\n}\n"
+    }
+    printf "%s",modified > (out "/body.cfg")
+    # A saved default outside the cards must keep its native autoboot behavior.
+    print "set sidonia_show_cards=1" > (out "/defaults.cfg")
+    if(total>4) {
+        print "set sidonia_show_cards=0" > (out "/defaults.cfg")
+        print "if [ -z \"$default\" ]; then set sidonia_show_cards=1; fi" > (out "/defaults.cfg")
+        for(i=1;i<=cards;i++) {
+            print "if [ \"$default\" = " quote(i-1) " ]; then set sidonia_show_cards=1; fi" > (out "/defaults.cfg")
+            for(j=1;j<=2;j++) {
+                key=(j==1 ? title[i] : ids[i])
+                if(key=="") continue
+                print "if [ \"$default\" = " quote(key) " ]; then set sidonia_show_cards=1; fi" > (out "/defaults.cfg")
+                if(kind[i]=="submenu") {
+                    gsub(/>/,">>",key)
+                    print "if regexp " quote("^" regex_quote(key) ">") " \"$default\"; then set sidonia_show_cards=1; fi" > (out "/defaults.cfg")
+                }
+            }
+        }
+    }
     rest=source
     while(match(rest,/\$\{?[a-zA-Z_][a-zA-Z_0-9]*/)) {
         t=substr(rest,RSTART,RLENGTH); sub(/^\$\{?/,"",t); exports[t]=1
@@ -360,7 +615,7 @@ END {
         rest=substr(rest,RSTART+RLENGTH)
     }
     printf "%s","" > (out "/exports.cfg")
-    for(t in exports) print "export " t > (out "/exports.cfg")
+    for(t in exports) print "if [ -n \"$" t "\" ]; then export " t "; fi" > (out "/exports.cfg")
 }
 SIDONIA_ECHELON_MENU_AWK
 
@@ -591,13 +846,29 @@ else
   set gfxmode=auto
   loadfont "$prefix/fonts/unicode.pf2"
   set gfxterm_font='Unifont Regular 16'
-  if terminal_output gfxterm; then true; else terminal_output console; fi
+  if terminal_output gfxterm; then [ 1 = 1 ]; else terminal_output console; fi
 fi
 EOF
 SIDONIA_GRUB_LOADER
 
+    cat > "$RUNTIME_DEST/cascade/kernel-install.sh" <<'SIDONIA_KERNEL_INSTALL'
+#!/usr/bin/env bash
+# Run after the distro has added or removed its BLS record.
+set -eu
+case "${1:-}" in add|remove) ;; *) exit 0 ;; esac
+state="${SIDONIA_STATE_ROOT:-/var/lib/sidonia}/current"
+command_path="${SIDONIA_COMMAND_PATH:-/usr/local/bin/sidonia}"
+test -f "$state" && test -x "$command_path" || exit 0
+value() { awk -F= -v key="$1" '$1==key {sub(/^[^=]*=/, ""); print; exit}' "$state"; }
+test "$(value THEME)" = T5 || exit 0
+if ! "$command_path" set T5 "$(value PROFILE)" --gfxmode "$(value GFXMODE)"; then
+    echo 'Sidonia: card refresh failed; the native GRUB menu remains available.' >&2
+fi
+SIDONIA_KERNEL_INSTALL
+    chmod 0755 "$RUNTIME_DEST/cascade/kernel-install.sh"
     chmod 0644 "$RUNTIME_DEST/cascade/runtime.sh" \
         "$RUNTIME_DEST/cascade/menu.awk" "$RUNTIME_DEST/cascade/labels.awk" \
+        "$RUNTIME_DEST/cascade/bls.awk" \
         "$RUNTIME_DEST/grub.d/99_zz_sidonia"
 }
 
@@ -606,6 +877,9 @@ cleanup() {
 
     trap - EXIT
     set +e
+    if test "$SUCCESS" -ne 1 && test "$KERNEL_HOOK_CREATED" -eq 1; then
+        rm -f -- "$KERNEL_HOOK"
+    fi
     test -z "$STAGE" || rm -rf -- "$STAGE"
     if test "$SUCCESS" -ne 1 && test -n "$OLD_INSTALL" && test -d "$OLD_INSTALL"; then
         rm -rf -- "$INSTALL_ROOT"
@@ -637,6 +911,13 @@ for THEME in T1 T2 T3 T4 T5; do
         test -f "$SOURCE_THEMES/$THEME/$PROFILE/background.png"
     done
 done
+
+if test -e "$KERNEL_HOOK" || test -L "$KERNEL_HOOK"; then
+    test "$(readlink "$KERNEL_HOOK" || true)" = "$INSTALL_ROOT/lib/cascade/kernel-install.sh" || {
+        echo "An unmanaged kernel hook already exists: $KERNEL_HOOK" >&2
+        exit 1
+    }
+fi
 
 install -d -o root -g root -m 0755 "$(dirname "$INSTALL_ROOT")"
 STAGE="$(mktemp -d "$(dirname "$INSTALL_ROOT")/.sidonia.new.XXXXXX")"
@@ -673,6 +954,13 @@ STAGE=""
 install -D -o root -g root -m 0755 "$SOURCE_COMMAND" "$COMMAND_PATH"
 if test "$LEGACY_COMMAND_PATH" != "$COMMAND_PATH"; then
     rm -f -- "$LEGACY_COMMAND_PATH"
+fi
+if test -d "$KERNEL_INSTALL_DIR" || test -d /usr/lib/kernel/install.d; then
+    install -d -m 0755 "$KERNEL_INSTALL_DIR"
+fi
+if test -d "$KERNEL_INSTALL_DIR" && ! test -L "$KERNEL_HOOK"; then
+    ln -s -- "$INSTALL_ROOT/lib/cascade/kernel-install.sh" "$KERNEL_HOOK"
+    KERNEL_HOOK_CREATED=1
 fi
 SUCCESS=1
 

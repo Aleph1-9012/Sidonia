@@ -177,6 +177,25 @@ validate_profile() {
     fi
 }
 
+require_config_line() {
+    # Match a complete command, allowing indentation but not commented lines.
+    awk -v expected="$2" '
+        { sub(/^[[:space:]]+/, ""); sub(/[[:space:]]+$/, "") }
+        $0 == expected { found = 1 }
+        END { exit !found }
+    ' "$1" || die "$3"
+}
+
+restore_bls_timestamps() {
+    local STAMP BLS_TIMESTAMP
+    for STAMP in "$1"/generated/*/bls.stamp; do
+        test -f "$STAMP" || continue
+        read -r BLS_TIMESTAMP < "$STAMP"
+        [[ "$BLS_TIMESTAMP" =~ ^[0-9]+$ ]] || die "invalid BLS snapshot timestamp"
+        touch -d "@$BLS_TIMESTAMP" -- "$STAMP"
+    done
+}
+
 is_managed_theme_path() {
     local PATH_TO_REMOVE="$1"
     local NAME
@@ -300,7 +319,9 @@ apply_theme() (
     local OLD_MANAGED=""
     local OLD_BACKUP=""
     local OLD_THEME OLD_PROFILE OLD_FONT
-    local STAMP BACKUP_DIR TEMP_DIR DEFAULTS_NEW CONFIG_STAGE
+    local STAMP BACKUP_DIR TEMP_DIR DEFAULTS_NEW CONFIG_STAGE LOADER_CONFIG
+    local GENERATION REQUIRED_FONT PLAIN_FONT
+    local -a MKCONFIG_FLAGS=()
     local THEME_STAGE THEME_OLD=""
     local DEFAULTS_WRITTEN=0 ACTIVE_WRITTEN=0 DESTINATION_WRITTEN=0 SUCCESS=0
     local STATE_WRITTEN=0 POINTER_WRITTEN=0 LOADER_WRITTEN=0
@@ -488,30 +509,78 @@ EOF
     LOADER_WRITTEN=1
     install -D -o root -g root -m 0755 "$RUNTIME_ROOT/grub.d/99_zz_sidonia" "$LATE_LOADER"
 
-    "$GRUB_MKCONFIG" -o "$CONFIG_STAGE"
-    "$GRUB_SCRIPT_CHECK" "$CONFIG_STAGE"
-    grep -qF "$DEST_NAME/theme.txt" "$CONFIG_STAGE" ||
-        die "generated grub.cfg does not reference the selected theme"
-    grep -qF "$DEST_NAME/fonts/$FONT" "$CONFIG_STAGE" ||
-        die "generated grub.cfg does not reference the selected font"
-    if test -d "$SOURCE/f"; then
-        grep -qF "$DEST_NAME/f/${FONT%.pf2}-upper.pf2" "$CONFIG_STAGE" ||
-            die "generated grub.cfg does not load the upper label font"
-        grep -qF "$DEST_NAME/f/${FONT%.pf2}-lower.pf2" "$CONFIG_STAGE" ||
-            die "generated grub.cfg does not load the lower label font"
+    # A theme change must not rewrite Fedora's per-kernel BLS options.
+    if "$GRUB_MKCONFIG" --help 2>/dev/null | grep -- '--no-grubenv-update' >/dev/null; then
+        MKCONFIG_FLAGS+=(--no-grubenv-update)
     fi
-    grep -qE "^[[:space:]]*set gfxmode=$GFXMODE[[:space:]]*$" "$CONFIG_STAGE" ||
-        die "generated grub.cfg does not contain the selected graphics mode"
-    grep -qF '# Sidonia owns the final theme selection' "$CONFIG_STAGE" ||
-        die "generated grub.cfg did not include the Sidonia late loader"
+    "$GRUB_MKCONFIG" "${MKCONFIG_FLAGS[@]}" -o "$CONFIG_STAGE"
+    "$GRUB_SCRIPT_CHECK" "$CONFIG_STAGE"
+
+    # The distro header need not emit literal theme/font paths. Validate our
+    # own loader, whose paths use GRUB variables, and follow T5's generated menu.
+    LOADER_CONFIG="$TEMP_DIR/sidonia-loader.cfg"
+    awk '
+        /^### BEGIN .*\/99_zz_sidonia ###$/ { active = 1; count++; next }
+        /^### END .*\/99_zz_sidonia ###$/ { active = 0; next }
+        active { sub(/^[[:space:]]+/, ""); sub(/[[:space:]]+$/, ""); print }
+        END { exit count != 1 || active }
+    ' "$CONFIG_STAGE" > "$LOADER_CONFIG" ||
+        die "generated grub.cfg did not run the Sidonia late loader"
+    require_config_line "$LOADER_CONFIG" '# Sidonia owns the final theme selection, after other theme loaders.' \
+        "Sidonia loader is empty or overridden; check GRUB_THEME in /etc/default/grub.d"
     if test "$THEME" = T5; then
-        grep -qFx "set sidonia_base_dir=\"\$prefix/themes/$DEST_NAME\"" "$CONFIG_STAGE" ||
-            die "generated grub.cfg did not include the Echelon loader"
-        for GENERATED_MENU in "$DESTINATION"/generated/*/menu.cfg; do
-            test -f "$GENERATED_MENU" || continue
+        require_config_line "$LOADER_CONFIG" "set sidonia_base_dir=\"\$prefix/themes/$DEST_NAME\"" \
+            "Echelon loader does not reference the selected theme directory"
+        PLAIN_FONT=plain.pf2
+        test "$PROFILE" != 1080p || PLAIN_FONT=ui.pf2
+        require_config_line "$LOADER_CONFIG" "if loadfont \"\$sidonia_base_dir/fonts/$PLAIN_FONT\"; then" \
+            "Echelon loader does not load the fallback font"
+        if grep -qFx '# Echelon used the complete original menu.' "$LOADER_CONFIG"; then
+            require_config_line "$LOADER_CONFIG" 'sidonia_plain_menu' \
+                "Echelon loader does not activate the original-menu fallback"
+        else
+            require_config_line "$LOADER_CONFIG" "set sidonia_gfxmode=$GFXMODE" \
+                "Echelon loader does not contain the selected graphics mode"
+            require_config_line "$LOADER_CONFIG" 'configfile "$sidonia_theme_dir/menu.cfg"' \
+                "Echelon loader does not open the generated menu"
+            require_config_line "$LOADER_CONFIG" 'source "$sidonia_theme_dir/defaults.cfg"' \
+                "Echelon loader does not check its default selection rules"
+            GENERATION=$(sed -n 's/^set sidonia_theme_dir="\$sidonia_base_dir\/generated\/\([0-9a-f]\{20\}\)"$/\1/p' "$LOADER_CONFIG")
+            [[ "$GENERATION" =~ ^[0-9a-f]{20}$ ]] || die "Echelon loader has an invalid generation reference"
+            GENERATED_MENU="$DESTINATION/generated/$GENERATION/menu.cfg"
+            test -f "$GENERATED_MENU" || die "Echelon generated menu is missing"
             "$GRUB_SCRIPT_CHECK" "$GENERATED_MENU"
-        done
+            require_config_line "$GENERATED_MENU" 'source "$sidonia_theme_dir/entries.cfg"' \
+                "Echelon generated menu does not load its native entries"
+            test -f "${GENERATED_MENU%/*}/entries.cfg" || die "Echelon generated entries are missing"
+            "$GRUB_SCRIPT_CHECK" "${GENERATED_MENU%/*}/entries.cfg"
+            test -f "${GENERATED_MENU%/*}/defaults.cfg" || die "Echelon default selection rules are missing"
+            "$GRUB_SCRIPT_CHECK" "${GENERATED_MENU%/*}/defaults.cfg"
+            require_config_line "$GENERATED_MENU" 'set theme="$sidonia_theme_dir/theme.txt"' \
+                "Echelon generated menu does not reference its theme"
+            require_config_line "$GENERATED_MENU" 'set gfxmode=$sidonia_gfxmode,sidonia_no_auto_fallback' \
+                "Echelon generated menu does not use the selected graphics mode"
+            for REQUIRED_FONT in labels shapes status status-selected timer-detail timer-fill timer-ink ui; do
+                require_config_line "$GENERATED_MENU" "if loadfont \"\$sidonia_theme_dir/$REQUIRED_FONT.pf2\"; then [ 1 = 1 ]; else set sidonia_font_error=1; fi" \
+                    "Echelon generated menu does not load the $REQUIRED_FONT font"
+            done
+        fi
         validate_profile "$DESTINATION" "$FONT"
+    else
+        require_config_line "$LOADER_CONFIG" "set sidonia_theme_dir=\"\$prefix/themes/$DEST_NAME\"" \
+            "Sidonia loader does not reference the selected theme directory"
+        require_config_line "$LOADER_CONFIG" 'set theme="$sidonia_theme_dir/theme.txt"' \
+            "Sidonia loader does not reference the selected theme"
+        require_config_line "$LOADER_CONFIG" "loadfont \"\$sidonia_theme_dir/fonts/$FONT\"" \
+            "Sidonia loader does not load the selected font"
+        if test -d "$SOURCE/f"; then
+            for REQUIRED_FONT in upper lower; do
+                require_config_line "$LOADER_CONFIG" "loadfont \"\$sidonia_theme_dir/f/${FONT%.pf2}-$REQUIRED_FONT.pf2\"" \
+                    "Sidonia loader does not load the $REQUIRED_FONT label font"
+            done
+        fi
+        require_config_line "$LOADER_CONFIG" "set gfxmode=$GFXMODE,sidonia_no_auto_fallback" \
+            "Sidonia loader does not contain the selected graphics mode"
     fi
 
     ACTIVE_WRITTEN=1
@@ -634,6 +703,7 @@ restore_pair() (
         mkdir -p -- "$THEME_ROOT" "$THEME_STAGE"
         cp -R --no-preserve=ownership,mode,timestamps -- \
             "$SOURCE_DIR/theme/." "$THEME_STAGE/"
+        restore_bls_timestamps "$THEME_STAGE"
         validate_profile "$THEME_STAGE" "$PREVIOUS_FONT"
         diff -qr --no-dereference \
             "$SOURCE_DIR/theme" "$THEME_STAGE" >/dev/null
@@ -662,6 +732,7 @@ restore_pair() (
             mkdir -p -- "$THEME_ROOT" "$THEME_STAGE"
             cp -R --no-preserve=ownership,mode,timestamps -- \
                 "$RESTORE_SOURCE/." "$THEME_STAGE/"
+            restore_bls_timestamps "$THEME_STAGE"
             validate_profile "$THEME_STAGE" "$PREVIOUS_FONT"
             diff -qr --no-dereference \
                 "$RESTORE_SOURCE" "$THEME_STAGE" >/dev/null
@@ -765,11 +836,15 @@ guided_set() {
 
 uninstall_sidonia() {
     local ORIGINAL="$STATE_ROOT/original"
+    local KERNEL_HOOK="${SIDONIA_KERNEL_INSTALL_DIR:-/etc/kernel/install.d}/99-zz-sidonia.install"
 
     require_root
     test -d "$ORIGINAL" || die "no original GRUB backup was found"
     restore_pair "$ORIGINAL" original
 
+    if test "$(readlink "$KERNEL_HOOK" 2>/dev/null || true)" = "$INSTALL_ROOT/lib/cascade/kernel-install.sh"; then
+        rm -f -- "$KERNEL_HOOK"
+    fi
     rm -rf -- "$STATE_ROOT" "$INSTALL_ROOT"
     rm -f -- "$COMMAND_PATH"
     echo "Sidonia has been removed."

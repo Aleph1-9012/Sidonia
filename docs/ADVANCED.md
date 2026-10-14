@@ -12,7 +12,10 @@ for manual installations, unusual GRUB layouts, and recovery.
 3. Updates `GRUB_THEME`, `GRUB_FONT`, `GRUB_GFXMODE`,
    `GRUB_GFXPAYLOAD_LINUX`, and the graphical terminal output setting.
 4. Installs `/etc/grub.d/99_zz_sidonia` so the selected Sidonia theme is applied
-   after earlier theme loaders. The previous loader is backed up with the configuration.
+   after earlier theme loaders. It stores the selected theme and display mode
+   in this loader so distribution defaults, including Kali's `kali-themes.cfg`,
+   cannot replace them. The previous loader is backed up with the configuration.
+   Files in `/etc/default/grub.d` stay unchanged.
 5. Generates a candidate `grub.cfg`, validates it with `grub-script-check`,
    then activates it atomically.
 

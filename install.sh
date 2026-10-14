@@ -783,7 +783,8 @@ SIDONIA_ECHELON_LABELS_AWK
     cat > "$RUNTIME_DEST/grub.d/99_zz_sidonia" <<'SIDONIA_GRUB_LOADER'
 #!/bin/sh
 # Sidonia managed late loader v1
-# grub-mkconfig exports GRUB_THEME and GRUB_GFXMODE. No output for other themes.
+# The manager prepends the selected GRUB_THEME and GRUB_GFXMODE at installation.
+# Without a managed selection, use grub-mkconfig's exports for Sidonia themes.
 set -eu
 themedir=${GRUB_THEME:-}
 themedir=${themedir%/theme.txt}

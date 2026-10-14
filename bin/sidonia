@@ -506,8 +506,18 @@ EOF
     DEFAULTS_WRITTEN=1
     install -o root -g root -m 0644 "$DEFAULTS_NEW" "$DEFAULTS"
 
+    # Distro defaults such as kali-themes.cfg can replace the exported theme
+    # and mode. Keep our selection in the loader, which is backed up together
+    # with the theme and remains effective on later grub-mkconfig runs.
+    {
+        printf '%s\n' '#!/bin/sh' '# Sidonia selected theme and display mode.'
+        printf "GRUB_THEME='%s/theme.txt'\n" "${DESTINATION//\'/\'\\\'\'}"
+        printf "GRUB_GFXMODE='%s'\n" "$GFXMODE"
+        tail -n +2 "$RUNTIME_ROOT/grub.d/99_zz_sidonia"
+    } > "$TEMP_DIR/late-loader"
+    sh -n "$TEMP_DIR/late-loader"
     LOADER_WRITTEN=1
-    install -D -o root -g root -m 0755 "$RUNTIME_ROOT/grub.d/99_zz_sidonia" "$LATE_LOADER"
+    install -D -o root -g root -m 0755 "$TEMP_DIR/late-loader" "$LATE_LOADER"
 
     # A theme change must not rewrite Fedora's per-kernel BLS options.
     if "$GRUB_MKCONFIG" --help 2>/dev/null | grep -- '--no-grubenv-update' >/dev/null; then
@@ -527,7 +537,7 @@ EOF
     ' "$CONFIG_STAGE" > "$LOADER_CONFIG" ||
         die "generated grub.cfg did not run the Sidonia late loader"
     require_config_line "$LOADER_CONFIG" '# Sidonia owns the final theme selection, after other theme loaders.' \
-        "Sidonia loader is empty or overridden; check GRUB_THEME in /etc/default/grub.d"
+        "Sidonia late loader did not emit its theme selection"
     if test "$THEME" = T5; then
         require_config_line "$LOADER_CONFIG" "set sidonia_base_dir=\"\$prefix/themes/$DEST_NAME\"" \
             "Echelon loader does not reference the selected theme directory"
